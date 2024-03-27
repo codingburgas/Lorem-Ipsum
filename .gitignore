@@ -1,0 +1,13 @@
+/bin
+/bin-int
+
+/.vs
+/.vscode
+
+**.sln
+
+**.vcxproj
+**.vcxproj.user
+**.vcxproj.filters
+
+/.idea

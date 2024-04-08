@@ -1,8 +1,8 @@
-/bin
-/bin-int
+bin/
+bin-int/
 
-/.vs
-/.vscode
+.vs
+.vscode
 
 **.sln
 
@@ -10,4 +10,8 @@
 **.vcxproj.user
 **.vcxproj.filters
 
-/.idea
+Makefile
+
+.idea/
+
+run.py

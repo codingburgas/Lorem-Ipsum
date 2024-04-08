@@ -53,6 +53,7 @@ def choose_platform():
 selected_option = choose_platform()
 
 if platform.system() == "Windows":
-    subprocess.run(f"start vendor/premake/premake5.exe {selected_option}", shell=True)
+    subprocess.run(f"start ../vendor/premake/premake5.exe {selected_option}", shell=True)
 elif platform.system() == "Linux":
-    subprocess.run(f"./vendor/premake/premake5 {selected_option}", shell=True)
+    subprocess.run("chmod +x ./../vendor/premake/premake5", shell=True)
+    subprocess.run(f"./../vendor/premake/premake5 {selected_option}", shell=True)

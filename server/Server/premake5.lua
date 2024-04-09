@@ -15,7 +15,8 @@ project "Server"
 
     includedirs {
         "src",
-        "../vendor/pistache/include"
+        "../vendor/pistache/include",
+        "../vendor/rapidjson/include",
     }
 
     links {

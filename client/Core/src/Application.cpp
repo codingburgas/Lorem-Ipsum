@@ -61,7 +61,6 @@ namespace Core {
 
 			ImGui_ImplRaylib_NewFrame();
 			ImGui::NewFrame();
-#endif
 
 			ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 
@@ -69,6 +68,7 @@ namespace Core {
 			{ 
 				layer->OnImGuiRender();
 			}
+#endif
 
 #ifndef IMGUI_DISABLED
 			ImGui::Render();

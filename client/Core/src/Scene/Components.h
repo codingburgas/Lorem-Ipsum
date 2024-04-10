@@ -23,13 +23,15 @@ namespace Core {
 	{
 		glm::vec3 Position = { 0.0f, 0.0f, 0.0f };
 		float Rotation = 0.0f;
+		float Roundness = 0.0f;
 		glm::vec3 Scale = {1.0f, 1.0f, 1.0f};
 
-		TransformComponent(glm::vec3 position, glm::vec3 scale, float rotation)
+		TransformComponent(glm::vec3 position, glm::vec3 scale, float rotation, float roundness)
 		{
 			Position = position;
 			Scale = scale;
 			Rotation = rotation;
+			Roundness = roundness;
 		}
 	};
 
@@ -48,6 +50,8 @@ namespace Core {
 	{
 		glm::vec4 Color = { 255, 255, 255, 255 };
 
+		ColorComponent() = default;
+		
 		ColorComponent(glm::vec4 color)
 		{
 			Color.r = round(color.r * 255);
@@ -89,6 +93,22 @@ namespace Core {
 		SpriteComponent(std::shared_ptr<Texture2D> texture)
 		{
 			Texture = texture;
+		}
+	};
+
+	struct UIComponent
+	{
+		std::string Text;
+		glm::vec4 Color;
+
+		UIComponent(std::string text, glm::vec4 color)
+		{
+			Text = text;
+			
+			Color.r = round(color.r * 255);
+			Color.g = round(color.g * 255);
+			Color.b = round(color.b * 255);
+			Color.a = round(color.a * 255);
 		}
 	};
 }

@@ -12,3 +12,5 @@
 #include "Windows/FilesystemWindow.h"
 
 #include "Script/NativeScript.h"
+
+#include "Scene/UI/Button/Button.h"

@@ -8,4 +8,5 @@ public:
     ~LandingScreen() = default;
 
     void RenderElements() override;
+    void RenderElementsOnResize() override;
 };

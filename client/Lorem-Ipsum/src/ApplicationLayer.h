@@ -10,6 +10,7 @@ class ApplicationLayer : public Core::Layer
 public:
     void OnAttach() override;
     void OnUpdate() override;
+    void OnUIRender() override;
 
 private:
     std::shared_ptr<Core::Scene> m_BoundScene;

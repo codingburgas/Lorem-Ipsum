@@ -51,6 +51,11 @@ namespace Core {
 			{ 
 				layer->OnUpdate();
 			}
+
+			for(auto layer : m_LayerStack)
+			{ 
+				layer->OnUIRender();
+			}
 			
 #ifdef IMGUI_DISABLED
 			EndDrawing();
@@ -78,6 +83,7 @@ namespace Core {
 			EndDrawing();
 #endif
 		}
+
 
 		CloseWindow();
 

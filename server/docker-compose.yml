@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  backend:
+    build: .
+    command: sh -c "python3 run.py"
+    depends_on:
+      - postgres
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./.:/backend
+
+  postgres:
+    image: postgres
+    volumes:
+      - data:/var/lib/postgresql/data/
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+volumes:
+  data:

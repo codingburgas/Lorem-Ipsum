@@ -17,10 +17,18 @@ project "Server"
         "src",
         "../vendor/pistache/include",
         "../vendor/rapidjson/include",
+        "../vendor/pgfe/src",
+        "/usr/include/postgresql"
+    }
+
+    libdirs {
+        "../vendor/pistache/lib",
+        "/usr/local/pgsql/lib"
     }
 
     links {
-        "pistache"
+        "pistache",
+        "pq"
     }
 
     filter "configurations:Debug"

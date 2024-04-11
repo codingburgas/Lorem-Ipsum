@@ -8,7 +8,8 @@ public:
    virtual ~Screen() = default;
 
    virtual void RenderElements() = 0;
-   virtual void RenderElementsOnResize() = 0;
+    
+   void RenderElementsOnResize();
 
    std::shared_ptr<Core::Scene> GetScene() { return m_Scene; }
    

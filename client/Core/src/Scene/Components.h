@@ -111,4 +111,36 @@ namespace Core {
 			Color.a = round(color.a * 255);
 		}
 	};
+
+	enum class UIType
+	{
+		NONE = 0,
+		BUTTON,
+		INPUT,
+		TEXT
+	};
+
+	struct UITypeComponent
+	{
+		UIType Type = UIType::NONE;
+
+		UITypeComponent(UIType type)
+		{
+			Type = type;
+		}
+	};
+
+	struct UIBorderComponent
+	{
+		glm::vec4 Color;
+
+		UIBorderComponent() = default;
+		UIBorderComponent(glm::vec4 color)
+		{
+			Color.r = round(color.r * 255);
+			Color.g = round(color.g * 255);
+			Color.b = round(color.b * 255);
+			Color.a = round(color.a * 255);
+		}
+	};
 }

@@ -46,13 +46,29 @@ void ApplicationLayer::OnUIRender()
     {
         Core::UIComponent& UIComponent = entity->GetComponent<Core::UIComponent>();
         Core::TransformComponent& transformComponent = entity->GetComponent<Core::TransformComponent>();
-
+        
         if(entity->HasComponent<Core::ColorComponent>())
         {
             Core::ColorComponent& colorComponent = entity->GetComponent<Core::ColorComponent>();
             
-            DrawRectangleRounded(Rectangle({ transformComponent.Position.x, transformComponent.Position.y, transformComponent.Scale.x, transformComponent.Scale.y}), transformComponent.Roundness, 20, Color(colorComponent.Color.r, colorComponent.Color.g, colorComponent.Color.b, colorComponent.Color.a));
-            DrawText(UIComponent.Text.c_str(), (transformComponent.Position.x + transformComponent.Scale.x / 2) - MeasureText(UIComponent.Text.c_str(), 24) / 2, transformComponent.Position.y + transformComponent.Scale.y / 2 - 12, 24, Color(UIComponent.Color.r, UIComponent.Color.g, UIComponent.Color.b, UIComponent.Color.a));
+            if(entity->GetComponent<Core::UITypeComponent>().Type == Core::UIType::BUTTON)
+            {
+                DrawRectangleRounded(Rectangle({ transformComponent.Position.x, transformComponent.Position.y, transformComponent.Scale.x, transformComponent.Scale.y}), transformComponent.Roundness, 20, Color(colorComponent.Color.r, colorComponent.Color.g, colorComponent.Color.b, colorComponent.Color.a));
+                DrawText(UIComponent.Text.c_str(), (transformComponent.Position.x + transformComponent.Scale.x / 2) - MeasureText(UIComponent.Text.c_str(), 24) / 2, transformComponent.Position.y + transformComponent.Scale.y / 2 - 12, 24, Color(UIComponent.Color.r, UIComponent.Color.g, UIComponent.Color.b, UIComponent.Color.a));
+            }
+            else if (entity->GetComponent<Core::UITypeComponent>().Type == Core::UIType::INPUT)
+            {
+                Core::UIBorderComponent& border = entity->GetComponent<Core::UIBorderComponent>();
+                
+                DrawRectangleRounded(Rectangle({ transformComponent.Position.x, transformComponent.Position.y, transformComponent.Scale.x, transformComponent.Scale.y}), transformComponent.Roundness, 20, Color(colorComponent.Color.r, colorComponent.Color.g, colorComponent.Color.b, colorComponent.Color.a));
+                DrawText(UIComponent.Text.c_str(), transformComponent.Position.x + 5, transformComponent.Position.y + transformComponent.Scale.y / 2 - 12, 24, Color(UIComponent.Color.r, UIComponent.Color.g, UIComponent.Color.b, UIComponent.Color.a));
+                DrawRectangleLines(transformComponent.Position.x, transformComponent.Position.y, transformComponent.Scale.x, transformComponent.Scale.y, Color(border.Color.r, border.Color.g, border.Color.b, border.Color.a));
+            }
+        }
+        
+        if (entity->GetComponent<Core::UITypeComponent>().Type == Core::UIType::TEXT)
+        {
+            DrawText(UIComponent.Text.c_str(), transformComponent.Position.x, transformComponent.Position.y, 24, Color(UIComponent.Color.r, UIComponent.Color.g, UIComponent.Color.b, UIComponent.Color.a));
         }
     }
 }

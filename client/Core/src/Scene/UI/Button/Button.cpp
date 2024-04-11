@@ -16,6 +16,7 @@ namespace Core
             button.AddComponent<TransformComponent>(glm::vec3(position.x, position.y, 0), glm::vec3(dim.x, dim.y, 0.0f), 0.0, roundness);
             button.AddComponent<ColorComponent>(color);
             button.AddComponent<NativeScriptComponent>(script, std::make_shared<Entity>(button));
+            button.AddComponent<UITypeComponent>(UIType::BUTTON);
         }
     }
 }

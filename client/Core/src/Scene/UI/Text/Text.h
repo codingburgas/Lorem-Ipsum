@@ -14,7 +14,7 @@ namespace Core
          class Text
          {
          public:
-             Text(std::string text, glm::vec2 position, glm::vec4 color, std::shared_ptr<Core::Scene> scene);
+             Text(std::string text, glm::vec2 position, glm::vec4 color, uint32_t textSize, std::shared_ptr<Core::Scene> scene);
              ~Text() = default;
          };
     } 

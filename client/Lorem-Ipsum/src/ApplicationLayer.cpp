@@ -54,21 +54,34 @@ void ApplicationLayer::OnUIRender()
             if(entity->GetComponent<Core::UITypeComponent>().Type == Core::UIType::BUTTON)
             {
                 DrawRectangleRounded(Rectangle({ transformComponent.Position.x, transformComponent.Position.y, transformComponent.Scale.x, transformComponent.Scale.y}), transformComponent.Roundness, 20, Color(colorComponent.Color.r, colorComponent.Color.g, colorComponent.Color.b, colorComponent.Color.a));
-                DrawText(UIComponent.Text.c_str(), (transformComponent.Position.x + transformComponent.Scale.x / 2) - MeasureText(UIComponent.Text.c_str(), 24) / 2, transformComponent.Position.y + transformComponent.Scale.y / 2 - 12, 24, Color(UIComponent.Color.r, UIComponent.Color.g, UIComponent.Color.b, UIComponent.Color.a));
+                DrawText(UIComponent.Text.c_str(), (transformComponent.Position.x + transformComponent.Scale.x / 2) - MeasureText(UIComponent.Text.c_str(), UIComponent.TextSize) / 2, transformComponent.Position.y + transformComponent.Scale.y / 2 - UIComponent.TextSize / 2, UIComponent.TextSize, Color(UIComponent.Color.r, UIComponent.Color.g, UIComponent.Color.b, UIComponent.Color.a));
             }
             else if (entity->GetComponent<Core::UITypeComponent>().Type == Core::UIType::INPUT)
             {
                 Core::UIBorderComponent& border = entity->GetComponent<Core::UIBorderComponent>();
                 
                 DrawRectangleRounded(Rectangle({ transformComponent.Position.x, transformComponent.Position.y, transformComponent.Scale.x, transformComponent.Scale.y}), transformComponent.Roundness, 20, Color(colorComponent.Color.r, colorComponent.Color.g, colorComponent.Color.b, colorComponent.Color.a));
-                DrawText(UIComponent.Text.c_str(), transformComponent.Position.x + 5, transformComponent.Position.y + transformComponent.Scale.y / 2 - 12, 24, Color(UIComponent.Color.r, UIComponent.Color.g, UIComponent.Color.b, UIComponent.Color.a));
-                DrawRectangleLines(transformComponent.Position.x, transformComponent.Position.y, transformComponent.Scale.x, transformComponent.Scale.y, Color(border.Color.r, border.Color.g, border.Color.b, border.Color.a));
+                DrawRectangleRoundedLines(Rectangle({ transformComponent.Position.x, transformComponent.Position.y, transformComponent.Scale.x, transformComponent.Scale.y}), transformComponent.Roundness, 20, 1.5, Color(border.Color.r, border.Color.g, border.Color.b, border.Color.a));
+                
+                if(MeasureText(UIComponent.Text.c_str(), UIComponent.TextSize) > transformComponent.Scale.x)
+                {
+                    int textWidth = MeasureText(UIComponent.Text.c_str(), UIComponent.TextSize);
+                    int letterWidth = textWidth / UIComponent.Text.length();
+                    std::string subStr = UIComponent.Text.substr(ceil((textWidth - transformComponent.Scale.x) / letterWidth) + 1);
+
+                    DrawText(subStr.c_str(), transformComponent.Position.x - 5 - (MeasureText(subStr.c_str(), UIComponent.TextSize) - transformComponent.Scale.x + 5), transformComponent.Position.y + transformComponent.Scale.y / 2 - UIComponent.TextSize / 2, UIComponent.TextSize, Color(UIComponent.Color.r, UIComponent.Color.g, UIComponent.Color.b, UIComponent.Color.a));
+                }
+                else
+                {
+                    DrawText(UIComponent.Text.c_str(), transformComponent.Position.x + 5, transformComponent.Position.y + transformComponent.Scale.y / 2 - UIComponent.TextSize / 2, UIComponent.TextSize, Color(UIComponent.Color.r, UIComponent.Color.g, UIComponent.Color.b, UIComponent.Color.a));
+                }
+                
             }
         }
         
         if (entity->GetComponent<Core::UITypeComponent>().Type == Core::UIType::TEXT)
         {
-            DrawText(UIComponent.Text.c_str(), transformComponent.Position.x, transformComponent.Position.y, 24, Color(UIComponent.Color.r, UIComponent.Color.g, UIComponent.Color.b, UIComponent.Color.a));
+            DrawText(UIComponent.Text.c_str(), transformComponent.Position.x, transformComponent.Position.y, UIComponent.TextSize, Color(UIComponent.Color.r, UIComponent.Color.g, UIComponent.Color.b, UIComponent.Color.a));
         }
     }
 }

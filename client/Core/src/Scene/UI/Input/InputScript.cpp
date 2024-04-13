@@ -22,7 +22,12 @@ namespace Core
             else
                 m_IsHovered = false;
 
-            if(m_IsHovered)
+            if(m_IsHovered && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+                m_Selected = true;
+            else if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+                m_Selected = false;
+
+            if(m_Selected)
             {
                 m_Key = GetCharPressed();
 
@@ -34,15 +39,24 @@ namespace Core
 
                     m_Key = GetCharPressed();
                 }
-                
-                if(IsKeyPressed(KEY_BACKSPACE))
+
+                if(m_DeleteDelay == 0)
                 {
-                    m_LetterCount--;
-                    
-                    if (m_LetterCount < 0)
-                        m_LetterCount = 0;
-                    
-                    m_Input[m_LetterCount] = '\0';
+                    if(IsKeyDown(KEY_BACKSPACE))
+                    {
+                        m_LetterCount--;
+                        
+                        if (m_LetterCount < 0)
+                            m_LetterCount = 0;
+                        
+                        m_Input[m_LetterCount] = '\0';
+
+                        m_DeleteDelay = 200;
+                    }
+                }
+                else
+                {
+                    m_DeleteDelay -= 1;
                 }
 
                 uiComponent.Text = m_Input;

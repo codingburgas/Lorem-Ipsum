@@ -100,10 +100,12 @@ namespace Core {
 	{
 		std::string Text;
 		glm::vec4 Color;
+		uint32_t TextSize;
 
-		UIComponent(std::string text, glm::vec4 color)
+		UIComponent(std::string text, glm::vec4 color, uint32_t textSize)
 		{
 			Text = text;
+			TextSize = textSize;
 			
 			Color.r = round(color.r * 255);
 			Color.g = round(color.g * 255);

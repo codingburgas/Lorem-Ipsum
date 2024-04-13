@@ -17,10 +17,13 @@ namespace Core
             std::function<void(std::string)> m_Callback;
 
             bool m_IsHovered = false;
+            bool m_Selected = false;
 
             char m_Input[200];
             int32_t m_LetterCount = 0;
             int32_t m_Key;
+
+            uint32_t m_DeleteDelay = 200;
         };
     }
 }

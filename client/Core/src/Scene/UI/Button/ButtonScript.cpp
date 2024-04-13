@@ -7,7 +7,7 @@ namespace Core
 {
     namespace UI 
     {
-        void ButtonScript::onLateAttach()
+        void ButtonScript::OnCreate()
         {
             ColorComponent& colorComponent = m_Entity->GetComponent<ColorComponent>();
             m_InitialColor = std::make_shared<ColorComponent>();

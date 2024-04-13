@@ -101,8 +101,10 @@ namespace Core {
 		std::string Text;
 		glm::vec4 Color;
 		uint32_t TextSize;
+		bool IsSecure = false;
+		std::string FontType;
 
-		UIComponent(std::string text, glm::vec4 color, uint32_t textSize)
+		UIComponent(std::string text, glm::vec4 color, uint32_t textSize, std::string fontType = "regular", bool isSecure = false)
 		{
 			Text = text;
 			TextSize = textSize;
@@ -111,6 +113,10 @@ namespace Core {
 			Color.g = round(color.g * 255);
 			Color.b = round(color.b * 255);
 			Color.a = round(color.a * 255);
+
+			IsSecure = isSecure;
+
+			FontType = fontType;
 		}
 	};
 

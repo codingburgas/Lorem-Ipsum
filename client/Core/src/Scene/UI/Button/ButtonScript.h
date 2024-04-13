@@ -9,7 +9,7 @@ namespace Core
         {
         public:
             void OnUpdate() override;
-            void onLateAttach() override;
+            void OnCreate() override;
 
             void SetCallback(std::function<void()> func) { m_Callback = func; }
         private:

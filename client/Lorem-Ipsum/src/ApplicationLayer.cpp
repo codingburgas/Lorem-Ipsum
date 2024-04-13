@@ -1,18 +1,35 @@
 ﻿#include "ApplicationLayer.h"
+#include <raylib.h>
 
 void ApplicationLayer::OnAttach()
 {
-    m_LandingScreen = std::make_shared<LandingScreen>();
-    m_LandingScreen->RenderElements();
+    InitScreens();
     
     m_BoundScene = m_LandingScreen->GetScene();
-
+    
     for (auto entity: m_BoundScene->GetEntities<Core::NativeScriptComponent>())
     {
         Core::NativeScriptComponent& script = entity->GetComponent<Core::NativeScriptComponent>();
 
         script.Instance->onLateAttach();
     }
+}
+
+void ApplicationLayer::InitScreens()
+{
+    m_LandingScreen = std::make_shared<LandingScreen>();
+    m_RegisterScreen = std::make_shared<RegisterScreen>();
+    
+    m_LandingScreen->SetRegisterScreen(m_RegisterScreen);
+    m_LandingScreen->SetSwitchBoundScene(SwitchScenes);
+    
+    m_LandingScreen->InitRenderElements();
+    m_RegisterScreen->InitRenderElements();
+}
+
+void ApplicationLayer::SwitchScenes(std::shared_ptr<Screen> screen)
+{
+    m_BoundScene = screen->GetScene();
 }
 
 void ApplicationLayer::OnUpdate()
@@ -30,7 +47,7 @@ void ApplicationLayer::OnUIRender()
     
     if(IsWindowResized())
     {
-        m_LandingScreen->RenderElementsOnResize();
+        m_LandingScreen->InitRenderElementsOnResize();
 
         for (auto entity: m_BoundScene->GetEntities<Core::NativeScriptComponent>())
         {

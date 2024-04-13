@@ -14,3 +14,5 @@
 #include "Script/NativeScript.h"
 
 #include "Scene/UI/Button/Button.h"
+#include "Scene/UI/Text/Text.h"
+#include "Scene/UI/Input/Input.h"

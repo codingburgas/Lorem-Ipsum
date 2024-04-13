@@ -30,8 +30,6 @@ namespace Core
 
             if(m_IsHovered)
             {
-                SetMouseCursor(MOUSE_CURSOR_POINTING_HAND);
-                
                 colorComponent.Color.r = m_InitialColor->Color.r - m_InitialColor->Color.r * 0.20f;
                 colorComponent.Color.g = m_InitialColor->Color.g - m_InitialColor->Color.g * 0.20f;
                 colorComponent.Color.b = m_InitialColor->Color.b - m_InitialColor->Color.b * 0.20f;
@@ -43,8 +41,6 @@ namespace Core
             }
             else
             {
-                SetMouseCursor(MOUSE_CURSOR_DEFAULT);
-                
                 colorComponent = *m_InitialColor;
             }
         }

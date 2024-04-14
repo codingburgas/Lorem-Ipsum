@@ -1,13 +1,14 @@
 ﻿#include "LandingScreen.h"
+#include  "../Screens.h"
 
 void LandingScreen::RegisterCallback()
 {
-    m_SwitchBoundScene(m_RegisterScreen);
+    
 }
 
 void LandingScreen::LoginCallback()
 {
-    m_SwitchBoundScene(m_LoginScreen);
+   m_SwitchScreens(m_Screens->LoginScreen);
 }
 
 void LandingScreen::InitRenderElements()

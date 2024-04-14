@@ -4,7 +4,7 @@
 class OverviewScreen : public Screen
 {
 public:
-    OverviewScreen() = default;
+    OverviewScreen() { InitRenderElements(); }
     ~OverviewScreen() = default;
 
     void InitRenderElements() override;

@@ -1,12 +1,10 @@
 ﻿#pragma once
 #include "Core.h"
 
-#include "Screens/LandingScreen/LandingScreen.h"
-#include "Screens/LoginScreen/LoginScreen.h"
-#include "Screens/RegisterScreen/RegisterScreen.h"
+#include "Screens/Screens.h"
 
 #include <raylib.h>
-#include "Screens/OverviewScreen/OverviewScreen.h"
+
 
 class ApplicationLayer : public Core::Layer
 {
@@ -38,11 +36,7 @@ private:
     
 private:
     inline static std::shared_ptr<Core::Scene> m_BoundScene;
-
-    std::shared_ptr<LandingScreen> m_LandingScreen;
-    std::shared_ptr<RegisterScreen> m_RegisterScreen;
-    std::shared_ptr<LoginScreen> m_LoginScreen;
-    std::shared_ptr<OverviewScreen> m_OverviewScreen;
+    std::shared_ptr<Screens> m_Screens;
 
     std::shared_ptr<Fonts> m_MierFonts;
 };

@@ -1,10 +1,11 @@
 ﻿#include "RegisterScreen.h"
+#include "../Screens.h"
 
 void registerCallback() {}
 
 void RegisterScreen::LoginCallback()
 {
-    m_SwitchBoundScene(m_LoginScreen);
+    m_SwitchScreens(m_Screens->LoginScreen);    
 }
 
 void RegisterScreen::InitRenderElements()

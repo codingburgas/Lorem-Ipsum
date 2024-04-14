@@ -4,7 +4,7 @@ void ApplicationLayer::OnAttach()
 {
     InitScreens();
     
-    m_BoundScene = m_OverviewScreen->GetScene();
+    m_BoundScene = m_Screens->LandingScreen->GetScene();
 
     Fonts fonts;
     fonts.Regular = std::make_shared<Font>(LoadFontEx("assets/fonts/MierA-Book.ttf", 64, 0, 256));
@@ -29,23 +29,15 @@ void ApplicationLayer::OnAttach()
 
 void ApplicationLayer::InitScreens()
 {
-    m_LandingScreen = std::make_shared<LandingScreen>();
-    m_RegisterScreen = std::make_shared<RegisterScreen>();
-    m_LoginScreen = std::make_shared<LoginScreen>();
-    m_OverviewScreen = std::make_shared<OverviewScreen>();
+    m_Screens = std::make_shared<Screens>();
+
+    Screen::SetScreens(m_Screens);
+    Screen::SetSwitchScreen(SwitchScenes);
     
-    m_LandingScreen->SetRegisterScreen(m_RegisterScreen);
-    m_LandingScreen->SetLoginScreen(m_LoginScreen);
-    m_LoginScreen->SetRegisterScreen(m_RegisterScreen);
-    m_LoginScreen->SetOverviewScreen(m_OverviewScreen);
-    m_RegisterScreen->SetLoginScreen(m_LoginScreen);
-    
-    m_LandingScreen->SetSwitchBoundScene(SwitchScenes);
-    
-    m_LandingScreen->InitRenderElements();
-    m_RegisterScreen->InitRenderElements();
-    m_LoginScreen->InitRenderElements();
-    m_OverviewScreen->InitRenderElements();
+    m_Screens->LandingScreen = std::make_shared<LandingScreen>();
+    m_Screens->RegisterScreen = std::make_shared<RegisterScreen>();
+    m_Screens->LoginScreen = std::make_shared<LoginScreen>();
+    m_Screens->OverviewScreen = std::make_shared<OverviewScreen>();
 }
 
 void ApplicationLayer::SwitchScenes(std::shared_ptr<Screen> screen)
@@ -67,10 +59,10 @@ void ApplicationLayer::OnUIRender()
 {
     if(IsWindowResized())
     {
-        m_LandingScreen->InitRenderElementsOnResize();
-        m_LoginScreen->InitRenderElementsOnResize();
-        m_RegisterScreen->InitRenderElementsOnResize();
-        m_OverviewScreen->InitRenderElementsOnResize();
+        m_Screens->LandingScreen->InitRenderElementsOnResize();
+        m_Screens->LoginScreen->InitRenderElementsOnResize();
+        m_Screens->RegisterScreen->InitRenderElementsOnResize();
+        m_Screens->OverviewScreen->InitRenderElementsOnResize();
 
         for (auto entity: m_BoundScene->GetEntities<Core::NativeScriptComponent>())
         {

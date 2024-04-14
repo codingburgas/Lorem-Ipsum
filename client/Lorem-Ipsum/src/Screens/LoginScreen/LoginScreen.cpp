@@ -2,7 +2,7 @@
 
 void LoginScreen::HandleLogin()
 {
-    
+    m_SwitchBoundScene(m_OverviewScreen);
 }
 
 void LoginScreen::RegisterCallback()

@@ -6,6 +6,7 @@
 #include "Screens/RegisterScreen/RegisterScreen.h"
 
 #include <raylib.h>
+#include "Screens/OverviewScreen/OverviewScreen.h"
 
 class ApplicationLayer : public Core::Layer
 {
@@ -41,6 +42,7 @@ private:
     std::shared_ptr<LandingScreen> m_LandingScreen;
     std::shared_ptr<RegisterScreen> m_RegisterScreen;
     std::shared_ptr<LoginScreen> m_LoginScreen;
+    std::shared_ptr<OverviewScreen> m_OverviewScreen;
 
     std::shared_ptr<Fonts> m_MierFonts;
 };

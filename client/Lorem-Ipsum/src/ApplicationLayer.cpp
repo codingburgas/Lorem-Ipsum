@@ -4,18 +4,18 @@ void ApplicationLayer::OnAttach()
 {
     InitScreens();
     
-    m_BoundScene = m_LoginScreen->GetScene();
+    m_BoundScene = m_OverviewScreen->GetScene();
 
     Fonts fonts;
-    fonts.Regular = std::make_shared<Font>(LoadFontEx("assets/fonts/MierA-Book.ttf", 64, 0, NULL));
-    fonts.Bold = std::make_shared<Font>(LoadFontEx("assets/fonts/MierA-Bold.ttf", 64, 0, NULL));
-    fonts.Black = std::make_shared<Font>(LoadFontEx("assets/fonts/MierA-Black.ttf", 64, 0, NULL));
-    fonts.Thin = std::make_shared<Font>(LoadFontEx("assets/fonts/MierA-Thin.ttf", 64, 0, NULL));
+    fonts.Regular = std::make_shared<Font>(LoadFontEx("assets/fonts/MierA-Book.ttf", 64, 0, 256));
+    fonts.Bold = std::make_shared<Font>(LoadFontEx("assets/fonts/MierA-Bold.ttf", 64, 0, 256));
+    fonts.Black = std::make_shared<Font>(LoadFontEx("assets/fonts/MierA-Black.ttf", 64, 0, 256));
+    fonts.Thin = std::make_shared<Font>(LoadFontEx("assets/fonts/MierA-Thin.ttf", 64, 0, 256));
 
-    SetTextureFilter(fonts.Regular->texture, TEXTURE_FILTER_BILINEAR);
-    SetTextureFilter(fonts.Bold->texture, TEXTURE_FILTER_BILINEAR);
-    SetTextureFilter(fonts.Black->texture, TEXTURE_FILTER_BILINEAR);
-    SetTextureFilter(fonts.Thin->texture, TEXTURE_FILTER_BILINEAR);
+    SetTextureFilter(fonts.Regular->texture, TEXTURE_FILTER_TRILINEAR);
+    SetTextureFilter(fonts.Bold->texture, TEXTURE_FILTER_TRILINEAR);
+    SetTextureFilter(fonts.Black->texture, TEXTURE_FILTER_TRILINEAR);
+    SetTextureFilter(fonts.Thin->texture, TEXTURE_FILTER_TRILINEAR);
 
     m_MierFonts = std::make_shared<Fonts>(fonts);
     
@@ -32,10 +32,12 @@ void ApplicationLayer::InitScreens()
     m_LandingScreen = std::make_shared<LandingScreen>();
     m_RegisterScreen = std::make_shared<RegisterScreen>();
     m_LoginScreen = std::make_shared<LoginScreen>();
+    m_OverviewScreen = std::make_shared<OverviewScreen>();
     
     m_LandingScreen->SetRegisterScreen(m_RegisterScreen);
     m_LandingScreen->SetLoginScreen(m_LoginScreen);
     m_LoginScreen->SetRegisterScreen(m_RegisterScreen);
+    m_LoginScreen->SetOverviewScreen(m_OverviewScreen);
     m_RegisterScreen->SetLoginScreen(m_LoginScreen);
     
     m_LandingScreen->SetSwitchBoundScene(SwitchScenes);
@@ -43,6 +45,7 @@ void ApplicationLayer::InitScreens()
     m_LandingScreen->InitRenderElements();
     m_RegisterScreen->InitRenderElements();
     m_LoginScreen->InitRenderElements();
+    m_OverviewScreen->InitRenderElements();
 }
 
 void ApplicationLayer::SwitchScenes(std::shared_ptr<Screen> screen)
@@ -67,6 +70,7 @@ void ApplicationLayer::OnUIRender()
         m_LandingScreen->InitRenderElementsOnResize();
         m_LoginScreen->InitRenderElementsOnResize();
         m_RegisterScreen->InitRenderElementsOnResize();
+        m_OverviewScreen->InitRenderElementsOnResize();
 
         for (auto entity: m_BoundScene->GetEntities<Core::NativeScriptComponent>())
         {
@@ -90,6 +94,17 @@ void ApplicationLayer::OnUIRender()
             if(entity->GetComponent<Core::UITypeComponent>().Type == Core::UIType::BUTTON)
             {
                 DrawRectangleRounded(Rectangle({ transformComponent.Position.x, transformComponent.Position.y, transformComponent.Scale.x, transformComponent.Scale.y}), transformComponent.Roundness, 20, Color(colorComponent.Color.r, colorComponent.Color.g, colorComponent.Color.b, colorComponent.Color.a));
+
+                if(entity->HasComponent<Core::SpriteComponent>())
+                {
+                    Core::SpriteComponent& spriteComponent = entity->GetComponent<Core::SpriteComponent>();
+
+                    if(UIComponent.Text != "")
+                        DrawTexture(*spriteComponent.Texture, transformComponent.Position.x + 20, transformComponent.Position.y + transformComponent.Scale.y / 2 - 9, WHITE);
+                    else
+                        DrawTexture(*spriteComponent.Texture, transformComponent.Position.x + transformComponent.Scale.x / 2 - 7, transformComponent.Position.y + transformComponent.Scale.y / 2 - 8, WHITE);
+                }
+                
                 DrawTextEx(*m_MierFonts->StringToFont(UIComponent.FontType), UIComponent.Text.c_str(), {(transformComponent.Position.x + transformComponent.Scale.x / 2) - MeasureTextEx(*m_MierFonts->StringToFont(UIComponent.FontType), UIComponent.Text.c_str(), UIComponent.TextSize, 0).x / 2, transformComponent.Position.y + transformComponent.Scale.y / 2 - UIComponent.TextSize / 2}, UIComponent.TextSize, 0, Color(UIComponent.Color.r, UIComponent.Color.g, UIComponent.Color.b, UIComponent.Color.a));
             }
             else if (entity->GetComponent<Core::UITypeComponent>().Type == Core::UIType::INPUT)
@@ -117,6 +132,13 @@ void ApplicationLayer::OnUIRender()
                     DrawTextEx(*m_MierFonts->StringToFont(UIComponent.FontType), UIComponent.Text.c_str(), {transformComponent.Position.x + 5, transformComponent.Position.y + transformComponent.Scale.y / 2 - UIComponent.TextSize / 2}, UIComponent.TextSize, 0, Color(UIComponent.Color.r, UIComponent.Color.g, UIComponent.Color.b, UIComponent.Color.a));
                 }
             }
+        }
+
+        if (entity->HasComponent<Core::SpriteComponent>() && entity->GetComponent<Core::UITypeComponent>().Type == Core::UIType::AVATAR)
+        {
+            Core::SpriteComponent& spriteComponent = entity->GetComponent<Core::SpriteComponent>();
+
+            DrawTexture(*spriteComponent.Texture, transformComponent.Position.x, transformComponent.Position.y, WHITE);
         }
         
         if (entity->GetComponent<Core::UITypeComponent>().Type == Core::UIType::TEXT)

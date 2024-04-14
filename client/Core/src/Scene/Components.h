@@ -104,6 +104,8 @@ namespace Core {
 		bool IsSecure = false;
 		std::string FontType;
 
+		UIComponent() = default;
+		
 		UIComponent(std::string text, glm::vec4 color, uint32_t textSize, std::string fontType = "regular", bool isSecure = false)
 		{
 			Text = text;
@@ -125,7 +127,8 @@ namespace Core {
 		NONE = 0,
 		BUTTON,
 		INPUT,
-		TEXT
+		TEXT,
+		AVATAR
 	};
 
 	struct UITypeComponent

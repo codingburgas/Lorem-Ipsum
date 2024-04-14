@@ -16,3 +16,4 @@
 #include "Scene/UI/Button/Button.h"
 #include "Scene/UI/Text/Text.h"
 #include "Scene/UI/Input/Input.h"
+#include "Scene/UI/Avatar/Avatar.h"

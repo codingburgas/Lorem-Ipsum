@@ -10,12 +10,15 @@ public:
     void InitRenderElements() override;
 
     void SetRegisterScreen(std::shared_ptr<Screen> registerScreen) { m_RegisterScreen = registerScreen; }
+    void SetOverviewScreen(std::shared_ptr<Screen> overviewScreen) { m_OverviewScreen = overviewScreen; }
     
 private:
     static void RegisterCallback();
     static void HandleLogin();
     static void EnterUsernameCallback(std::string username);
     static void EnterPasswordCallback(std::string password);
+    
 private:
     inline static std::shared_ptr<Screen> m_RegisterScreen;
+    inline static std::shared_ptr<Screen> m_OverviewScreen;
 };

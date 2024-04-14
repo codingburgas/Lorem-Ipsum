@@ -34,5 +34,25 @@ namespace Core
             button.AddComponent<SpriteComponent>(std::make_shared<Texture2D>(LoadTexture(imagePath.c_str())));
             script->OnCreate();
         }
+
+        Button::Button(std::string text, glm::vec2 position, glm::vec2 dim, std::shared_ptr<ButtonMaterial> material, std::function<void()> callback, std::string imagePath)
+        {
+            std::shared_ptr<ButtonScript> script = std::make_shared<ButtonScript>();
+            script->SetCallback(callback);
+            
+            Entity button(material->Scene);
+            button.AddComponent<UIComponent>(text, material->TextColor, material->TextSize, material->FontType);
+            button.AddComponent<TransformComponent>(glm::vec3(position.x, position.y, 0), glm::vec3(dim.x, dim.y, 0.0f), 0.0, material->Roundness);
+            button.AddComponent<ColorComponent>(material->Color);
+            button.AddComponent<NativeScriptComponent>(script, std::make_shared<Entity>(button));
+            button.AddComponent<UITypeComponent>(UIType::BUTTON);
+            
+            if(imagePath != "NONE")
+                button.AddComponent<SpriteComponent>(std::make_shared<Texture2D>(LoadTexture(imagePath.c_str())));
+            
+            script->OnCreate();
+            
+        }
+
     }
 }

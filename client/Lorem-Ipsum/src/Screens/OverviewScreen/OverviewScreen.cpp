@@ -18,17 +18,30 @@ void OverviewScreen::NavBar()
 
 void OverviewScreen::SideBar()
 {
+    std::shared_ptr<Core::UI::ButtonMaterial> p_OverviewButtonMaterial = std::make_shared<Core::UI::ButtonMaterial>();
+    p_OverviewButtonMaterial->Color = {0.0f, 0.46f, 0.98f, 1.0f};
+    p_OverviewButtonMaterial->Roundness = 0.25f;
+    p_OverviewButtonMaterial->TextSize = 22;
+    p_OverviewButtonMaterial->Scene = m_Scene;
+
+    std::shared_ptr<Core::UI::ButtonMaterial> p_UnselectedButtonMaterial = std::make_shared<Core::UI::ButtonMaterial>();
+    p_UnselectedButtonMaterial->Color = {1.0f, 1.0f, 1.0f, 1.0f};
+    p_UnselectedButtonMaterial->Roundness = 0.25f;
+    p_UnselectedButtonMaterial->TextColor = {0.7f, 0.7f, 0.7f, 1.0f};
+    p_UnselectedButtonMaterial->TextSize = 22;
+    p_UnselectedButtonMaterial->Scene = m_Scene;
+    
     Core::UI::Text("Menu", {40, 120}, {0.42, 0.42, 0.44, 1.0}, 20, "regualar", m_Scene);
 
-    Core::UI::Button("Overview", {35, 157}, {180, 45}, 0.25, {0.0f, 0.46f, 0.98f, 1.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, 22, "regular", "assets/icons/home-icon.png", m_Scene, overviewCallback);
-    Core::UI::Button("Courses", {35, 204}, {180, 45}, 0.25, {1.0f, 1.0f, 1.0f, 1.0f}, {0.7f, 0.7f, 0.7f, 1.0f}, 22, "regular", "assets/icons/book-icon.png", m_Scene, overviewCallback);
-    Core::UI::Button("Planning", {35, 251}, {180, 45}, 0.25, {1.0f, 1.0f, 1.0f, 1.0f}, {0.7f, 0.7f, 0.7f, 1.0f}, 22, "regular", "assets/icons/chart-icon.png", m_Scene, overviewCallback);
-    Core::UI::Button("Statistics", {35, 296}, {180, 45}, 0.25, {1.0f, 1.0f, 1.0f, 1.0f}, {0.7f, 0.7f, 0.7f, 1.0f}, 22, "regular", "assets/icons/stats-icon.png", m_Scene, overviewCallback);
+    Core::UI::Button("Overview", {35, 157}, {180, 45}, p_OverviewButtonMaterial, overviewCallback, "assets/icons/home-icon.png");
+    Core::UI::Button("Courses", {35, 204}, {180, 45}, p_UnselectedButtonMaterial, overviewCallback, "assets/icons/book-icon.png");
+    Core::UI::Button("Planning", {35, 251}, {180, 45}, p_UnselectedButtonMaterial, overviewCallback, "assets/icons/chart-icon.png");
+    Core::UI::Button("Statistics", {35, 296}, {180, 45}, p_UnselectedButtonMaterial, overviewCallback, "assets/icons/stats-icon.png");
     
     Core::UI::Text("Account", {40, 371}, {0.42, 0.42, 0.44, 1.0}, 20, "regualar", m_Scene);
     
-    Core::UI::Button("Messages", {35, 436}, {180, 45}, 0.25, {1.0f, 1.0f, 1.0f, 1.0f}, {0.7f, 0.7f, 0.7f, 1.0f}, 22, "regular", "assets/icons/chat-icon.png", m_Scene, overviewCallback);
-    Core::UI::Button("Settings", {35, 483}, {180, 45}, 0.25, {1.0f, 1.0f, 1.0f, 1.0f}, {0.7f, 0.7f, 0.7f, 1.0f}, 22, "regular", "assets/icons/settings-icon.png", m_Scene, overviewCallback);
+    Core::UI::Button("Messages", {35, 436}, {180, 45}, p_UnselectedButtonMaterial, overviewCallback, "assets/icons/chat-icon.png");
+    Core::UI::Button("Settings", {35, 483}, {180, 45}, p_UnselectedButtonMaterial, overviewCallback, "assets/icons/settings-icon.png");
 }
 
 void OverviewScreen::MainContent()

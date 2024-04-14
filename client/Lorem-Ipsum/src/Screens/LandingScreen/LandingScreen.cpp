@@ -13,6 +13,12 @@ void LandingScreen::LoginCallback()
 
 void LandingScreen::InitRenderElements()
 {
-    Core::UI::Button("Register", {GetScreenWidth() / 2 - 100, GetScreenHeight() / 2 - 25 * 2 - 2}, {200, 50}, 0.2f, {0.2, 0.2, 0.8, 1.0}, {1.0f, 1.0f, 1.0f, 1.0f}, 32, "regular", m_Scene, LandingScreen::RegisterCallback);
-    Core::UI::Button("Login", {GetScreenWidth() / 2 - 100, GetScreenHeight() / 2 + 2}, {200, 50}, 0.2f, {0.2, 0.2, 0.8, 1.0}, {1.0f, 1.0f, 1.0f, 1.0f}, 32, "regular", m_Scene, LoginCallback);
+    std::shared_ptr<Core::UI::ButtonMaterial> buttonMaterial = std::make_shared<Core::UI::ButtonMaterial>();
+    buttonMaterial->Color = {0.2, 0.2, 0.8, 1.0};
+    buttonMaterial->Roundness = 0.2f;
+    buttonMaterial->TextSize = 32;
+    buttonMaterial->Scene = m_Scene;
+    
+    Core::UI::Button("Register", {GetScreenWidth() / 2 - 100, GetScreenHeight() / 2 - 25 * 2 - 2}, {200, 50}, buttonMaterial, LandingScreen::RegisterCallback);
+    Core::UI::Button("Login", {GetScreenWidth() / 2 - 100, GetScreenHeight() / 2 + 2}, {200, 50}, buttonMaterial, LoginCallback);
 }

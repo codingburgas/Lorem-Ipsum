@@ -2,7 +2,7 @@
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
-#include <pgfe/pgfe.hpp>
+// #include <pgfe/pgfe.hpp>
 
 using namespace Pistache;
 
@@ -11,17 +11,17 @@ struct HelloHandler : public Http::Handler {
   void onRequest(const Http::Request&, Http::ResponseWriter response) override {
     const char* json = "{\"name\": \"Ivan\"}";
 
-    rapidjson::Document d;
-    d.Parse(json);
+    // rapidjson::Document d;
+    // d.Parse(json);
 
-    rapidjson::Value& s = d["name"];
-    s.SetString("Ivan Stoychev");
+    // rapidjson::Value& s = d["name"];
+    // s.SetString("Ivan Stoychev");
 
-    rapidjson::StringBuffer buffer;
-    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-    d.Accept(writer);
+    // rapidjson::StringBuffer buffer;
+    // rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+    // d.Accept(writer);
 
-    response.send(Http::Code::Ok, buffer.GetString());
+    response.send(Http::Code::Ok, json);
   }
 };
 

@@ -4,7 +4,7 @@ UserRepository::UserRepository():conn(DatabaseConnection().conn){};
 
 User UserRepository::createUser(UserInput input){
     User out;
-    conn.execute(
+    conn->execute(
         [&](auto && row){
             out.id = to<int>(row["id"]);
             out.name = to<std::string>(row["name"]);
@@ -22,7 +22,7 @@ User UserRepository::createUser(UserInput input){
 
 User UserRepository::readUser(int id){
     User user;
-    conn.execute(
+    conn->execute(
         [&](auto && row){
             user.id = to<int>(row["id"]);
             user.name = to<std::string>(row["name"]);
@@ -39,7 +39,7 @@ User UserRepository::readUser(int id){
 }
 User UserRepository::updateUser(UserInput input){
     User out;
-    conn.execute(
+    conn->execute(
         [&](auto && row){
             out.username = to<std::string>(row["username"]);
             out.email = to<std::string>(row["email"]);
@@ -52,5 +52,5 @@ User UserRepository::updateUser(UserInput input){
     return out;
 }
 void UserRepository::deleteUser(int id){
-    conn.execute("DELETE FROM User WHERE id=$1::integer",id);
+    conn->execute("DELETE FROM User WHERE id=$1::integer",id);
 }

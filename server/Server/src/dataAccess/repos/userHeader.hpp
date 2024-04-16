@@ -5,16 +5,14 @@
 #include "../models/userModels.hpp"
 #include "../db.hpp"
 
-using pgfe::to;
-
-
 class UserRepository{
 private:
-    pgfe::Connection conn;
+    dmitigr::pgfe::Connection* conn;
 public:
     UserRepository();
     User createUser(UserInput input);
     User readUser(int id);
+    User readUser(std::string username);
     User updateUser(UserInput input);
     void deleteUser(int id);
 

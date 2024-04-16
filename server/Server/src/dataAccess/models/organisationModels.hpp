@@ -11,6 +11,7 @@ struct Organisation{
 struct bridgeOrganisationUser{
     int userId;
     int organisationId;
+    std::string role;
 };
 
 struct bridgeOrganisationCourse{

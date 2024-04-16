@@ -1,23 +1,9 @@
 #pragma once
-#include <pgfe/pgfe.hpp>
-
-namespace pgfe = dmitigr::pgfe;
+#include "shema.hpp"
 
 class DatabaseConnection{
 public:
-     pgfe::Connection conn{pgfe::Connection_options{}
-    .set(pgfe::Communication_mode::net)
-    .set_hostname("localhost")
-    .set_port(5432)
-    .set_database("postgres")
-    .set_username("postgres")
-    .set_password("postgres")};
+    dmitigr::pgfe::Connection* conn = nullptr;
 
-
-    DatabaseConnection(){
-        conn.connect();
-    };
-    bool isConnected()const{
-        return conn.is_connected();
-    }
+    DatabaseConnection();
 };

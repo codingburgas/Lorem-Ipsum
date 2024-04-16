@@ -3,6 +3,7 @@
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
 #include "./dataAccess/db.hpp"
+#include "dataAccess/shema.hpp"
 // #include <pgfe/pgfe.hpp>
 
 using namespace Pistache;
@@ -28,7 +29,8 @@ struct HelloHandler : public Http::Handler {
 };
 
 int main() {
-  Http::listenAndServe<HelloHandler>(Pistache::Address("*:3000"));
   DatabaseConnection* db = new DatabaseConnection;
-  createShema(db->conn);
+  createShema(db->sql);
+
+  Http::listenAndServe<HelloHandler>(Pistache::Address("*:3000"));
 }

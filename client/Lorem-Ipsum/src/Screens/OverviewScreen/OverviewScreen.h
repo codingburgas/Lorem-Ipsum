@@ -10,6 +10,8 @@ public:
     void InitRenderElements() override;
 
 private:
+    static void HandleSettings();
+    
     void NavBar();
     void SideBar();
     void MainContent();

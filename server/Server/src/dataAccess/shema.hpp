@@ -1,5 +1,5 @@
 #pragma once
 #include <iostream>
-#include <pgfe/pgfe.hpp>
+#include <soci/soci.h>
 
-void createShema(dmitigr::pgfe::Connection*);
+void createShema(soci::session* sql);

@@ -1,13 +1,13 @@
 #pragma once
 #include <iostream>
 #include <string>
-#include <pgfe/pgfe.hpp>
 #include "../models/userModels.hpp"
 #include "../db.hpp"
+#include <soci/session.h>
 
 class UserRepository{
 private:
-    dmitigr::pgfe::Connection* conn;
+    soci::session* sql;
 public:
     UserRepository();
     User createUser(UserInput input);

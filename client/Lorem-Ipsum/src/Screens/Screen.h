@@ -5,6 +5,7 @@ class LandingScreen;
 class RegisterScreen;
 class LoginScreen;
 class OverviewScreen;
+class SettingsScreen;
 
 struct Screens
 {
@@ -12,6 +13,7 @@ struct Screens
    std::shared_ptr<RegisterScreen> RegisterScreen;
    std::shared_ptr<LoginScreen> LoginScreen;
    std::shared_ptr<OverviewScreen> OverviewScreen;
+   std::shared_ptr<SettingsScreen> SettingsScreen;
 };
 
 class Screen

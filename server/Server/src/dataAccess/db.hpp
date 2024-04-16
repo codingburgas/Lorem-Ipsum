@@ -1,9 +1,10 @@
 #pragma once
-#include "shema.hpp"
+#include <soci/soci.h>
+#include <soci/postgresql/soci-postgresql.h>
 
 class DatabaseConnection{
 public:
-    dmitigr::pgfe::Connection* conn = nullptr;
+    soci::session* sql = nullptr;
 
     DatabaseConnection();
 };

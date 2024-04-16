@@ -1,6 +1,12 @@
 ﻿#include "OverviewScreen.h"
+#include "../Screens.h"
 
 void overviewCallback() {}
+
+void OverviewScreen::HandleSettings()
+{
+    m_SwitchScreens(m_Screens->SettingsScreen);    
+}
 
 void OverviewScreen::InitRenderElements()
 {
@@ -34,18 +40,54 @@ void OverviewScreen::SideBar()
     Core::UI::Text("Menu", {40, 120}, {0.42, 0.42, 0.44, 1.0}, 20, "regualar", m_Scene);
 
     Core::UI::Button("Overview", {35, 157}, {180, 45}, p_OverviewButtonMaterial, overviewCallback, "assets/icons/home-icon.png");
-    Core::UI::Button("Courses", {35, 204}, {180, 45}, p_UnselectedButtonMaterial, overviewCallback, "assets/icons/book-icon.png");
-    Core::UI::Button("Planning", {35, 251}, {180, 45}, p_UnselectedButtonMaterial, overviewCallback, "assets/icons/chart-icon.png");
-    Core::UI::Button("Statistics", {35, 296}, {180, 45}, p_UnselectedButtonMaterial, overviewCallback, "assets/icons/stats-icon.png");
+    Core::UI::Button("Statistics", {35, 204}, {180, 45}, p_UnselectedButtonMaterial, overviewCallback, "assets/icons/stats-icon.png");
     
-    Core::UI::Text("Account", {40, 371}, {0.42, 0.42, 0.44, 1.0}, 20, "regualar", m_Scene);
+    Core::UI::Text("Account", {40, 271}, {0.42, 0.42, 0.44, 1.0}, 20, "regualar", m_Scene);
     
-    Core::UI::Button("Messages", {35, 436}, {180, 45}, p_UnselectedButtonMaterial, overviewCallback, "assets/icons/chat-icon.png");
-    Core::UI::Button("Settings", {35, 483}, {180, 45}, p_UnselectedButtonMaterial, overviewCallback, "assets/icons/settings-icon.png");
+    Core::UI::Button("Messages", {35, 316}, {180, 45}, p_UnselectedButtonMaterial, overviewCallback, "assets/icons/chat-icon.png");
+    Core::UI::Button("Settings", {35, 363}, {180, 45}, p_UnselectedButtonMaterial, HandleSettings, "assets/icons/settings-icon.png");
 }
 
 void OverviewScreen::MainContent()
 {
-    Core::UI::Text(TextFormat("Welcom back to Lorem Ipsum, %s!", "Ivan"), {310, 125}, {0.0, 0.0, 0.0, 1.0}, 32, "regualar", m_Scene);
-    Core::UI::Text("Join", {310, 230}, {0.0, 0.0, 0.0, 1.0}, 32, "regualar", m_Scene);
+    uint32_t organizations = 1;
+    
+    std::shared_ptr<Core::UI::ButtonMaterial> p_OrganizationButtonMaterial = std::make_shared<Core::UI::ButtonMaterial>();
+    p_OrganizationButtonMaterial->Color = {0.0f, 0.46f, 0.98f, 1.0f};
+    p_OrganizationButtonMaterial->Roundness = 0.5f;
+    p_OrganizationButtonMaterial->FontType = "bold";
+    p_OrganizationButtonMaterial->TextSize = 32;
+    p_OrganizationButtonMaterial->Scene = m_Scene;
+    
+    Core::UI::Text(TextFormat("Welcome back to Lorem Ipsum, %s!", "Ivan"), {310, 125}, {0.0, 0.0, 0.0, 1.0}, 32, "regualar", m_Scene);
+    Core::UI::Text("Organizations", {360, 230}, {0.0, 0.0, 0.0, 1.0}, 20, "thin", m_Scene);
+
+    for(int i = 0; i < organizations; i++)
+        Core::UI::Button("VSCPI", {350, 280 + 64 * i}, {180, 60}, p_OrganizationButtonMaterial, overviewCallback);
+
+    Core::UI::Text("Click to see your courses", {360, 300 + 64 * organizations}, {0.0, 0.0, 0.0, 1.0}, 16, "regular", m_Scene);
+
+    Core::UI::Text("Join", {GetScreenWidth() - (287 + MeasureText("Join", 28)), 230}, {0.0, 0.0, 0.0, 1.0}, 28, "regular", m_Scene);
+
+    std::shared_ptr<Core::UI::ButtonMaterial> p_JoinOrganizationButtonMaterial = std::make_shared<Core::UI::ButtonMaterial>();
+    p_JoinOrganizationButtonMaterial->Color = {0.04f, 0.72f, 0.98f, 1.0f};
+    p_JoinOrganizationButtonMaterial->Roundness = 0.5f;
+    p_JoinOrganizationButtonMaterial->TextSize = 24;
+    p_JoinOrganizationButtonMaterial->Scene = m_Scene;
+    
+    Core::UI::Button("join organization", {GetScreenWidth() - 430, 270}, {230, 50}, p_JoinOrganizationButtonMaterial, overviewCallback);
+
+    p_JoinOrganizationButtonMaterial->Color = {0.49f, 0.53f, 0.98f, 1.0f};
+    
+    Core::UI::Button("join course", {GetScreenWidth() - 430, 370}, {230, 50}, p_JoinOrganizationButtonMaterial, overviewCallback);
+    
+    Core::UI::Text("Statistics", {310, 476}, {0.0, 0.0, 0.0, 1.0}, 28, "regular", m_Scene);
+
+    int position = 13;
+    int organizationMembers = 496;
+
+    Core::UI::Text(std::to_string(position), {310, 520}, {0.0f, 0.46f, 0.98f, 1.0f}, 46, "bold", m_Scene);
+    Core::UI::Text(TextFormat("place in the organization out of %d", organizationMembers), {370, 525}, {0.0f, 0.0f, 0.0f, 1.0f}, 20, "regular", m_Scene);
+
+    // Core::UI::Text("Cource Activities", {GetScreenWidth() - (180 + MeasureText("Cource Activities", 28)), 476}, {0.0, 0.0, 0.0, 1.0}, 28, "regular", m_Scene);
 }

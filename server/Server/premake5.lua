@@ -19,7 +19,8 @@ project "Server"
         "../vendor/rapidjson/include",
         "../vendor/phc-winner-argon2/include",
         "../vendor/soci/include",
-        "/usr/include/postgresql"
+        "/usr/include/postgresql",
+	    "../vendor/jwt-cpp/include"
     }
 
     libdirs {
@@ -36,7 +37,9 @@ project "Server"
         "soci_postgresql",
         "soci_core",
         "argon2",
-        "soci_empty"
+        "soci_empty",
+        "crypto",
+        "ssl",
     }
 
     filter "configurations:Debug"

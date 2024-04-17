@@ -4,7 +4,9 @@
 
 class DatabaseConnection{
 public:
-    soci::session* sql = nullptr;
+    inline static soci::session* sql;
 
     DatabaseConnection();
+
+    static void DropDatabase();
 };

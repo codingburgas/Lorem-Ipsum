@@ -6,14 +6,11 @@
 #include <soci/session.h>
 
 class UserRepository{
-private:
-    soci::session* sql;
 public:
     UserRepository();
-    User createUser(UserInput input);
-    User readUser(int id);
-    User readUser(std::string username);
-    User updateUser(UserInput input);
-    void deleteUser(int id);
-
+    static User CreateUser(UserInput input);
+    static User ReadUser(int id);
+    static User ReadUser(std::string username);
+    static User updateUser(UserInput input);
+    static void deleteUser(int id);
 };

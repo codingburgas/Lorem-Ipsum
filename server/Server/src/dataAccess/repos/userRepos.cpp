@@ -1,42 +1,44 @@
 #include "userHeader.hpp"
 
-// UserRepository::UserRepository():conn(DatabaseConnection().conn){};
+UserRepository::UserRepository() {};
 
-User UserRepository::createUser(UserInput input){
-    // User out;
-    // conn->execute(
-    //     [&](auto && row){
-    //         out.id = to<int>(row["id"]);
-    //         out.name = to<std::string>(row["name"]);
-    //         out.username = to<std::string>(row["username"]);
-    //         out.email = to<std::string>(row["email"]);
-    //         out.country = to<std::string>(row["country"]);
-    //         out.password = to<std::string>(row["password"]);
-    //     },
-    //     "INSERT INTO User (id, firstName, username, email, country, password) VALUES ($1::integer, $2::string, $3::string, $4::string, $5::string, $6::string) RETURNING id, name, username, email, country, password",
-    //     input.id, input.name, input.username, input.email, input.country, input.password
-        
-    // );
-    // return out;
+User UserRepository::CreateUser(UserInput input)
+{
+    *DatabaseConnection::sql << "SELECT * FROM users WHERE username = :username", soci::use(input.username);
+
+    if(DatabaseConnection::sql->got_data())
+    {
+        throw std::invalid_argument("Username already exists");
+    }
+
+    User user;
+    user.name = input.name;
+    user.username = input.username;
+    user.email = input.email;
+    user.country = input.country;
+
+    *DatabaseConnection::sql << "INSERT INTO users(name, username, email, country, password_hash) VALUES(:name, :username, :email, :country, :password_hash)",
+        soci::use(input.name), soci::use(input.username), soci::use(input.email), soci::use(input.country), soci::use(input.password);
+
+    return user;
 }
 
-User UserRepository::readUser(int id){
-    // User user;
-    // conn->execute(
-    //     [&](auto && row){
-    //         user.id = to<int>(row["id"]);
-    //         user.name = to<std::string>(row["name"]);
-    //         user.username = to<std::string>(row["username"]);
-    //         user.email = to<std::string>(row["email"]);
-    //         user.country = to<std::string>(row["country"]);
-    //         user.password = to<std::string>(row["password"]);
-    //     },
-    //     "SELECT * FROM User WHERE id = $1::integer",
-    //     id
-        
-    // );
-    // return user;
+User UserRepository::ReadUser(int id)
+{
+    User user;
+    *DatabaseConnection::sql << "SELECT id, name, username, email, country, password_hash FROM users WHERE id = " << id, soci::into(user.id), soci::into(user.name), soci::into(user.username), soci::into(user.email), soci::into(user.country), soci::into(user.password_hash);
+
+    return user;
 }
+
+User UserRepository::ReadUser(std::string username)
+{
+    User user;
+    *DatabaseConnection::sql << "SELECT id, name, username, email, country, password_hash FROM users WHERE username = \'" << username << "\'", soci::into(user.id), soci::into(user.name), soci::into(user.username), soci::into(user.email), soci::into(user.country), soci::into(user.password_hash);
+
+    return user;
+}
+
 User UserRepository::updateUser(UserInput input){
     // User out;
     // conn->execute(

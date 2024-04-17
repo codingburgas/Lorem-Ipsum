@@ -1,36 +1,32 @@
-#include <pistache/endpoint.h>
-#include "rapidjson/document.h"
-#include "rapidjson/writer.h"
-#include "rapidjson/stringbuffer.h"
 #include "./dataAccess/db.hpp"
 #include "dataAccess/shema.hpp"
-// #include <pgfe/pgfe.hpp>
+#include "routes/authentication.hpp"
 
-using namespace Pistache;
+#include <pistache/endpoint.h>
+#include <pistache/router.h>
 
-
-struct HelloHandler : public Http::Handler {
-  HTTP_PROTOTYPE(HelloHandler)
-  void onRequest(const Http::Request&, Http::ResponseWriter response) override {
-    const char* json = "{\"name\": \"Ivan\"}";
-
-    // rapidjson::Document d;
-    // d.Parse(json);
-
-    // rapidjson::Value& s = d["name"];
-    // s.SetString("Ivan Stoychev");
-
-    // rapidjson::StringBuffer buffer;
-    // rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-    // d.Accept(writer);
-
-    response.send(Http::Code::Ok, json);
-  }
-};
+#include <iostream>
 
 int main() {
+  std::cout << "Server is running" << std::endl;
+
   DatabaseConnection* db = new DatabaseConnection;
+  db->DropDatabase();
   createShema(db->sql);
 
-  Http::listenAndServe<HelloHandler>(Pistache::Address("*:3000"));
+  Pistache::Address addr(Pistache::Ipv4::any(), Pistache::Port(3000));
+
+  auto opts = Pistache::Http::Endpoint::options().threads(1);
+  Pistache::Http::Endpoint server(addr);
+  server.init(opts);
+
+  Pistache::Rest::Router authRouter;
+  AuthenticationHandler authHandler;
+  Pistache::Rest::Routes::Post(authRouter, "/register", Pistache::Rest::Routes::bind(&AuthenticationHandler::RegisterUser, &authHandler));
+  Pistache::Rest::Routes::Post(authRouter, "/login", Pistache::Rest::Routes::bind(&AuthenticationHandler::LoginUser, &authHandler));
+  Pistache::Rest::Routes::Get(authRouter, "/user", Pistache::Rest::Routes::bind(&AuthenticationHandler::GetUser, &authHandler));
+
+  server.setHandler(authRouter.handler());
+  server.serve();
+  server.shutdown();
 }

@@ -1,94 +1,75 @@
 #include "authService.hpp"
+#include <iomanip>
+#include <sstream>
+#include <jwt-cpp/jwt.h>
 
-User UserService::registerUser(UserInput input)
+// std::string bytesToHexString(const std::vector<uint8_t>& bytes) 
+// {
+//     std::stringstream ss;
+//     for (size_t i = 0; i < bytes.size(); ++i) {
+//         ss << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(bytes[i]);
+//     }
+//     return ss.str();
+// }
+
+User UserService::RegisterUser(UserInput input)
 {
-    // UserRepository userRepo;
+    // const char* salt = "mysalt";
+    // std::vector<uint8_t> hash;
+    // int r = argon2d_hash_raw(2, 1, 1, input.password.c_str(), input.password.length(), salt, strlen(salt), hash.data(), HASHLEN);
 
+    // input.password = bytesToHexString(hash);
+    User user = UserRepository::CreateUser(input);
 
-    // std::string email = input.email;
-    // std::string isEmail = "SELECT email FROM User WHERE email = " + email;
-
-    // std::string username = input.username;
-    // std::string isUsername = "SELECT username FROM User WHERE username = " + username;
-
-    // std::string password = input.password;
-    // if (password.size() >= 8)
-    // {
-
-    //     uint8_t hash1[HASHLEN];
-
-    //     uint8_t salt[SALTLEN];
-
-    //     memset(salt, 0x00, SALTLEN);
-
-    //     uint8_t *pwd = (uint8_t *)strdup(password.c_str());
-    //     uint32_t pwdlen = password.size();
-
-    //     uint32_t t_cost = 2;
-    //     uint32_t m_cost = (1 << 16);
-    //     uint32_t parallelism = 1;
-
-    //     int rc = argon2i_hash_raw(t_cost, m_cost, parallelism, pwd, pwdlen, salt, SALTLEN, hash1, HASHLEN);
-    //     if (ARGON2_OK != rc)
-    //     {
-    //         printf("Error: %s\n", argon2_error_message(rc));
-    //         exit(1);
-    //     }
-
-    //     std::string hashedPassword;
-    //     for (int i = 0; i < HASHLEN; i++)
-    //     {
-    //         char hex[3];
-    //         printf(hex, sizeof(hex), "%02x", hash1[i]);
-    //         hashedPassword += hex;
-    //     }
-    //     password = hashedPassword;
-    // }
-    // else
-    // {
-    //     throw std::invalid_argument("Password must be at least 8 characters");
-    // }
-    // if (isEmail)
-    // {
-    //     throw std::invalid_argument("Email is already taken");
-    // }
-    // else
-    // {
-    //     if (!email.find("@") && email.find("."))
-    //     {
-    //         throw std::invalid_argument("Invalid email");
-    //     }
-
-        
-    // }
-    // if (isUsername)
-    // {
-    //     throw std::invalid_argument("Uername is already taken");
-    // }
-
-
-    
-
-    // create user
-    // User newUser;
-
-    // newUser.name = input.name;
-    // newUser.username = input.username;
-    // newUser.country = input.country;
-    // newUser.email = input.email;
-    // newUser.password = input.password;
-
-    // // set the jwt token
-
-    // return newUser;
+    return user;
 }
 
-// User UserService::loginUser()
-// {
+std::string UserService::LoginUser(UserLoginInput input)
+{
+    User user = UserRepository::ReadUser(input.username);
 
-//     // check if the username or password is correct
+    std::string password_hash = input.password;
 
-//     // login
+    if(user.password_hash != password_hash)
+    {
+        throw std::invalid_argument("Invalid password");
+    }
 
-//     // give jwt token
-// }
+    auto token = jwt::create()
+        .set_type("JWS")
+        .set_issuer(user.username)
+        .sign(jwt::algorithm::hs256{"secret"});
+
+    return token;
+}
+
+bool UserService::ValidateToken(std::string token)
+{
+    try
+    {
+        jwt::decoded_jwt decoded = jwt::decode(token);
+        return true;
+    }
+    catch(const std::exception& e)
+    {
+        return false;
+    }
+}
+
+User UserService::GetUser(std::string token)
+{
+    jwt::decoded_jwt decoded = jwt::decode(token);
+
+    std::string username;
+    for (auto& el : decoded.get_payload_json())
+    {
+        if(el.first == "iss")
+        {
+            username = el.second.get<std::string>();
+        }
+    }
+
+    User user = UserRepository::ReadUser(username);
+
+    return user;
+}

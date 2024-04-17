@@ -8,7 +8,7 @@ struct User{
     std::string username;
     std::string email;
     std::string country;
-    std::string password;
+    std::string password_hash;
 };
 struct UserInput{
     int id;
@@ -16,6 +16,11 @@ struct UserInput{
     std::string username;
     std::string email;
     std::string country;
+    std::string password;
+};
+
+struct UserLoginInput{
+    std::string username;
     std::string password;
 };
 

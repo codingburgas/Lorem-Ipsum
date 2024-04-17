@@ -5,10 +5,11 @@
 
 #define HASHLEN 32
 #define SALTLEN 16
-#define PWD "password"
 
 class UserService{
 public:
-    User registerUser(UserInput input);
-    // User loginUser();
+    static User RegisterUser(UserInput input);
+    static std::string LoginUser(UserLoginInput input);
+    static bool ValidateToken(std::string token);
+    static User GetUser(std::string token);
 };

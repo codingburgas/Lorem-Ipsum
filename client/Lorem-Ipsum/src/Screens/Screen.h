@@ -30,10 +30,22 @@ public:
 
    static void SetScreens(std::shared_ptr<Screens> screens) { m_Screens = screens; }
    static void SetSwitchScreen(std::function<void(std::shared_ptr<Screen>)> switchScreen) { m_SwitchScreens = switchScreen; }
+   virtual void OnScreenChange() {}
+
+protected:
    
-protected: 
+   struct User
+   {
+      std::string Username;
+      std::string Email;
+      std::string Name;
+   };
+   
    std::shared_ptr<Core::Scene> m_Scene;
    
    inline static std::shared_ptr<Screens> m_Screens;
    inline static std::function<void(std::shared_ptr<Screen>)> m_SwitchScreens;
+   inline static std::string m_Token;
+   inline static std::string m_BaseUrl = "http://localhost:3000";
+   inline static std::shared_ptr<User> m_User;
 };

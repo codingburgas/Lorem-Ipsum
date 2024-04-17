@@ -10,6 +10,15 @@ public:
     void InitRenderElements() override;
     
 private:
+    
+    struct UserLoginInput
+    {
+        std::string UserName;
+        std::string Password;
+    };
+
+    inline static UserLoginInput m_LoginInformation;
+    
     static void RegisterCallback();
     static void HandleLogin();
     static void EnterUsernameCallback(std::string username);

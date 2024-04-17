@@ -21,20 +21,27 @@ project "Lorem-Ipsum"
         "../vendor/glm",
         "../vendor/rlImGui",
         "../vendor/entt",
-        "../vendor/box2d/include"
+        "../vendor/box2d/include",
+        "../vendor/cpr/include",
+        "../vendor/curl/include",
+        "../../server/vendor/rapidjson/include"
     }
 
     libdirs {
-        "../vendor/raylib/lib"
+        "../vendor/raylib/lib",
+        "../vendor/cpr/lib"
     }
 
     postbuildcommands { ("{COPY} ..\\vendor\\raylib\\lib\\raylib.dll ..\\bin\\" .. outputdir .. "\\Lorem-Ipsum") }
+    postbuildcommands { ("{COPY} ..\\vendor\\cpr\\lib\\libcurl.dll ..\\bin\\" .. outputdir .. "\\Lorem-Ipsum") }
 
     links {
         "Core",
         "raylibdll",
         "ImGui",
-        "Box2D"
+        "Box2D",
+        "cpr",
+        "curl"
     }
 
     filter "configurations:Debug"

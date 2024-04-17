@@ -3,11 +3,19 @@
 
 void settingCallback() {}
 
+void SettingsScreen::OnScreenChange()
+{
+    m_FirstName = m_User->Name.substr(0, m_User->Name.find(" "));
+    m_LastName = m_User->Name.substr(m_User->Name.find(" "));
+    m_Email = m_User->Email;
+    
+    InitRenderElementsOnResize();
+}
+
 void SettingsScreen::HandleOverview()
 {
     m_SwitchScreens(m_Screens->OverviewScreen);
 }
-
 
 void SettingsScreen::InitRenderElements()
 {
@@ -61,18 +69,14 @@ void SettingsScreen::PersonalInformationPanel()
     Core::UI::Text("This information will be displayed publicly so be careful what you share.", {350 + MeasureText("Settings", 36), 210}, {0.67, 0.69, 0.74, 1.0}, 16, "regualar", m_Scene);
 
     Core::UI::Text("First Name", {350 + MeasureText("Settings", 36), 250}, {0.4, 0.4, 0.4, 1.0}, 18, "regualar", m_Scene);
-
-    std::string firstName = "Ivan";
-    std::string lastName = "Stoychev";
-    std::string email = "IYStoychev21@codingburgas.bg";
     
-    Core::UI::Text(firstName, {350 + MeasureText("Settings", 36), 285}, {0.1, 0.1, 0.1, 1.0}, 24, "regualar", m_Scene);
+    Core::UI::Text(m_FirstName, {350 + MeasureText("Settings", 36), 285}, {0.1, 0.1, 0.1, 1.0}, 24, "regualar", m_Scene);
 
     Core::UI::Text("Last Name", {650 + MeasureText("Settings", 36), 250}, {0.4, 0.4, 0.4, 1.0}, 18, "regualar", m_Scene);
-    Core::UI::Text(lastName, {650 + MeasureText("Settings", 36), 285}, {0.1, 0.1, 0.1, 1.0}, 24, "regualar", m_Scene);
+    Core::UI::Text(m_LastName, {650 + MeasureText("Settings", 36), 285}, {0.1, 0.1, 0.1, 1.0}, 24, "regualar", m_Scene);
     
     Core::UI::Text("Email", {350 + MeasureText("Settings", 36), 350}, {0.4, 0.4, 0.4, 1.0}, 18, "regualar", m_Scene);
-    Core::UI::Text(email, {350 + MeasureText("Settings", 36), 385}, {0.1, 0.1, 0.1, 1.0}, 24, "regualar", m_Scene);
+    Core::UI::Text(m_Email, {350 + MeasureText("Settings", 36), 385}, {0.1, 0.1, 0.1, 1.0}, 24, "regualar", m_Scene);
 
     Core::UI::Text("Personal Information", {350 + MeasureText("Settings", 36), 450}, {0.0, 0.0, 0.0, 1.0}, 22, "regualar", m_Scene);
     Core::UI::Text("This information will be displayed publicly so be careful what you share.", {350 + MeasureText("Settings", 36), 480}, {0.67, 0.69, 0.74, 1.0}, 16, "regualar", m_Scene);

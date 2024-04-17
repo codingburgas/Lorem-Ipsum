@@ -1,9 +1,44 @@
 ﻿#include "LoginScreen.h"
 #include "../Screens.h"
+#include <cpr/cpr.h>
+#include <rapidjson/document.h>
 
 void LoginScreen::HandleLogin()
 {
+    cpr::Response r = cpr::Post(
+        cpr::Url{m_BaseUrl + "/login"},
+        cpr::Body{"{\"username\": \"" + m_LoginInformation.UserName + "\", \"password\": \"" + m_LoginInformation.Password + "\"}"}
+        );
+
+    std::cout << r.status_code << std::endl;
+    std::cout << r.text << std::endl;
+
+    if(r.status_code != 200)
+    {
+        return;
+    }
+
+    rapidjson::Document document;
+    document.Parse(r.text.c_str());
+
+    m_Token = document["token"].GetString();
+
+    cpr::Response userResponse = cpr::Get(
+            cpr::Url{m_BaseUrl + "/user"},
+            cpr::Header{{"Authorization", m_Token}}
+        );
+
+    rapidjson::Document userDocument;
+    userDocument.Parse(userResponse.text.c_str());
+
+    m_User = std::make_shared<User>();
+    m_User->Name = userDocument["name"].GetString();
+    m_User->Email = userDocument["email"].GetString();
+    m_User->Username = userDocument["username"].GetString();
+    
     m_SwitchScreens(m_Screens->OverviewScreen);
+
+    m_Screens->SettingsScreen->OnScreenChange();
 }
 
 void LoginScreen::RegisterCallback()
@@ -13,12 +48,12 @@ void LoginScreen::RegisterCallback()
 
 void LoginScreen::EnterUsernameCallback(std::string username)
 {
-    
+    m_LoginInformation.UserName = username;
 }
 
 void LoginScreen::EnterPasswordCallback(std::string password)
 {
-    
+   m_LoginInformation.Password = password; 
 }
 
 void LoginScreen::InitRenderElements()

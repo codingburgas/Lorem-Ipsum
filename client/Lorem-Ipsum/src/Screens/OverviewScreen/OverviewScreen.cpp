@@ -19,7 +19,7 @@ void OverviewScreen::NavBar()
 {
     Core::UI::Text("Lorem Ipsum", {35, 25}, {0.0, 0.0, 0.0, 1.0}, 32, "regular", m_Scene);
 
-    Core::UI::Avatar({GetScreenWidth() - 68, 20}, "assets/test-avatar.png", m_Scene);
+    // Core::UI::Avatar({GetScreenWidth() - 68, 20}, "assets/test-avatar.png", m_Scene);
 }
 
 void OverviewScreen::SideBar()

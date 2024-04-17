@@ -157,8 +157,6 @@ static void ImGuiNewFrame(float deltaTime)
             }
             else
             {
-                ShowCursor();
-
                 if (!(io.ConfigFlags & ImGuiConfigFlags_NoMouseCursorChange))
                 {
                     SetMouseCursor((imgui_cursor > -1 && imgui_cursor < ImGuiMouseCursor_COUNT) ? MouseCursorMap[imgui_cursor] : MOUSE_CURSOR_DEFAULT);

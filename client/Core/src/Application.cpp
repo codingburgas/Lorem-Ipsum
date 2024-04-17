@@ -84,9 +84,6 @@ namespace Core {
 #endif
 		}
 
-
-		CloseWindow();
-
 		for(auto layer : m_LayerStack)
 		{ 
 			layer->OnDetach();

@@ -11,6 +11,7 @@ public:
 
 private:
     static void HandleSettings();
+    static void HandleOrganizatoinsCallback();
     
     void NavBar();
     void SideBar();

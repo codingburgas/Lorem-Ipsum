@@ -8,6 +8,11 @@ void OverviewScreen::HandleSettings()
     m_SwitchScreens(m_Screens->SettingsScreen);    
 }
 
+void OverviewScreen::HandleOrganizatoinsCallback()
+{
+    m_SwitchScreens(m_Screens->OrganizationScreen);
+}
+
 void OverviewScreen::InitRenderElements()
 {
     NavBar();
@@ -75,7 +80,7 @@ void OverviewScreen::MainContent()
     p_JoinOrganizationButtonMaterial->TextSize = 24;
     p_JoinOrganizationButtonMaterial->Scene = m_Scene;
     
-    Core::UI::Button("join organization", {GetScreenWidth() - 430, 270}, {230, 50}, p_JoinOrganizationButtonMaterial, overviewCallback);
+    Core::UI::Button("Organization", {GetScreenWidth() - 430, 270}, {230, 50}, p_JoinOrganizationButtonMaterial, HandleOrganizatoinsCallback);
 
     p_JoinOrganizationButtonMaterial->Color = {0.49f, 0.53f, 0.98f, 1.0f};
     

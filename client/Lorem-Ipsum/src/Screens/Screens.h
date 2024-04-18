@@ -5,3 +5,4 @@
 #include "OverviewScreen/OverviewScreen.h"
 #include "LoginScreen/LoginScreen.h"
 #include "SettingsScreen/SettingsScreen.h"
+#include "OrganizationsScreen/OrganizatonsScreen.h"

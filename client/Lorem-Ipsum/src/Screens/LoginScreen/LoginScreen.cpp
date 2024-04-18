@@ -1,17 +1,28 @@
 ﻿#include "LoginScreen.h"
 #include "../Screens.h"
 #include <cpr/cpr.h>
+
+#define RAPIDJSON_HAS_STDSTRING 1
 #include <rapidjson/document.h>
+#include <rapidjson/writer.h>
+#include <rapidjson/prettywriter.h>
 
 void LoginScreen::HandleLogin()
 {
+    rapidjson::Document userData;
+    userData.SetObject();
+
+    userData.AddMember<std::string>("username", m_LoginInformation.UserName, userData.GetAllocator());
+    userData.AddMember<std::string>("password", m_LoginInformation.Password, userData.GetAllocator());
+
+    rapidjson::StringBuffer userString;
+    rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(userString);
+    userData.Accept(writer);
+    
     cpr::Response r = cpr::Post(
         cpr::Url{m_BaseUrl + "/login"},
-        cpr::Body{"{\"username\": \"" + m_LoginInformation.UserName + "\", \"password\": \"" + m_LoginInformation.Password + "\"}"}
+        cpr::Body{userString.GetString()}
         );
-
-    std::cout << r.status_code << std::endl;
-    std::cout << r.text << std::endl;
 
     if(r.status_code != 200)
     {

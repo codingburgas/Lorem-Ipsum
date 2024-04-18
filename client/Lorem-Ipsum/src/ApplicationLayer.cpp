@@ -4,7 +4,7 @@ void ApplicationLayer::OnAttach()
 {
     InitScreens();
     
-    m_BoundScene = m_Screens->RegisterScreen->GetScene();
+    m_BoundScene = m_Screens->OrganizationScreen->GetScene();
 
     Fonts fonts;
     fonts.Regular = std::make_shared<Font>(LoadFontEx("assets/fonts/MierA-Book.ttf", 64, 0, 256));
@@ -39,6 +39,7 @@ void ApplicationLayer::InitScreens()
     m_Screens->LoginScreen = std::make_shared<LoginScreen>();
     m_Screens->OverviewScreen = std::make_shared<OverviewScreen>();
     m_Screens->SettingsScreen = std::make_shared<SettingsScreen>();
+    m_Screens->OrganizationScreen = std::make_shared<OrganizationScreen>();
 }
 
 void ApplicationLayer::SwitchScenes(std::shared_ptr<Screen> screen)
@@ -65,6 +66,7 @@ void ApplicationLayer::OnUIRender()
         m_Screens->RegisterScreen->InitRenderElementsOnResize();
         m_Screens->OverviewScreen->InitRenderElementsOnResize();
         m_Screens->SettingsScreen->InitRenderElementsOnResize();
+        m_Screens->OrganizationScreen->InitRenderElementsOnResize();
 
         for (auto entity: m_BoundScene->GetEntities<Core::NativeScriptComponent>())
         {

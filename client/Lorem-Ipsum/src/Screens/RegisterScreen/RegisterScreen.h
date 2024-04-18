@@ -20,7 +20,7 @@ private:
     };
 
     inline static UserRegisterInput m_RegisterInformation;
-
+    
     static void LoginCallback();
     static void HandleRegister();
 

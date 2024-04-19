@@ -2,9 +2,10 @@
 #include <pistache/endpoint.h>
 #include <pistache/router.h>
 
-class AuthenticationHandler {
+class OrganizationsHandler {
 public:
-    void CreatOrganisation(const Pistache::Rest::Request& request, Pistache::Http::ResponseWriter response);
+    void CreateOrganisation(const Pistache::Rest::Request& request, Pistache::Http::ResponseWriter response);
+    void GetOrganisations(const Pistache::Rest::Request& request, Pistache::Http::ResponseWriter response);
     void GetOrganisation(const Pistache::Rest::Request& request, Pistache::Http::ResponseWriter response);
     void JoinOrganisation(const Pistache::Rest::Request& request, Pistache::Http::ResponseWriter response);
 };

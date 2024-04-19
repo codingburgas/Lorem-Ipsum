@@ -1,10 +1,13 @@
-#include "authentication.hpp"
+#include "authHandler.hpp"
+#define RAPIDJSON_HAS_STDSTRING 1
 #include <rapidjson/document.h>
+#include <rapidjson/writer.h>
+#include <rapidjson/stringbuffer.h>
 #include "../dataAccess/models/userModels.hpp"
 #include "../businessLogic/authService.hpp"
 #include "../dataAccess/repos/userHeader.hpp"
 
-void AuthenticationHandler::RegisterUser(const Pistache::Rest::Request& request, Pistache::Http::ResponseWriter response) {
+void AuthHandler::RegisterUser(const Pistache::Rest::Request& request, Pistache::Http::ResponseWriter response) {
     rapidjson::Document document;
     document.Parse(request.body().c_str());
 
@@ -21,7 +24,7 @@ void AuthenticationHandler::RegisterUser(const Pistache::Rest::Request& request,
     response.send(Pistache::Http::Code::Ok, "User created!");
 }
 
-void AuthenticationHandler::GetUser(const Pistache::Rest::Request& request, Pistache::Http::ResponseWriter response) 
+void AuthHandler::AuthHandler::GetUser(const Pistache::Rest::Request& request, Pistache::Http::ResponseWriter response) 
 {
     std::string token = request.headers().getRaw("Authorization").value();
 
@@ -31,24 +34,25 @@ void AuthenticationHandler::GetUser(const Pistache::Rest::Request& request, Pist
         return;
     }
 
-
     User user = UserService::GetUser(token);
 
-    std::string userJson = R"(
-{
-    "id": )" + std::to_string(user.id) + R"(,
-    "name": ")" + user.name + R"(",
-    "username": ")" + user.username + R"(",
-    "email": ")" + user.email + R"(",
-    "country": ")" + user.country + R"("
-}
-    )";
+    rapidjson::Document document;
+    document.SetObject();
+    document.AddMember("id", user.id, document.GetAllocator());
+    document.AddMember("name", rapidjson::Value().SetString(user.name.c_str(), user.name.size(), document.GetAllocator()), document.GetAllocator());
+    document.AddMember("username", rapidjson::Value().SetString(user.username.c_str(), user.username.size(), document.GetAllocator()), document.GetAllocator());
+    document.AddMember("email", rapidjson::Value().SetString(user.email.c_str(), user.email.size(), document.GetAllocator()), document.GetAllocator());
+    document.AddMember("country", rapidjson::Value().SetString(user.country.c_str(), user.country.size(), document.GetAllocator()), document.GetAllocator());
+
+    rapidjson::StringBuffer strbuf;
+    rapidjson::Writer<rapidjson::StringBuffer> writer(strbuf);
+    document.Accept(writer);
 
     response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("*");
-    response.send(Pistache::Http::Code::Ok, userJson);
+    response.send(Pistache::Http::Code::Ok, strbuf.GetString());
 }
 
-void AuthenticationHandler::LoginUser(const Pistache::Rest::Request& request, Pistache::Http::ResponseWriter response) {
+void AuthHandler::AuthHandler::LoginUser(const Pistache::Rest::Request& request, Pistache::Http::ResponseWriter response) {
     rapidjson::Document document;
     document.Parse(request.body().c_str());
 

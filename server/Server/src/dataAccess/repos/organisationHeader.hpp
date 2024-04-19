@@ -14,5 +14,6 @@ public:
     static Organisation ReadOrganisation(int id);
     static Organisation ReadOrganisation(std::string name);
     static Organisation ReadOrganisationByCode(std::string code);
+    static std::vector<Organisation> ReadOrganisations();
     static void DeleteOrganisation(int id);
 };

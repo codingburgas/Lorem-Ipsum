@@ -72,6 +72,7 @@ CREATE TABLE public.tests (
 CREATE TABLE public.organisations (
 	id int4 GENERATED ALWAYS AS IDENTITY( INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START 1 CACHE 1 NO CYCLE) NOT NULL,
 	"name" varchar(250) NOT NULL,
+	"code" varchar(250) NOT NULL,
 	owner_id int4 NOT NULL,
 	CONSTRAINT organisations_pk PRIMARY KEY (id),
 	CONSTRAINT organisations_users_fk FOREIGN KEY (owner_id) REFERENCES public.users(id) ON DELETE CASCADE ON UPDATE CASCADE

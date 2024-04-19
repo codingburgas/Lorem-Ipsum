@@ -5,6 +5,14 @@
 struct Organisation{
     int id;
     std::string name;
+    std::string code;
+    int ownerId;
+};
+
+struct OrganisationInput{
+    int id;
+    std::string name;
+    std::string code;
     int ownerId;
 };
 

@@ -11,6 +11,5 @@ public:
     static User CreateUser(UserInput input);
     static User ReadUser(int id);
     static User ReadUser(std::string username);
-    static User updateUser(UserInput input);
     static void deleteUser(int id);
 };

@@ -39,20 +39,10 @@ User UserRepository::ReadUser(std::string username)
     return user;
 }
 
-User UserRepository::updateUser(UserInput input){
-    // User out;
-    // conn->execute(
-    //     [&](auto && row){
-    //         out.username = to<std::string>(row["username"]);
-    //         out.email = to<std::string>(row["email"]);
-    //         out.country = to<std::string>(row["country"]);
-    //         out.password = to<std::string>(row["password"]);
-    //     },
-    //     "UPDATE User SET username=$1::string, email=$2::string, country=$3::string, password=4$::string WHERE id=$5::int",
-    //     input.username, input.email, input.country, input.password
-    // );
-    // return out;
-}
+
 void UserRepository::deleteUser(int id){
-    // conn->execute("DELETE FROM User WHERE id=$1::integer",id);
+    User user;
+    *DatabaseConnection::sql << "DELETE FROM organisations WHERE id=:id", soci::use(user.id);
+
+
 }

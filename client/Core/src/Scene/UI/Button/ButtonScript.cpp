@@ -36,7 +36,7 @@ namespace Core
 
                 if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
                 {
-                    m_Callback();
+                    m_Callback(m_Entity);
                 }
             }
             else

@@ -1,14 +1,58 @@
 ﻿#include "OverviewScreen.h"
 #include "../Screens.h"
+#include <cpr/cpr.h>
 
-void overviewCallback() {}
+#define RAPIDJSON_HAS_STDSTRING 1
+#include <rapidjson/document.h>
+#include <rapidjson/writer.h>
+#include <rapidjson/prettywriter.h>
 
-void OverviewScreen::HandleSettings()
+void overviewCallback(std::shared_ptr<Core::Entity> e) {}
+
+void OverviewScreen::HandleOrganizationSelectedCallback(std::shared_ptr<Core::Entity> e)
+{
+    Core::UIComponent& ui = e->GetComponent<Core::UIComponent>();
+    
+    for(auto& i : m_Organizations)
+    {
+        if(i.name == ui.Text)
+            m_SelectedOrganization = i.id;
+    }
+}
+
+void OverviewScreen::OnScreenChange()
+{
+    cpr::Response r = cpr::Get(
+        cpr::Url{m_BaseUrl + "/organizations"},
+        cpr::Header{{"Authorization", m_Token}}
+        );
+
+    if(r.status_code != 200)
+    {
+        return;
+    }
+
+    rapidjson::Document organizationsDocument;
+    organizationsDocument.Parse(r.text);
+
+    m_Organizations.clear();
+    for (const auto& v : organizationsDocument.GetArray()) {
+        Organization org;
+        org.id = v["id"].GetInt();
+        org.name = v["name"].GetString();
+        
+        m_Organizations.push_back(org);
+    }
+    
+    InitRenderElementsOnResize();
+}
+
+void OverviewScreen::HandleSettings(std::shared_ptr<Core::Entity> e)
 {
     m_SwitchScreens(m_Screens->SettingsScreen);    
 }
 
-void OverviewScreen::HandleOrganizatoinsCallback()
+void OverviewScreen::HandleOrganizatoinsCallback(std::shared_ptr<Core::Entity> e)
 {
     m_SwitchScreens(m_Screens->OrganizationScreen);
 }
@@ -55,8 +99,6 @@ void OverviewScreen::SideBar()
 
 void OverviewScreen::MainContent()
 {
-    uint32_t organizations = 1;
-    
     std::shared_ptr<Core::UI::ButtonMaterial> p_OrganizationButtonMaterial = std::make_shared<Core::UI::ButtonMaterial>();
     p_OrganizationButtonMaterial->Color = {0.0f, 0.46f, 0.98f, 1.0f};
     p_OrganizationButtonMaterial->Roundness = 0.5f;
@@ -67,10 +109,10 @@ void OverviewScreen::MainContent()
     Core::UI::Text(TextFormat("Welcome back to Lorem Ipsum, %s!", "Ivan"), {310, 125}, {0.0, 0.0, 0.0, 1.0}, 32, "regualar", m_Scene);
     Core::UI::Text("Organizations", {360, 230}, {0.0, 0.0, 0.0, 1.0}, 20, "thin", m_Scene);
 
-    for(int i = 0; i < organizations; i++)
-        Core::UI::Button("VSCPI", {350, 280 + 64 * i}, {180, 60}, p_OrganizationButtonMaterial, overviewCallback);
+    for(std::size_t i = 0; i < m_Organizations.size(); i++)
+        Core::UI::Button(m_Organizations[i].name, {350, 280 + 64 * i}, {180, 60}, p_OrganizationButtonMaterial, HandleOrganizationSelectedCallback);
 
-    Core::UI::Text("Click to see your courses", {360, 300 + 64 * organizations}, {0.0, 0.0, 0.0, 1.0}, 16, "regular", m_Scene);
+    Core::UI::Text("Click to see your courses", {360, 300 + 64 * m_Organizations.size()}, {0.0, 0.0, 0.0, 1.0}, 16, "regular", m_Scene);
 
     Core::UI::Text("Join", {GetScreenWidth() - (287 + MeasureText("Join", 28)), 230}, {0.0, 0.0, 0.0, 1.0}, 28, "regular", m_Scene);
 
@@ -86,13 +128,13 @@ void OverviewScreen::MainContent()
     
     Core::UI::Button("join course", {GetScreenWidth() - 430, 370}, {230, 50}, p_JoinOrganizationButtonMaterial, overviewCallback);
     
-    Core::UI::Text("Statistics", {310, 476}, {0.0, 0.0, 0.0, 1.0}, 28, "regular", m_Scene);
+    Core::UI::Text("Statistics", {310, 340 + 64 * m_Organizations.size()}, {0.0, 0.0, 0.0, 1.0}, 28, "regular", m_Scene);
 
     int position = 13;
     int organizationMembers = 496;
 
-    Core::UI::Text(std::to_string(position), {310, 520}, {0.0f, 0.46f, 0.98f, 1.0f}, 46, "bold", m_Scene);
-    Core::UI::Text(TextFormat("place in the organization out of %d", organizationMembers), {370, 525}, {0.0f, 0.0f, 0.0f, 1.0f}, 20, "regular", m_Scene);
+    Core::UI::Text(std::to_string(position), {310, 380 + 64 * m_Organizations.size()}, {0.0f, 0.46f, 0.98f, 1.0f}, 46, "bold", m_Scene);
+    Core::UI::Text(TextFormat("place in the organization out of %d", organizationMembers), {370, 380 + 64 * m_Organizations.size()}, {0.0f, 0.0f, 0.0f, 1.0f}, 20, "regular", m_Scene);
 
     // Core::UI::Text("Cource Activities", {GetScreenWidth() - (180 + MeasureText("Cource Activities", 28)), 476}, {0.0, 0.0, 0.0, 1.0}, 28, "regular", m_Scene);
 }

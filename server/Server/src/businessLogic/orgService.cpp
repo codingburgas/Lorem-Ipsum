@@ -6,8 +6,7 @@ std::string generateCode(size_t length){
         const char charset[] =
             "0123456789"
             "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-            "abcdefghijklmnopqrstuvwxyz"
-            "!@#$%^&*()_+-={}[]:;'?/<>,.~`";
+            "abcdefghijklmnopqrstuvwxyz";
         const size_t maxIndex = (sizeof(charset) -1);
         return charset[rand()% maxIndex];
     };
@@ -37,9 +36,10 @@ Organisation OrganisationService::RemoveOrganisation(OrganisationInput input, st
     return org;
 }
 
-std::vector<Organisation> OrganisationService::GetOrganisations()
+std::vector<Organisation> OrganisationService::GetOrganisations(std::string token)
 {
-    std::vector<Organisation> orgs = OrganisationRepository::ReadOrganisations();
+    User user = UserService::GetUser(token);
+    std::vector<Organisation> orgs = OrganisationRepository::ReadOrganisations(user.id);
 
     return orgs;
 }
@@ -49,4 +49,12 @@ Organisation OrganisationService::GetOrganisation(int id)
     Organisation org = OrganisationRepository::ReadOrganisation(id);
 
     return org;
+}
+
+void OrganisationService::JoinOrganisation(std::string code, std::string token)
+{
+    Organisation org = OrganisationRepository::ReadOrganisationByCode(code);
+    User user = UserService::GetUser(token);
+
+    OrganisationRepository::AddUserToOrganisation(user.id, org.id);
 }

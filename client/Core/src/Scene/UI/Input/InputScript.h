@@ -12,9 +12,9 @@ namespace Core
             void OnUpdate() override;
             void onLateAttach() override;
 
-            void SetCallback(std::function<void(std::string)> func) { m_Callback = func; }
+            void SetCallback(std::function<void(std::string, std::shared_ptr<Core::Entity> e)> func) { m_Callback = func; }
         private:
-            std::function<void(std::string)> m_Callback;
+            std::function<void(std::string, std::shared_ptr<Core::Entity> e)> m_Callback;
 
             bool m_IsHovered = false;
             bool m_Selected = false;

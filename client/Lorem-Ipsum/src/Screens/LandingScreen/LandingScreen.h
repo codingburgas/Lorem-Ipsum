@@ -10,6 +10,6 @@ public:
     void InitRenderElements() override;
 
 private:
-    static void RegisterCallback();
-    static void LoginCallback();
+    static void RegisterCallback(std::shared_ptr<Core::Entity> e);
+    static void LoginCallback(std::shared_ptr<Core::Entity> e);
 };

@@ -6,7 +6,7 @@ namespace Core
 {
     namespace UI 
     {
-        Input::Input(glm::vec2 position, glm::vec2 dim, float roundness, glm::vec4 color, glm::vec4 textColor, uint32_t textSize, std::string fontType, std::shared_ptr<Core::Scene> scene, std::function<void(std::string)> callback, bool isSecure)
+        Input::Input(glm::vec2 position, glm::vec2 dim, float roundness, glm::vec4 color, glm::vec4 textColor, uint32_t textSize, std::string fontType, std::shared_ptr<Core::Scene> scene, std::function<void(std::string, std::shared_ptr<Core::Entity>)> callback, bool isSecure)
         {
             std::shared_ptr<InputScript> script = std::make_shared<InputScript>();
             script->SetCallback(callback);
@@ -20,7 +20,7 @@ namespace Core
             input.AddComponent<UIBorderComponent>(color);
         }
 
-        Input::Input(glm::vec2 position, glm::vec2 dim, std::shared_ptr<InputMaterial> inputMaterial, std::function<void(std::string)> callback, bool isSecure)
+        Input::Input(glm::vec2 position, glm::vec2 dim, std::shared_ptr<InputMaterial> inputMaterial, std::function<void(std::string, std::shared_ptr<Core::Entity>)> callback, bool isSecure)
         {
             std::shared_ptr<InputScript> script = std::make_shared<InputScript>();
             script->SetCallback(callback);

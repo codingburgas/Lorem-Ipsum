@@ -1,12 +1,12 @@
 ﻿#include "LandingScreen.h"
 #include  "../Screens.h"
 
-void LandingScreen::RegisterCallback()
+void LandingScreen::RegisterCallback(std::shared_ptr<Core::Entity> e)
 {
     
 }
 
-void LandingScreen::LoginCallback()
+void LandingScreen::LoginCallback(std::shared_ptr<Core::Entity> e)
 {
    m_SwitchScreens(m_Screens->LoginScreen);
 }

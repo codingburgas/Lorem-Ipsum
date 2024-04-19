@@ -49,7 +49,7 @@ Organisation OrganisationRepository::ReadOrganisation(std::string name)
 Organisation OrganisationRepository::ReadOrganisationByCode(std::string code)
 {
     Organisation org;
-    *DatabaseConnection::sql << "SELECT id, name, ownerId, code FROM organisations WHERE code = " << code, soci::into(org.id), soci::into(org.name), soci::into(org.ownerId), soci::into(org.code);
+    *DatabaseConnection::sql << "SELECT id, name, owner_id, code FROM organisations WHERE code = " << "\'" << code << "\'", soci::into(org.id), soci::into(org.name), soci::into(org.ownerId), soci::into(org.code);
 
     return org;
 }
@@ -60,19 +60,29 @@ void OrganisationRepository::DeleteOrganisation(int id){
 
 }
 
-std::vector<Organisation> OrganisationRepository::ReadOrganisations()
+std::vector<Organisation> OrganisationRepository::ReadOrganisations(uint32_t userId)
 {
-    std::vector<Organisation> orgs;
+
+    std::vector<Organisation> organisations;
     Organisation org;
-    soci::rowset<soci::row> rs = (DatabaseConnection::sql->prepare << "SELECT id, name, owner_id, code FROM organisations");
-    for(soci::row& r : rs)
+    soci::rowset<soci::row> rs = (DatabaseConnection::sql->prepare << "SELECT o.id, o.name, o.owner_id, o.code FROM organisations o JOIN organisations_users ou ON o.id = ou.organisation_id WHERE ou.user_id = :userId", soci::use(userId));
+
+    for (soci::rowset<soci::row>::const_iterator it = rs.begin(); it != rs.end(); ++it)
     {
-        r >> org.id;
-        r >> org.name;
-        r >> org.ownerId;
-        r >> org.code;
-        orgs.push_back(org);
+        soci::row const &row = *it;
+        org.id = row.get<int>(0);
+        org.name = row.get<std::string>(1);
+        org.ownerId = row.get<int>(2);
+        org.code = row.get<std::string>(3);
+        organisations.push_back(org);
     }
 
-    return orgs;
+    return organisations;
+}
+
+void OrganisationRepository::AddUserToOrganisation(uint32_t userId, uint32_t orgId)
+{
+    *DatabaseConnection::sql << "INSERT INTO organisations_users(organisation_id, user_id, role) VALUES(:organisationId, :userId, 'member')",
+        soci::use(orgId),
+        soci::use(userId);
 }

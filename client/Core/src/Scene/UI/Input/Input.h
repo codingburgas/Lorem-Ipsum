@@ -24,8 +24,8 @@ namespace Core
         class Input
         {
         public:
-            Input(glm::vec2 position, glm::vec2 dim, float roundness, glm::vec4 color, glm::vec4 textColor, uint32_t textSize, std::string fontType, std::shared_ptr<Core::Scene> scene, std::function<void(std::string)> callback, bool isSecure = false);
-            Input(glm::vec2 position, glm::vec2 dim, std::shared_ptr<InputMaterial> inputMaterial, std::function<void(std::string)> callback, bool isSecure = false);
+            Input(glm::vec2 position, glm::vec2 dim, float roundness, glm::vec4 color, glm::vec4 textColor, uint32_t textSize, std::string fontType, std::shared_ptr<Core::Scene> scene, std::function<void(std::string, std::shared_ptr<Entity>)> callback, bool isSecure = false);
+            Input(glm::vec2 position, glm::vec2 dim, std::shared_ptr<InputMaterial> inputMaterial, std::function<void(std::string, std::shared_ptr<Core::Entity>)> callback, bool isSecure = false);
             ~Input() = default;
         };
     }

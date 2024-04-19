@@ -13,7 +13,7 @@ public:
 
 private:
     
-    static void HandleOverview();
+    static void HandleOverview(std::shared_ptr<Core::Entity> e);
     
     void SettingsPanel();
     void SideBar();

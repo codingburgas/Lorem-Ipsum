@@ -50,4 +50,5 @@ protected:
    inline static std::string m_Token;
    inline static std::string m_BaseUrl = "http://localhost:3000";
    inline static std::shared_ptr<User> m_User;
+    inline static uint32_t m_SelectedOrganization = 0;
 };

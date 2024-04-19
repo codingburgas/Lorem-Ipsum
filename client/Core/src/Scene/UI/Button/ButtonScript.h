@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "../../Components.h"
+#include "Scene/Entity.h"
 
 namespace Core 
 {
@@ -11,9 +12,9 @@ namespace Core
             void OnUpdate() override;
             void OnCreate() override;
 
-            void SetCallback(std::function<void()> func) { m_Callback = func; }
+            void SetCallback(std::function<void(std::shared_ptr<Core::Entity>)> func) { m_Callback = func; }
         private:
-            std::function<void()> m_Callback;
+            std::function<void(std::shared_ptr<Core::Entity>)> m_Callback;
             std::shared_ptr<ColorComponent> m_InitialColor;
 
             bool m_IsHovered = false;

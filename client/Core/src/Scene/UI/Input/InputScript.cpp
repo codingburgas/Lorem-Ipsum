@@ -63,7 +63,7 @@ namespace Core
 
                 m_Entity->GetComponent<UIBorderComponent>().Color = {230, 41, 55, 255};
                 
-                m_Callback(m_Input);
+                m_Callback(m_Input, m_Entity);
             }
             else
             {

@@ -32,6 +32,7 @@ int main() {
   Pistache::Rest::Routes::Post(router, "/organizations/create", Pistache::Rest::Routes::bind(&OrganizationsHandler::CreateOrganisation, &orgHandler));
   Pistache::Rest::Routes::Get(router, "/organizations", Pistache::Rest::Routes::bind(&OrganizationsHandler::GetOrganisations, &orgHandler));
   Pistache::Rest::Routes::Get(router, "/organizations/:id", Pistache::Rest::Routes::bind(&OrganizationsHandler::GetOrganisation, &orgHandler));
+  Pistache::Rest::Routes::Post(router, "/organizations/join", Pistache::Rest::Routes::bind(&OrganizationsHandler::JoinOrganisation, &orgHandler));
 
   server.setHandler(router.handler());
   server.serve();

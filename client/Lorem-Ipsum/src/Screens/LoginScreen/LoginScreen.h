@@ -19,8 +19,8 @@ private:
 
     inline static UserLoginInput m_LoginInformation;
     
-    static void RegisterCallback();
-    static void HandleLogin();
-    static void EnterUsernameCallback(std::string username);
-    static void EnterPasswordCallback(std::string password);
+    static void RegisterCallback(std::shared_ptr<Core::Entity> e);
+    static void HandleLogin(std::shared_ptr<Core::Entity> e);
+    static void EnterUsernameCallback(std::string username, std::shared_ptr<Core::Entity> e);
+    static void EnterPasswordCallback(std::string password, std::shared_ptr<Core::Entity> e);
 };

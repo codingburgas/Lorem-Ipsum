@@ -1,29 +1,78 @@
 ﻿#include "OrganizatonsScreen.h"
 #include "../Screens.h"
+#include <cpr/cpr.h>
 
-void OrganizationScreen::HandleOverviewCallback()
+#define RAPIDJSON_HAS_STDSTRING 1
+#include <rapidjson/document.h>
+#include <rapidjson/writer.h>
+#include <rapidjson/prettywriter.h>
+
+void OrganizationScreen::HandleOverviewCallback(std::shared_ptr<Core::Entity> e)
 {
     m_SwitchScreens(m_Screens->OverviewScreen);
 }
 
-void OrganizationScreen::HandleSettingsCallback()
+void OrganizationScreen::HandleSettingsCallback(std::shared_ptr<Core::Entity> e)
 {
     m_SwitchScreens(m_Screens->SettingsScreen);    
 }
 
-void OrganizationScreen::HandleOrganizationName(std::string orgName)
+void OrganizationScreen::HandleOrganizationName(std::string orgName, std::shared_ptr<Core::Entity> e)
 {
-    
+    m_OrganizationName = orgName;
 }
 
-void OrganizationScreen::HandleCreateaOrganizationCallback()
+void OrganizationScreen::HandleCreateaOrganizationCallback(std::shared_ptr<Core::Entity> e)
 {
+    rapidjson::Document organizationData;
+    organizationData.SetObject();
+
+    organizationData.AddMember<std::string>("name", m_OrganizationName, organizationData.GetAllocator());
+
+    rapidjson::StringBuffer organizationString;
+    rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(organizationString);
+    organizationData.Accept(writer);
     
+    cpr::Response r = cpr::Post(
+        cpr::Url{m_BaseUrl + "/organizations/create"},
+        cpr::Body{organizationString.GetString()},
+        cpr::Header{{"Authorization", m_Token}}
+        );
+
+    if(r.status_code != 200)
+    {
+        return;
+    }
+
+
+    m_Screens->OverviewScreen->OnScreenChange();
+    m_SwitchScreens(m_Screens->OverviewScreen);
 }
 
-void OrganizationScreen::HandleJoinOrganizationCallback()
+void OrganizationScreen::HandleJoinOrganizationCallback(std::shared_ptr<Core::Entity> e)
 {
+    rapidjson::Document organizationData;
+    organizationData.SetObject();
+
+    organizationData.AddMember<std::string>("code", m_OrganizationCode, organizationData.GetAllocator());
+
+    rapidjson::StringBuffer organizationString;
+    rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(organizationString);
+    organizationData.Accept(writer);
     
+    cpr::Response r = cpr::Post(
+        cpr::Url{m_BaseUrl + "/organizations/join"},
+        cpr::Body{organizationString.GetString()},
+        cpr::Header{{"Authorization", m_Token}}
+        );
+
+    if(r.status_code != 200)
+    {
+        return;
+    }
+
+    m_Screens->OverviewScreen->OnScreenChange();
+    m_SwitchScreens(m_Screens->OverviewScreen);
 }
 
 void OrganizationScreen::InitRenderElements()
@@ -32,7 +81,12 @@ void OrganizationScreen::InitRenderElements()
     MainContent();
 }
 
-void callback(){}
+void OrganizationScreen::HandleOrganizationCode(std::string code, std::shared_ptr<Core::Entity> e)
+{
+    m_OrganizationCode = code;
+}
+
+void callback(std::shared_ptr<Core::Entity> e){}
 
 void OrganizationScreen::SideBar()
 {
@@ -90,7 +144,7 @@ void OrganizationScreen::MainContent()
 
     Core::UI::Text("Token", {GetScreenWidth() / 2 + 100, 380}, {0.4, 0.4, 0.4, 1.0}, 22, "regular", m_Scene);
      
-    Core::UI::Input({GetScreenWidth() / 2 + 100, 410}, {350, 35}, 0.25, {0.91, 0.91, 0.91, 1.0}, {0.0, 0.0, 0.0, 1.0}, 22, "regular", m_Scene, HandleOrganizationName);
+    Core::UI::Input({GetScreenWidth() / 2 + 100, 410}, {350, 35}, 0.25, {0.91, 0.91, 0.91, 1.0}, {0.0, 0.0, 0.0, 1.0}, 22, "regular", m_Scene, HandleOrganizationCode);
 
     Core::UI::Button("Confirm", {GetScreenWidth() / 2 + 235, 480}, {80, 45}, p_ConfirmButtonMaterial, HandleJoinOrganizationCallback);
 }

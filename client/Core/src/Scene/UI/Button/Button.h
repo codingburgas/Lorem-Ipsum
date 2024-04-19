@@ -24,9 +24,9 @@ namespace Core
          class Button
          {
          public:
-             Button(std::string text, glm::vec2 position, glm::vec2 dim, float roundness, glm::vec4 color, glm::vec4 textColor, uint32_t textSize, std::string fontType, std::shared_ptr<Core::Scene> scene, std::function<void()> callback);
-             Button(std::string text, glm::vec2 position, glm::vec2 dim, float roundness, glm::vec4 color, glm::vec4 textColor, uint32_t textSize, std::string fontType, std::string imagePath, std::shared_ptr<Core::Scene> scene, std::function<void()> callback);
-             Button(std::string text, glm::vec2 position, glm::vec2 dim, std::shared_ptr<ButtonMaterial> material, std::function<void()> callback, std::string imagePath = "NONE");
+             Button(std::string text, glm::vec2 position, glm::vec2 dim, float roundness, glm::vec4 color, glm::vec4 textColor, uint32_t textSize, std::string fontType, std::shared_ptr<Core::Scene> scene, std::function<void(std::shared_ptr<Core::Entity>)> callback);
+             Button(std::string text, glm::vec2 position, glm::vec2 dim, float roundness, glm::vec4 color, glm::vec4 textColor, uint32_t textSize, std::string fontType, std::string imagePath, std::shared_ptr<Core::Scene> scene, std::function<void(std::shared_ptr<Core::Entity>)> callback);
+             Button(std::string text, glm::vec2 position, glm::vec2 dim, std::shared_ptr<ButtonMaterial> material, std::function<void(std::shared_ptr<Core::Entity>)> callback, std::string imagePath = "NONE");
              ~Button() = default;
          };
     }

@@ -1,7 +1,7 @@
 ﻿#include "SettingsScreen.h"
 #include "../Screens.h"
 
-void settingCallback() {}
+void settingCallback(std::shared_ptr<Core::Entity> e) {}
 
 void SettingsScreen::OnScreenChange()
 {
@@ -12,7 +12,7 @@ void SettingsScreen::OnScreenChange()
     InitRenderElementsOnResize();
 }
 
-void SettingsScreen::HandleOverview()
+void SettingsScreen::HandleOverview(std::shared_ptr<Core::Entity> e)
 {
     m_SwitchScreens(m_Screens->OverviewScreen);
 }

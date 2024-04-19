@@ -7,7 +7,7 @@
 #include <rapidjson/writer.h>
 #include <rapidjson/prettywriter.h>
 
-void LoginScreen::HandleLogin()
+void LoginScreen::HandleLogin(std::shared_ptr<Core::Entity> e)
 {
     rapidjson::Document userData;
     userData.SetObject();
@@ -50,19 +50,21 @@ void LoginScreen::HandleLogin()
     m_SwitchScreens(m_Screens->OverviewScreen);
 
     m_Screens->SettingsScreen->OnScreenChange();
+    m_Screens->OrganizationScreen->OnScreenChange();
+    m_Screens->OverviewScreen->OnScreenChange();
 }
 
-void LoginScreen::RegisterCallback()
+void LoginScreen::RegisterCallback(std::shared_ptr<Core::Entity> e)
 {
    m_SwitchScreens(m_Screens->RegisterScreen); 
 }
 
-void LoginScreen::EnterUsernameCallback(std::string username)
+void LoginScreen::EnterUsernameCallback(std::string username, std::shared_ptr<Core::Entity> e)
 {
     m_LoginInformation.UserName = username;
 }
 
-void LoginScreen::EnterPasswordCallback(std::string password)
+void LoginScreen::EnterPasswordCallback(std::string password, std::shared_ptr<Core::Entity> e)
 {
    m_LoginInformation.Password = password; 
 }

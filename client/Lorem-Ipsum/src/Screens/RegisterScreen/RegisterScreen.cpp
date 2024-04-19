@@ -7,7 +7,7 @@
 #include <rapidjson/writer.h>
 #include <rapidjson/prettywriter.h>
 
-void RegisterScreen::HandleRegister()
+void RegisterScreen::HandleRegister(std::shared_ptr<Core::Entity> e)
 {
     rapidjson::Document userData;
     userData.SetObject();
@@ -34,27 +34,27 @@ void RegisterScreen::HandleRegister()
     m_SwitchScreens(m_Screens->LoginScreen);
 }
 
-void RegisterScreen::LoginCallback()
+void RegisterScreen::LoginCallback(std::shared_ptr<Core::Entity> e)
 {
     m_SwitchScreens(m_Screens->LoginScreen);    
 }
 
-void RegisterScreen::EnterNameCallback(std::string name)
+void RegisterScreen::EnterNameCallback(std::string name, std::shared_ptr<Core::Entity> e)
 {
     m_RegisterInformation.Name = name;
 }
 
-void RegisterScreen::EnterUserNameCallback(std::string username)
+void RegisterScreen::EnterUserNameCallback(std::string username, std::shared_ptr<Core::Entity> e)
 {
     m_RegisterInformation.UserName = username;
 }
 
-void RegisterScreen::EnterEmailCallback(std::string email)
+void RegisterScreen::EnterEmailCallback(std::string email, std::shared_ptr<Core::Entity> e)
 {
     m_RegisterInformation.Email = email;
 }
 
-void RegisterScreen::EnterPasswordCallback(std::string password)
+void RegisterScreen::EnterPasswordCallback(std::string password, std::shared_ptr<Core::Entity> e)
 {
     m_RegisterInformation.Password = password;
 }

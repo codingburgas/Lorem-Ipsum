@@ -10,11 +10,16 @@ public:
     void InitRenderElements() override;
 
 private:
-    static void HandleOverviewCallback();
-    static void HandleSettingsCallback();
-    static void HandleOrganizationName(std::string orgName);
-    static void HandleCreateaOrganizationCallback();
-    static void HandleJoinOrganizationCallback();
+    inline static std::string m_OrganizationName;
+    inline static std::string m_OrganizationCode;
+    
+    static void HandleOverviewCallback(std::shared_ptr<Core::Entity> e);
+    static void HandleSettingsCallback(std::shared_ptr<Core::Entity> e);
+    static void HandleOrganizationName(std::string orgName, std::shared_ptr<Core::Entity> e);
+    static void HandleOrganizationCode(std::string code, std::shared_ptr<Core::Entity> e);
+    static void HandleCreateaOrganizationCallback(std::shared_ptr<Core::Entity> e);
+    static void HandleJoinOrganizationCallback(std::shared_ptr<Core::Entity> e);
+    
     
     void SideBar();
     void MainContent();

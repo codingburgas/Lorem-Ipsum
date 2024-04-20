@@ -7,6 +7,8 @@ project "Server"
 
     targetdir ("../bin/" .. outputdir .. "/%{prj.name}")
     objdir ("../bin-int/" .. outputdir .. "/%{prj.name}")
+ 
+    postbuildcommands { ("{COPY} /usr/lib/x86_64-linux-gnu/libpq.so.5 ../bin/" .. outputdir .. "/Server") }
 
     files {
         "src/**.h",
@@ -25,7 +27,6 @@ project "Server"
 
     libdirs {
         "../vendor/pistache/lib",
-        "/usr/local/pgsql/lib",
 	    "../vendor/soci/lib",
         "../vendor/phc-winner-argon2/lib",
         "/usr/local/lib"

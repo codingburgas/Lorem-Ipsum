@@ -33,13 +33,11 @@ project "Server"
 
     links {
         "pistache",
-        "pq",
         "soci_postgresql",
         "soci_core",
+        "pq",
         "argon2",
-        "soci_empty",
         "crypto",
-        "ssl",
     }
 
     filter "configurations:Debug"

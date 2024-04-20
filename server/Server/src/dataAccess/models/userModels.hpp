@@ -26,7 +26,7 @@ struct UserLoginInput{
 
 struct UserCours{
     int userId;
-    int coursId;
+    int courseId;
 };
 
 struct UserBadge{

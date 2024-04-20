@@ -1,3 +1,4 @@
+#pragma once
 #include "../dataAccess/repos/userHeader.hpp"
 #include "argon2.h"
 #include <cstring>

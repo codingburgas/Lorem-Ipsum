@@ -150,6 +150,7 @@ CREATE TABLE public.courses (
 	owner_id int4 NOT NULL,
 	organisation_id int4 NOT NULL,
 	"name" varchar(250) NOT NULL,
+	"code" varchar(250) NOT NULL,
 	subject varchar(300) NOT NULL,
 	CONSTRAINT course_pk PRIMARY KEY (id),
 	CONSTRAINT course_organisations_fk FOREIGN KEY (organisation_id) REFERENCES public.organisations(id) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -184,6 +185,7 @@ CREATE TABLE public.organisations_courses (
 CREATE TABLE public.users_courses (
 	user_id int4 NOT NULL,
 	course_id int4 NOT NULL,
+	user_role varchar(200) NOT NULL,
 	CONSTRAINT users_courses_pkey PRIMARY KEY (user_id, course_id),
 	CONSTRAINT users_courses_courses_fk FOREIGN KEY (course_id) REFERENCES public.courses(id) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT users_courses_users_fk FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE ON UPDATE CASCADE

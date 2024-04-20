@@ -1,3 +1,4 @@
+#pragma once
 #include "../dataAccess/repos/organisationHeader.hpp"
 #include "argon2.h"
 #include <cstring>
@@ -5,6 +6,9 @@
 #include <ctime>
 #include <cstdlib>
 #include <random>
+
+
+std::string generateCode(size_t length);
 
 class OrganisationService{
 public:

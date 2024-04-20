@@ -1,7 +1,7 @@
 #include "orgService.hpp"
 #include "authService.hpp"
 
-std::string generateCode(size_t length){
+std::string generateCode(size_t length) {
     auto randchar = []() -> char{
         const char charset[] =
             "0123456789"

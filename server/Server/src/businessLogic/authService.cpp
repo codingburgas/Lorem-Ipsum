@@ -3,7 +3,7 @@
 #include <sstream>
 #include <jwt-cpp/jwt.h>
 #include <string>
-
+#include <cstdlib>
 
 std::string hashingPassword(std::string password, std::string username){
     const size_t hash_length = 32;
@@ -61,7 +61,7 @@ std::string UserService::LoginUser(UserLoginInput input)
     auto token = jwt::create()
         .set_type("JWS")
         .set_issuer(user.username)
-        .sign(jwt::algorithm::hs256{"secret"});
+        .sign(jwt::algorithm::hs256{std::getenv("JWT_SECRET")});
 
     return token;
 }

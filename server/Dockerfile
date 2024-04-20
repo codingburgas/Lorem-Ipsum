@@ -4,7 +4,13 @@ WORKDIR /backend/
 
 COPY . .
 
-ENV JWT_SECRET=thisisasecretkey
+ENV POSTGRES_USER=postgres
+ENV POSTGRES_PASSWORD=postgres
+ENV POSTGRES_DB=postgres
+ENV POSTGRES_HOST=postgres
+ENV POSTGRES_PORT=5432
+
+ENV JWT_SECRET=secret
 
 RUN apt-get update
 

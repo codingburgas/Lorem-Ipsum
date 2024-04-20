@@ -44,9 +44,11 @@ std::vector<Organisation> OrganisationService::GetOrganisations(std::string toke
     return orgs;
 }
 
-Organisation OrganisationService::GetOrganisation(int id)
+Organisation OrganisationService::GetOrganisation(int id, std::string token)
 {
-    Organisation org = OrganisationRepository::ReadOrganisation(id);
+    User user = UserService::GetUser(token);
+
+    Organisation org = OrganisationRepository::ReadOrganisation(id, user.id);
 
     return org;
 }

@@ -9,6 +9,12 @@
 
 void RegisterScreen::HandleRegister(std::shared_ptr<Core::Entity> e)
 {
+    if(m_RegisterInformation.UserName.empty()
+        || m_RegisterInformation.Email.empty()
+        || m_RegisterInformation.Name.empty()
+        || m_RegisterInformation.Password.empty())
+        return;
+    
     rapidjson::Document userData;
     userData.SetObject();
 

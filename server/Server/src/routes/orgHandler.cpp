@@ -71,7 +71,7 @@ void OrganizationsHandler::GetOrganisation(const Pistache::Rest::Request& reques
 
     uint32_t orgId = request.param(":id").as<int>();
 
-    Organisation org = OrganisationRepository::ReadOrganisation(orgId);
+    Organisation org = OrganisationService::GetOrganisation(orgId, token);
 
     rapidjson::Document document;
     document.SetObject();
@@ -80,6 +80,7 @@ void OrganizationsHandler::GetOrganisation(const Pistache::Rest::Request& reques
     document.AddMember("name", rapidjson::Value().SetString(org.name.c_str(), org.name.size(), document.GetAllocator()), document.GetAllocator());
     document.AddMember("code", rapidjson::Value().SetString(org.code.c_str(), org.code.size(), document.GetAllocator()), document.GetAllocator());
     document.AddMember("ownerId", org.ownerId, document.GetAllocator());
+    document.AddMember("role", rapidjson::Value().SetString(org.role.c_str(), org.role.size(), document.GetAllocator()), document.GetAllocator());
 
     rapidjson::StringBuffer strbuf;
     rapidjson::Writer<rapidjson::StringBuffer> writer(strbuf);

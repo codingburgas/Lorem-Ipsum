@@ -30,10 +30,15 @@ Organisation OrganisationRepository::CreateOrganisation(OrganisationInput input)
     return org;
 }
 
-Organisation OrganisationRepository::ReadOrganisation(int id)
+Organisation OrganisationRepository::ReadOrganisation(int id, int userId)
 {
     Organisation org;
     *DatabaseConnection::sql << "SELECT id, name, owner_id, code FROM organisations WHERE id = " << id, soci::into(org.id), soci::into(org.name), soci::into(org.ownerId), soci::into(org.code);
+
+    *DatabaseConnection::sql << "SELECT role FROM organisations_users WHERE organisation_id = :organisationId AND user_id = :userId",
+        soci::use(org.id),
+        soci::use(userId),
+        soci::into(org.role);
 
     return org;
 }

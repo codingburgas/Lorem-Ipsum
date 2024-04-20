@@ -7,6 +7,9 @@ class LoginScreen;
 class OverviewScreen;
 class SettingsScreen;
 class OrganizationScreen;
+class CoursesScreen;
+class CreateCourseScreen;
+class JoinCourseScreen;
 
 struct Screens
 {
@@ -16,6 +19,9 @@ struct Screens
    std::shared_ptr<OverviewScreen> OverviewScreen;
    std::shared_ptr<SettingsScreen> SettingsScreen;
    std::shared_ptr<OrganizationScreen> OrganizationScreen;
+   std::shared_ptr<CoursesScreen> CoursesScreen;
+   std::shared_ptr<CreateCourseScreen> CreateCourseScreen;
+   std::shared_ptr<JoinCourseScreen> JoinCourseScreen;
 };
 
 class Screen
@@ -39,9 +45,9 @@ protected:
    
    struct User
    {
-      std::string Username;
-      std::string Email;
-      std::string Name;
+      std::string Username = " ";
+      std::string Email = " ";
+      std::string Name = " ";
    };
    
    std::shared_ptr<Core::Scene> m_Scene;
@@ -52,4 +58,5 @@ protected:
    inline static std::string m_BaseUrl = "http://localhost:3000";
    inline static std::shared_ptr<User> m_User;
    inline static uint32_t m_SelectedOrganization = 0;
+   inline static uint32_t m_SelectedCourse = 0;
 };

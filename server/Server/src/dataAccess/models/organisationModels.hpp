@@ -7,6 +7,7 @@ struct Organisation{
     std::string name;
     std::string code;
     int ownerId;
+    std::string role;
 };
 
 struct OrganisationInput{

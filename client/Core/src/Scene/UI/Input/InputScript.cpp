@@ -61,7 +61,7 @@ namespace Core
 
                 uiComponent.Text = m_Input;
 
-                m_Entity->GetComponent<UIBorderComponent>().Color = {230, 41, 55, 255};
+                m_Entity->GetComponent<UIBorderComponent>().Color = {152, 71, 255, 255};
                 
                 m_Callback(m_Input, m_Entity);
             }

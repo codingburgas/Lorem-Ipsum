@@ -46,10 +46,14 @@ void ApplicationLayer::InitScreens()
     m_Screens->OverviewScreen = std::make_shared<OverviewScreen>();
     m_Screens->SettingsScreen = std::make_shared<SettingsScreen>();
     m_Screens->OrganizationScreen = std::make_shared<OrganizationScreen>();
+    m_Screens->CoursesScreen = std::make_shared<CoursesScreen>();
+    m_Screens->CreateCourseScreen = std::make_shared<CreateCourseScreen>();
+    m_Screens->JoinCourseScreen = std::make_shared<JoinCourseScreen>();
 }
 
 void ApplicationLayer::SwitchScenes(std::shared_ptr<Screen> screen)
 {
+    screen->OnScreenChange();
     m_BoundScene = screen->GetScene();
 }
 
@@ -97,7 +101,10 @@ void ApplicationLayer::OnUIRender()
         m_Screens->OverviewScreen->InitRenderElementsOnResize();
         m_Screens->SettingsScreen->InitRenderElementsOnResize();
         m_Screens->OrganizationScreen->InitRenderElementsOnResize();
-
+        m_Screens->CoursesScreen->InitRenderElementsOnResize();
+        m_Screens->CreateCourseScreen->InitRenderElementsOnResize();
+        m_Screens->JoinCourseScreen->InitRenderElementsOnResize();
+        
         for (auto entity: m_BoundScene->GetEntities<Core::NativeScriptComponent>())
         {
             Core::NativeScriptComponent& script = entity->GetComponent<Core::NativeScriptComponent>();

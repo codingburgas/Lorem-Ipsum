@@ -5,7 +5,7 @@ Course CourseService::RegisterCourse(CourseInput input, std::string token, int i
 {
     input.code = generateCode(6);
     User user = UserService::GetUser(token);
-    Organisation org = OrganisationService::GetOrganisation(id);
+    Organisation org = OrganisationService::GetOrganisation(id, token);
     input.ownerId = user.id;
     input.organisationId = org.id;
     

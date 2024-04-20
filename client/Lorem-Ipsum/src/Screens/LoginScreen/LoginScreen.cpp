@@ -48,10 +48,6 @@ void LoginScreen::HandleLogin(std::shared_ptr<Core::Entity> e)
     m_User->Username = userDocument["username"].GetString();
     
     m_SwitchScreens(m_Screens->OverviewScreen);
-
-    m_Screens->SettingsScreen->OnScreenChange();
-    m_Screens->OrganizationScreen->OnScreenChange();
-    m_Screens->OverviewScreen->OnScreenChange();
 }
 
 void LoginScreen::RegisterCallback(std::shared_ptr<Core::Entity> e)

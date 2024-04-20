@@ -16,8 +16,13 @@ void OverviewScreen::HandleOrganizationSelectedCallback(std::shared_ptr<Core::En
     for(auto& i : m_Organizations)
     {
         if(i.name == ui.Text)
+        {
             m_SelectedOrganization = i.id;
+            break;
+        }
     }
+
+    m_SwitchScreens(m_Screens->CoursesScreen);
 }
 
 void OverviewScreen::OnScreenChange()
@@ -106,7 +111,7 @@ void OverviewScreen::MainContent()
     p_OrganizationButtonMaterial->TextSize = 32;
     p_OrganizationButtonMaterial->Scene = m_Scene;
     
-    Core::UI::Text(TextFormat("Welcome back to Lorem Ipsum, %s!", "Ivan"), {310, 125}, {0.0, 0.0, 0.0, 1.0}, 32, "regualar", m_Scene);
+    Core::UI::Text(TextFormat("Welcome back to Lorem Ipsum!"), {310, 125}, {0.0, 0.0, 0.0, 1.0}, 32, "regualar", m_Scene);
     Core::UI::Text("Organizations", {360, 230}, {0.0, 0.0, 0.0, 1.0}, 20, "thin", m_Scene);
 
     for(std::size_t i = 0; i < m_Organizations.size(); i++)
@@ -124,10 +129,6 @@ void OverviewScreen::MainContent()
     
     Core::UI::Button("Organization", {GetScreenWidth() - 430, 270}, {230, 50}, p_JoinOrganizationButtonMaterial, HandleOrganizatoinsCallback);
 
-    p_JoinOrganizationButtonMaterial->Color = {0.49f, 0.53f, 0.98f, 1.0f};
-    
-    Core::UI::Button("join course", {GetScreenWidth() - 430, 370}, {230, 50}, p_JoinOrganizationButtonMaterial, overviewCallback);
-    
     Core::UI::Text("Statistics", {310, 340 + 64 * m_Organizations.size()}, {0.0, 0.0, 0.0, 1.0}, 28, "regular", m_Scene);
 
     int position = 13;

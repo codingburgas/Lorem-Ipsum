@@ -5,8 +5,14 @@ void settingCallback(std::shared_ptr<Core::Entity> e) {}
 
 void SettingsScreen::OnScreenChange()
 {
-    m_FirstName = m_User->Name.substr(0, m_User->Name.find(" "));
-    m_LastName = m_User->Name.substr(m_User->Name.find(" "));
+    if(m_User->Name.find(" ") != std::string::npos)
+    {
+        m_FirstName = m_User->Name.substr(0, m_User->Name.find(" "));
+        m_LastName = m_User->Name.substr(m_User->Name.find(" "));
+    }
+    
+    m_FirstName = m_User->Name;
+    
     m_Email = m_User->Email;
     
     InitRenderElementsOnResize();

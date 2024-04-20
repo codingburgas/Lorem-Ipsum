@@ -20,10 +20,7 @@ jobs:
 
     - name: Install dependencies
       run: | 
-        apt-get update
-        apt-get install -y cmake
-        apt-get install -y python3
-        apt-get install -y libxslt-dev libxml2-dev libpam-dev libedit-dev libssl-dev
+        sudo apt-get install -y libxslt-dev libxml2-dev libpam-dev libedit-dev libssl-dev
 
     - name: Generate premake
       run: |

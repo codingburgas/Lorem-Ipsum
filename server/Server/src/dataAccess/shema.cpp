@@ -2,16 +2,7 @@
 
 void createShema(soci::session* sql) 
 {
-    *sql << (std::string)R"(
-        -- public.themes definition
--- Drop table
--- DROP TABLE public.themes;
-CREATE TABLE public.themes (
-	id int4 GENERATED ALWAYS AS IDENTITY( INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START 1 CACHE 1 NO CYCLE) NOT NULL,
-	title varchar(250) NOT NULL,
-	has_homework bit(1) NOT NULL,
-	CONSTRAINT theme_pk PRIMARY KEY (id)
-);
+    *sql << std::string(R"(
 -- public.users definition
 -- Drop table
 -- DROP TABLE public.users;
@@ -122,16 +113,6 @@ CREATE TABLE public.stats (
 	CONSTRAINT stats_users_fk FOREIGN KEY (highest_student_id) REFERENCES public.users(id) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT stats_users_fk_1 FOREIGN KEY (lowest_student_id) REFERENCES public.users(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
--- public.themes_tests definition
--- Drop table
--- DROP TABLE public.themes_tests;
-CREATE TABLE public.themes_tests (
-	theme_id int4 NOT NULL,
-	test_id int4 NOT NULL,
-	CONSTRAINT themes_tests_pkey PRIMARY KEY (theme_id, test_id),
-	CONSTRAINT themes_tests_tests_fk FOREIGN KEY (test_id) REFERENCES public.tests(id) ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT themes_tests_themes_fk FOREIGN KEY (theme_id) REFERENCES public.themes(id) ON DELETE CASCADE ON UPDATE CASCADE
-);
 -- public.users_badges definition
 -- Drop table
 -- DROP TABLE public.users_badges;
@@ -155,6 +136,27 @@ CREATE TABLE public.courses (
 	CONSTRAINT course_pk PRIMARY KEY (id),
 	CONSTRAINT course_organisations_fk FOREIGN KEY (organisation_id) REFERENCES public.organisations(id) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT course_users_fk FOREIGN KEY (owner_id) REFERENCES public.users(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+-- public.themes definition
+-- Drop table
+-- DROP TABLE public.themes;
+CREATE TABLE public.themes (
+	id int4 GENERATED ALWAYS AS IDENTITY( INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START 1 CACHE 1 NO CYCLE) NOT NULL,
+	course_id int4 NOT NULL,
+	title varchar(250) NOT NULL,
+	info varchar(3000) NOT NULL,
+	CONSTRAINT theme_pk PRIMARY KEY (id),
+	CONSTRAINT course_fk FOREIGN KEY (course_id) REFERENCES public.courses(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+-- public.themes_tests definition
+-- Drop table
+-- DROP TABLE public.themes_tests;
+CREATE TABLE public.themes_tests (
+	theme_id int4 NOT NULL,
+	test_id int4 NOT NULL,
+	CONSTRAINT themes_tests_pkey PRIMARY KEY (theme_id, test_id),
+	CONSTRAINT themes_tests_tests_fk FOREIGN KEY (test_id) REFERENCES public.tests(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT themes_tests_themes_fk FOREIGN KEY (theme_id) REFERENCES public.themes(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 -- public.courses_scores definition
 -- Drop table
@@ -190,5 +192,5 @@ CREATE TABLE public.users_courses (
 	CONSTRAINT users_courses_courses_fk FOREIGN KEY (course_id) REFERENCES public.courses(id) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT users_courses_users_fk FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
-    )";
+    )");
 }

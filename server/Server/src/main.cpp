@@ -3,6 +3,7 @@
 #include "routes/authHandler.hpp"
 #include "routes/orgHandler.hpp"
 #include "routes/corHandler.hpp"
+#include "routes/themeHandler.hpp"
 
 #include <pistache/endpoint.h>
 #include <pistache/router.h>
@@ -37,9 +38,15 @@ int main() {
 
   CourseHandler corHandler;
   Pistache::Rest::Routes::Post(router, "/course/create", Pistache::Rest::Routes::bind(&CourseHandler::CreateCourse, &corHandler));
-  Pistache::Rest::Routes::Get(router, "/course", Pistache::Rest::Routes::bind(&CourseHandler::GetCourses, &corHandler));
+  Pistache::Rest::Routes::Get(router, "/courses", Pistache::Rest::Routes::bind(&CourseHandler::GetCourses, &corHandler));
   Pistache::Rest::Routes::Get(router, "/course/:id", Pistache::Rest::Routes::bind(&CourseHandler::GetCourse, &corHandler));
   Pistache::Rest::Routes::Post(router, "/course/join", Pistache::Rest::Routes::bind(&CourseHandler::JoinCourse, &corHandler));
+
+  ThemeHandler thHandler;
+  Pistache::Rest::Routes::Post(router, "/theme/create", Pistache::Rest::Routes::bind(&ThemeHandler::CreateTheme, &thHandler));
+  Pistache::Rest::Routes::Get(router, "/themes", Pistache::Rest::Routes::bind(&ThemeHandler::GetThemes, &thHandler));
+  Pistache::Rest::Routes::Get(router, "/theme/:id", Pistache::Rest::Routes::bind(&ThemeHandler::GetTheme, &thHandler));
+
 
   server.setHandler(router.handler());
   server.serve();

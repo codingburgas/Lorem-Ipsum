@@ -7,13 +7,7 @@
 CourseRepository::CourseRepository() {};
 
 Course CourseRepository::CreateCourse(CourseInput input)
-{
-    *DatabaseConnection::sql << "SELECT * FROM courses WHERE name = :name", soci::use(input.name);
-
-    if(DatabaseConnection::sql->got_data())
-    {
-        throw std::invalid_argument("Name already exist");
-    }
+{   
     
     Course cor;
     cor.name = input.name;

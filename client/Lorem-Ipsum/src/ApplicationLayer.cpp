@@ -2,9 +2,15 @@
 
 void ApplicationLayer::OnAttach()
 {
+    m_Camera.reset(new Camera2D{0});
+    m_Camera->target = Vector2({0, 0});
+    m_Camera->offset = Vector2({0, 0});
+    m_Camera->rotation = 0.0f;
+    m_Camera->zoom = 1.0f;
+    
     InitScreens();
     
-    m_BoundScene = m_Screens->RegisterScreen->GetScene();
+    m_BoundScene = m_Screens->LoginScreen->GetScene();
 
     Fonts fonts;
     fonts.Regular = std::make_shared<Font>(LoadFontEx("assets/fonts/MierA-Book.ttf", 64, 0, 256));
@@ -59,6 +65,30 @@ void ApplicationLayer::OnUpdate()
 
 void ApplicationLayer::OnUIRender()
 {
+    int lowestYPostion = 0;
+
+    for (auto entity: m_BoundScene->GetEntities<Core::UIComponent>())
+    {
+        Core::TransformComponent& transformComponent = entity->GetComponent<Core::TransformComponent>();
+
+        if (transformComponent.Position.y + transformComponent.Scale.y > lowestYPostion)
+        {
+            lowestYPostion = transformComponent.Position.y + transformComponent.Scale.y;
+        }
+    }
+
+    if(lowestYPostion > GetScreenHeight() && m_Camera->offset.y <= 0)
+    {
+        if(m_Camera->offset.y * -1 + GetScreenHeight() < lowestYPostion + 100)
+            m_Camera->offset.y += GetMouseWheelMove() * 6;
+        else
+            m_Camera->offset.y = (lowestYPostion + 99 - GetScreenHeight()) * -1;
+    }
+    else
+    {
+        m_Camera->offset.y = 0;
+    }
+    
     if(IsWindowResized())
     {
         m_Screens->LandingScreen->InitRenderElementsOnResize();
@@ -75,6 +105,8 @@ void ApplicationLayer::OnUIRender()
             script.Instance->onLateAttach();
         }
     }
+
+    BeginMode2D(*m_Camera);
     
     ClearBackground(RAYWHITE);
     
@@ -142,4 +174,6 @@ void ApplicationLayer::OnUIRender()
             DrawTextEx(*m_MierFonts->StringToFont(UIComponent.FontType), UIComponent.Text.c_str(), {transformComponent.Position.x, transformComponent.Position.y}, UIComponent.TextSize, 0,Color(UIComponent.Color.r, UIComponent.Color.g, UIComponent.Color.b, UIComponent.Color.a));
         }
     }
+
+    EndMode2D();
 }

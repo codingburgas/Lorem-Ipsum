@@ -34,6 +34,7 @@ public:
    static void SetSwitchScreen(std::function<void(std::shared_ptr<Screen>)> switchScreen) { m_SwitchScreens = switchScreen; }
    virtual void OnScreenChange() {}
 
+
 protected:
    
    struct User
@@ -50,5 +51,5 @@ protected:
    inline static std::string m_Token;
    inline static std::string m_BaseUrl = "http://localhost:3000";
    inline static std::shared_ptr<User> m_User;
-    inline static uint32_t m_SelectedOrganization = 0;
+   inline static uint32_t m_SelectedOrganization = 0;
 };

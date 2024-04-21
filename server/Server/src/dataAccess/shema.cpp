@@ -36,20 +36,6 @@ CREATE TABLE public.notifications (
 	info varchar(600) NOT NULL,
 	CONSTRAINT notifications_pk PRIMARY KEY (user_id)
 );
--- public.questions definition
--- Drop table
--- DROP TABLE public.questions;
-CREATE TABLE public.questions (
-	id int4 GENERATED ALWAYS AS IDENTITY NOT NULL,
-	question varchar(300) NOT NULL,
-	answer varchar(300) NOT NULL,
-	answer_a varchar(300) NOT NULL,
-	answer_b varchar(300) NOT NULL,
-	answer_c varchar(300) NOT NULL,
-	answer_d varchar(300) NOT NULL,
-	CONSTRAINT questions_pk PRIMARY KEY (id)
-);
-
 -- public.organisations definition
 -- Drop table
 -- DROP TABLE public.organisations;
@@ -131,17 +117,6 @@ CREATE TABLE public.tests (
 	CONSTRAINT tests_pk PRIMARY KEY (id),
 	CONSTRAINT test_themes_fk FOREIGN KEY (theme_id) REFERENCES public.themes(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
--- public.questions_tests definition
--- Drop table
--- DROP TABLE public.questions_tests;
-CREATE TABLE public.questions_tests (
-	question_id int4 NOT NULL,
-	test_id int4 NOT NULL,
-	CONSTRAINT question_tests_pkey PRIMARY KEY (question_id, test_id),
-	CONSTRAINT questions_tests_questions_fk FOREIGN KEY (question_id) REFERENCES public.questions(id) ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT questions_tests_tests_fk FOREIGN KEY (test_id) REFERENCES public.tests(id) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
 -- public.scores definition
 -- Drop table
 -- DROP TABLE public.scores;
@@ -162,6 +137,21 @@ CREATE TABLE public.themes_tests (
 	CONSTRAINT themes_tests_pkey PRIMARY KEY (theme_id, test_id),
 	CONSTRAINT themes_tests_tests_fk FOREIGN KEY (test_id) REFERENCES public.tests(id) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT themes_tests_themes_fk FOREIGN KEY (theme_id) REFERENCES public.themes(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+-- public.questions definition
+-- Drop table
+-- DROP TABLE public.questions;
+CREATE TABLE public.questions (
+	id int4 GENERATED ALWAYS AS IDENTITY NOT NULL,
+	test_id int4 NOT NULL,
+	question varchar(300) NOT NULL,
+	correct_answer varchar(300) NOT NULL,
+	answer_a varchar(300) NOT NULL,
+	answer_b varchar(300) NOT NULL,
+	answer_c varchar(300) NOT NULL,
+	answer_d varchar(300) NOT NULL,
+	CONSTRAINT questions_pk PRIMARY KEY (id),
+	CONSTRAINT questions_tests_fk FOREIGN KEY (test_id) REFERENCES public.tests(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 -- public.courses_scores definition
 -- Drop table

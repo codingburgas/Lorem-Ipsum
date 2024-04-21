@@ -8,7 +8,7 @@ Theme ThemeRepository::CreateTheme(ThemeInput input)
 
     if(DatabaseConnection::sql->got_data())
     {
-        throw std::invalid_argument("Name already exist");
+        throw std::invalid_argument("Theme already exist");
     }
     
     Theme th;

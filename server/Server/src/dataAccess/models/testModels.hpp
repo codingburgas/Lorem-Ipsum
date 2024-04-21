@@ -17,13 +17,3 @@ struct QuestionTest{
     int questionId;
     int testId;
 };
-
-struct Question{
-    int id;
-    std::string question;
-    std::string answerA;
-    std::string answerB;
-    std::string answerC;
-    std::string answerD;
-    std::string correctAnswer;
-};

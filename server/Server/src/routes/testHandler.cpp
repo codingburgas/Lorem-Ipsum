@@ -32,7 +32,7 @@ void TestHandler::CreatTest(const Pistache::Rest::Request& request, Pistache::Ht
     Test test = TestService::RegisterTest(testInputModel, testInputModel.themeId);
  
     response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("*");
-    response.send(Pistache::Http::Code::Ok, "Theme created!");
+    response.send(Pistache::Http::Code::Ok, "Test created!");
 }
 
 void TestHandler::GetTest(const Pistache::Rest::Request& request, Pistache::Http::ResponseWriter response) 

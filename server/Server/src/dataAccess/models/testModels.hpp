@@ -4,6 +4,12 @@
 
 struct Test{
     int id;
+    int themeId;
+    std::string title;
+};
+struct TestInput{
+    int id;
+    int themeId;
     std::string title;
 };
 

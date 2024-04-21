@@ -18,10 +18,10 @@ Theme ThemeService::GetTheme(int id)
     return th;
 }
 
-std::vector<Theme> ThemeService::GetThemes(std::string token)
+std::vector<Theme> ThemeService::GetThemes(int courseId)
 {
-    User user = UserService::GetUser(token);
-    std::vector<Theme> th = ThemeRepository::ReadThemes(user.id);
+    Course cor = CourseService::GetCourse(courseId);
+    std::vector<Theme> th = ThemeRepository::ReadThemes(cor.id);
 
     return th;
 }

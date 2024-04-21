@@ -44,8 +44,9 @@ int main() {
 
   ThemeHandler thHandler;
   Pistache::Rest::Routes::Post(router, "/theme/create", Pistache::Rest::Routes::bind(&ThemeHandler::CreateTheme, &thHandler));
-  Pistache::Rest::Routes::Get(router, "/themes", Pistache::Rest::Routes::bind(&ThemeHandler::GetThemes, &thHandler));
+  Pistache::Rest::Routes::Get(router, "/themes/:id", Pistache::Rest::Routes::bind(&ThemeHandler::GetThemes, &thHandler));
   Pistache::Rest::Routes::Get(router, "/theme/:id", Pistache::Rest::Routes::bind(&ThemeHandler::GetTheme, &thHandler));
+  
 
 
   server.setHandler(router.handler());

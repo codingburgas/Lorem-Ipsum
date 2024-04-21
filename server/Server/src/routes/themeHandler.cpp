@@ -76,8 +76,11 @@ void ThemeHandler::GetThemes(const Pistache::Rest::Request& request, Pistache::H
         response.send(Pistache::Http::Code::Unauthorized, "Unauthorized");
         return;
     }
-
-    std::vector<Theme> theme = ThemeService::GetThemes(token);
+    
+    Course cor;
+    int id = cor.id;
+    
+    std::vector<Theme> theme = ThemeService::GetThemes(id);
     rapidjson::Document document;
     document.SetArray();
     for (size_t i = 0; i < theme.size(); i++) {

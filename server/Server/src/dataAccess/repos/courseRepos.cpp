@@ -1,7 +1,4 @@
 #include "courseHeader.hpp"
-
-
-
 #include "organisationHeader.hpp"
 
 CourseRepository::CourseRepository() {};

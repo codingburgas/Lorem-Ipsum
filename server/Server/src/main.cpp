@@ -4,6 +4,7 @@
 #include "routes/orgHandler.hpp"
 #include "routes/corHandler.hpp"
 #include "routes/themeHandler.hpp"
+#include "routes/testHandler.hpp"
 
 #include <pistache/endpoint.h>
 #include <pistache/router.h>
@@ -46,6 +47,11 @@ int main() {
   Pistache::Rest::Routes::Post(router, "/theme/create", Pistache::Rest::Routes::bind(&ThemeHandler::CreateTheme, &thHandler));
   Pistache::Rest::Routes::Get(router, "/themes/:id", Pistache::Rest::Routes::bind(&ThemeHandler::GetThemes, &thHandler));
   Pistache::Rest::Routes::Get(router, "/theme/:id", Pistache::Rest::Routes::bind(&ThemeHandler::GetTheme, &thHandler));
+
+  TestHandler ttHandler;
+  Pistache::Rest::Routes::Post(router, "/test/create", Pistache::Rest::Routes::bind(&TestHandler::CreatTest, &ttHandler));
+  Pistache::Rest::Routes::Get(router, "/tests/:id", Pistache::Rest::Routes::bind(&TestHandler::GetTests, &ttHandler));
+  Pistache::Rest::Routes::Get(router, "/test/:id", Pistache::Rest::Routes::bind(&TestHandler::GetTest , &ttHandler));
   
 
 

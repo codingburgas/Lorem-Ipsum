@@ -49,14 +49,7 @@ CREATE TABLE public.questions (
 	answer_d varchar(300) NOT NULL,
 	CONSTRAINT questions_pk PRIMARY KEY (id)
 );
--- public.tests definition
--- Drop table
--- DROP TABLE public.tests;
-CREATE TABLE public.tests (
-	id int4 GENERATED ALWAYS AS IDENTITY NOT NULL,
-	title varchar(250) NOT NULL,
-	CONSTRAINT tests_pk PRIMARY KEY (id)
-);
+
 -- public.organisations definition
 -- Drop table
 -- DROP TABLE public.organisations;
@@ -79,27 +72,7 @@ CREATE TABLE public.organisations_users (
 	CONSTRAINT organisations_users_organisations_fk FOREIGN KEY (organisation_id) REFERENCES public.organisations(id) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT organisations_users_users_fk FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
--- public.questions_tests definition
--- Drop table
--- DROP TABLE public.questions_tests;
-CREATE TABLE public.questions_tests (
-	question_id int4 NOT NULL,
-	test_id int4 NOT NULL,
-	CONSTRAINT question_tests_pkey PRIMARY KEY (question_id, test_id),
-	CONSTRAINT questions_tests_questions_fk FOREIGN KEY (question_id) REFERENCES public.questions(id) ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT questions_tests_tests_fk FOREIGN KEY (test_id) REFERENCES public.tests(id) ON DELETE CASCADE ON UPDATE CASCADE
-);
--- public.scores definition
--- Drop table
--- DROP TABLE public.scores;
-CREATE TABLE public.scores (
-	test_id int4 NOT NULL,
-	user_id int4 NOT NULL,
-	score float8 NOT NULL,
-	CONSTRAINT scores_pkey PRIMARY KEY (test_id, user_id),
-	CONSTRAINT scores_tests_fk FOREIGN KEY (test_id) REFERENCES public.tests(id) ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT scores_users_fk FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE ON UPDATE CASCADE
-);
+
 -- public.stats definition
 -- Drop table
 -- DROP TABLE public.stats;
@@ -147,6 +120,38 @@ CREATE TABLE public.themes (
 	info varchar(3000) NOT NULL,
 	CONSTRAINT theme_pk PRIMARY KEY (id),
 	CONSTRAINT course_fk FOREIGN KEY (course_id) REFERENCES public.courses(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+-- public.tests definition
+-- Drop table
+-- DROP TABLE public.tests;
+CREATE TABLE public.tests (
+	id int4 GENERATED ALWAYS AS IDENTITY NOT NULL,
+	title varchar(250) NOT NULL,
+	theme_id int4 NOT NULL,
+	CONSTRAINT tests_pk PRIMARY KEY (id),
+	CONSTRAINT test_themes_fk FOREIGN KEY (theme_id) REFERENCES public.themes(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+-- public.questions_tests definition
+-- Drop table
+-- DROP TABLE public.questions_tests;
+CREATE TABLE public.questions_tests (
+	question_id int4 NOT NULL,
+	test_id int4 NOT NULL,
+	CONSTRAINT question_tests_pkey PRIMARY KEY (question_id, test_id),
+	CONSTRAINT questions_tests_questions_fk FOREIGN KEY (question_id) REFERENCES public.questions(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT questions_tests_tests_fk FOREIGN KEY (test_id) REFERENCES public.tests(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- public.scores definition
+-- Drop table
+-- DROP TABLE public.scores;
+CREATE TABLE public.scores (
+	test_id int4 NOT NULL,
+	user_id int4 NOT NULL,
+	score float8 NOT NULL,
+	CONSTRAINT scores_pkey PRIMARY KEY (test_id, user_id),
+	CONSTRAINT scores_tests_fk FOREIGN KEY (test_id) REFERENCES public.tests(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT scores_users_fk FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 -- public.themes_tests definition
 -- Drop table

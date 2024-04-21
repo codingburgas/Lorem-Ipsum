@@ -14,9 +14,9 @@
 class TestRepository{
 public:
     TestRepository();
-    static Test CreateTest(ThemeInput input);
-    static Test RedTest(int id);
+    static Test CreateTest(TestInput input);
+    static Test ReadTest(int id);
     static Test ReadTest(std::string title);
-    static std::vector<Test> ReadTests(uint32_t userId);
+    static std::vector<Test> ReadTests(uint32_t themeId);
     static void DeleteTest(int id);
 };

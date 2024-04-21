@@ -128,7 +128,8 @@ namespace Core {
 		BUTTON,
 		INPUT,
 		TEXT,
-		AVATAR
+		AVATAR,
+		TEXTBOX
 	};
 
 	struct UITypeComponent

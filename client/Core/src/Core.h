@@ -17,3 +17,5 @@
 #include "Scene/UI/Text/Text.h"
 #include "Scene/UI/Input/Input.h"
 #include "Scene/UI/Avatar/Avatar.h"
+#include "Scene/UI/TextedBox/TextedBox.h"
+#include "Scene/UI/TextBoxInput/TextBoxInput.h"

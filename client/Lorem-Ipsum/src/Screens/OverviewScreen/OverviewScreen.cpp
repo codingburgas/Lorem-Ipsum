@@ -119,7 +119,7 @@ void OverviewScreen::MainContent()
 
     Core::UI::Text("Click to see your courses", {360, 300 + 64 * m_Organizations.size()}, {0.0, 0.0, 0.0, 1.0}, 16, "regular", m_Scene);
 
-    Core::UI::Text("Join", {GetScreenWidth() - (287 + MeasureText("Join", 28)), 230}, {0.0, 0.0, 0.0, 1.0}, 28, "regular", m_Scene);
+    Core::UI::Text("Join", {GetScreenWidth() - (280 + MeasureText("Join", 28)), 230}, {0.0, 0.0, 0.0, 1.0}, 28, "regular", m_Scene);
 
     std::shared_ptr<Core::UI::ButtonMaterial> p_JoinOrganizationButtonMaterial = std::make_shared<Core::UI::ButtonMaterial>();
     p_JoinOrganizationButtonMaterial->Color = {0.04f, 0.72f, 0.98f, 1.0f};
@@ -127,15 +127,15 @@ void OverviewScreen::MainContent()
     p_JoinOrganizationButtonMaterial->TextSize = 24;
     p_JoinOrganizationButtonMaterial->Scene = m_Scene;
     
-    Core::UI::Button("Organization", {GetScreenWidth() - 430, 270}, {230, 50}, p_JoinOrganizationButtonMaterial, HandleOrganizatoinsCallback);
+    Core::UI::Button("Organization", {GetScreenWidth() - (280 + MeasureText("Join", 28)), 280}, {230, 50}, p_JoinOrganizationButtonMaterial, HandleOrganizatoinsCallback);
 
-    Core::UI::Text("Statistics", {310, 340 + 64 * m_Organizations.size()}, {0.0, 0.0, 0.0, 1.0}, 28, "regular", m_Scene);
+    Core::UI::Text("Statistics", {310, 360 + 64 * m_Organizations.size()}, {0.0, 0.0, 0.0, 1.0}, 28, "regular", m_Scene);
 
     int position = 13;
     int organizationMembers = 496;
 
-    Core::UI::Text(std::to_string(position), {310, 380 + 64 * m_Organizations.size()}, {0.0f, 0.46f, 0.98f, 1.0f}, 46, "bold", m_Scene);
-    Core::UI::Text(TextFormat("place in the organization out of %d", organizationMembers), {370, 380 + 64 * m_Organizations.size()}, {0.0f, 0.0f, 0.0f, 1.0f}, 20, "regular", m_Scene);
+    Core::UI::Text(std::to_string(position), {310, 400 + 64 * m_Organizations.size()}, {0.0f, 0.46f, 0.98f, 1.0f}, 46, "bold", m_Scene);
+    Core::UI::Text(TextFormat("place in the organization out of %d", organizationMembers), {370, 406 + 64 * m_Organizations.size()}, {0.0f, 0.0f, 0.0f, 1.0f}, 20, "regular", m_Scene);
 
     // Core::UI::Text("Cource Activities", {GetScreenWidth() - (180 + MeasureText("Cource Activities", 28)), 476}, {0.0, 0.0, 0.0, 1.0}, 28, "regular", m_Scene);
 }

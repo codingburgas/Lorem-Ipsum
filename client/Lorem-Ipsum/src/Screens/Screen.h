@@ -10,6 +10,8 @@ class OrganizationScreen;
 class CoursesScreen;
 class CreateCourseScreen;
 class JoinCourseScreen;
+class ThemesScreen;
+class NewThemeScreen;
 
 struct Screens
 {
@@ -22,6 +24,8 @@ struct Screens
    std::shared_ptr<CoursesScreen> CoursesScreen;
    std::shared_ptr<CreateCourseScreen> CreateCourseScreen;
    std::shared_ptr<JoinCourseScreen> JoinCourseScreen;
+   std::shared_ptr<ThemesScreen> ThemesScreen;
+   std::shared_ptr<NewThemeScreen> NewThemeScreen;
 };
 
 class Screen
@@ -33,6 +37,7 @@ public:
    virtual void InitRenderElements() = 0;
     
    void InitRenderElementsOnResize();
+   void ClearScene();
 
    std::shared_ptr<Core::Scene> GetScene() { return m_Scene; }
 
@@ -59,4 +64,5 @@ protected:
    inline static std::shared_ptr<User> m_User;
    inline static uint32_t m_SelectedOrganization = 0;
    inline static uint32_t m_SelectedCourse = 0;
+    inline static std::string m_OrgRole = "";
 };

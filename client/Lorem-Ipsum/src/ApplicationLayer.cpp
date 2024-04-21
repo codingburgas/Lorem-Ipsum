@@ -1,4 +1,5 @@
 ﻿#include "ApplicationLayer.h"
+#include "utils/DrawTextBoxed.h"
 
 void ApplicationLayer::OnAttach()
 {
@@ -49,21 +50,28 @@ void ApplicationLayer::InitScreens()
     m_Screens->CoursesScreen = std::make_shared<CoursesScreen>();
     m_Screens->CreateCourseScreen = std::make_shared<CreateCourseScreen>();
     m_Screens->JoinCourseScreen = std::make_shared<JoinCourseScreen>();
+    m_Screens->ThemesScreen = std::make_shared<ThemesScreen>();
+    m_Screens->NewThemeScreen = std::make_shared<NewThemeScreen>();
 }
 
 void ApplicationLayer::SwitchScenes(std::shared_ptr<Screen> screen)
 {
+    screen->InitRenderElementsOnResize();
     screen->OnScreenChange();
     m_BoundScene = screen->GetScene();
 }
 
 void ApplicationLayer::OnUpdate()
 {
+    
     for (auto entity: m_BoundScene->GetEntities<Core::NativeScriptComponent>())
     {
-        Core::NativeScriptComponent& script = entity->GetComponent<Core::NativeScriptComponent>();
+        if(m_BoundScene->HasEntity(entity->GetNativeEntity()))
+        {
+            Core::NativeScriptComponent& script = entity->GetComponent<Core::NativeScriptComponent>();
 
-        script.Instance->OnUpdate();
+            script.Instance->OnUpdate();
+        }
     }
 }
 
@@ -84,7 +92,7 @@ void ApplicationLayer::OnUIRender()
     if(lowestYPostion > GetScreenHeight() && m_Camera->offset.y <= 0)
     {
         if(m_Camera->offset.y * -1 + GetScreenHeight() < lowestYPostion + 100)
-            m_Camera->offset.y += GetMouseWheelMove() * 6;
+            m_Camera->offset.y += GetMouseWheelMove() * 100;
         else
             m_Camera->offset.y = (lowestYPostion + 99 - GetScreenHeight()) * -1;
     }
@@ -104,6 +112,8 @@ void ApplicationLayer::OnUIRender()
         m_Screens->CoursesScreen->InitRenderElementsOnResize();
         m_Screens->CreateCourseScreen->InitRenderElementsOnResize();
         m_Screens->JoinCourseScreen->InitRenderElementsOnResize();
+        m_Screens->ThemesScreen->InitRenderElementsOnResize();
+        m_Screens->NewThemeScreen->InitRenderElementsOnResize();
         
         for (auto entity: m_BoundScene->GetEntities<Core::NativeScriptComponent>())
         {
@@ -125,6 +135,16 @@ void ApplicationLayer::OnUIRender()
         if(entity->HasComponent<Core::ColorComponent>())
         {
             Core::ColorComponent& colorComponent = entity->GetComponent<Core::ColorComponent>();
+
+            if(entity->GetComponent<Core::UITypeComponent>().Type == Core::UIType::TEXTBOX)
+            {
+                Core::UIBorderComponent& border = entity->GetComponent<Core::UIBorderComponent>();
+                
+                DrawRectangleRounded(Rectangle({ transformComponent.Position.x, transformComponent.Position.y, transformComponent.Scale.x, transformComponent.Scale.y}), transformComponent.Roundness, 20, Color(colorComponent.Color.r, colorComponent.Color.g, colorComponent.Color.b, colorComponent.Color.a));
+                DrawTextBoxedSelectable(*m_MierFonts->StringToFont(UIComponent.FontType), UIComponent.Text.c_str(), {transformComponent.Position.x + 5, transformComponent.Position.y + 5, transformComponent.Scale.x, transformComponent.Scale.y}, UIComponent.TextSize, 0, 1, Color(UIComponent.Color.r, UIComponent.Color.g, UIComponent.Color.b, UIComponent.Color.a), 0, 0, WHITE, GRAY);
+                
+                DrawRectangleRoundedLines(Rectangle({ transformComponent.Position.x, transformComponent.Position.y, transformComponent.Scale.x, transformComponent.Scale.y}), transformComponent.Roundness, 20, 1.5, Color(border.Color.r, border.Color.g, border.Color.b, border.Color.a));
+            }
             
             if(entity->GetComponent<Core::UITypeComponent>().Type == Core::UIType::BUTTON)
             {

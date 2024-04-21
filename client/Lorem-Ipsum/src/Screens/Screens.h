@@ -9,3 +9,5 @@
 #include "CoursesScreen/CoursesScreen.h"
 #include "CreateCourseScreen/CreateCourseScreen.h"
 #include "JoinCourseScreen/JoinCourseScreen.h"
+#include "ThemesScreen/ThemesScreen.h"
+#include "NewThemeScreen/NewThemeScreen.h"

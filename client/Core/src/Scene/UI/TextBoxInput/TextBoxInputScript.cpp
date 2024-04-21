@@ -1,23 +1,23 @@
 ﻿#include "pch.h"
-#include "InputScript.h"
+#include "TextBoxInputScript.h"
 #include "../../Entity.h"
 
 namespace Core
 {
     namespace UI
     {
-        void InputScript::onLateAttach()
+        void TextBoxInputScript::onLateAttach()
         {
-            m_Input[199] = '\0';
+            m_Input[2999] = '\0';
         }
 
-        void InputScript::OnDestroy()
+        void TextBoxInputScript::OnDestroy()
         {
             m_Input[0] = '\0';
             m_Entity->GetComponent<UIComponent>().Text = "";
         }
         
-        void InputScript::OnUpdate()
+        void TextBoxInputScript::OnUpdate()
         {
             ColorComponent& colorComponent = m_Entity->GetComponent<ColorComponent>();
             TransformComponent& transformComponent = m_Entity->GetComponent<TransformComponent>();
@@ -44,6 +44,13 @@ namespace Core
                     m_LetterCount++;
 
                     m_Key = GetCharPressed();
+                }
+                
+                if(IsKeyPressed(KEY_ENTER))
+                {
+                    m_Input[m_LetterCount] = '\n';
+                    m_Input[m_LetterCount + 1] = '\0';
+                    m_LetterCount++;
                 }
 
                 if(m_DeleteDelay == 0)

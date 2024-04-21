@@ -6,7 +6,7 @@ namespace Core
 {
     namespace UI 
     {
-        class InputScript : public NativeScript
+        class TextBoxInputScript : public NativeScript
         {
         public:
             void OnUpdate() override;
@@ -20,7 +20,7 @@ namespace Core
             bool m_IsHovered = false;
             bool m_Selected = false;
 
-            char m_Input[200];
+            char m_Input[3000];
             int32_t m_LetterCount = 0;
             int32_t m_Key;
 

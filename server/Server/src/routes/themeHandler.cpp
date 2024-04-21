@@ -29,8 +29,7 @@ void ThemeHandler::CreateTheme(const Pistache::Rest::Request& request, Pistache:
     thInputModel.unitInfo = document["info"].GetString();
     thInputModel.courseId = document["course_id"].GetInt();
 
-    int id = thInputModel.id;
-    Theme them = ThemeService::RegisterTheme(thInputModel, id);
+    Theme them = ThemeService::RegisterTheme(thInputModel, thInputModel.courseId);
  
     response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("*");
     response.send(Pistache::Http::Code::Ok, "Theme created!");
@@ -77,8 +76,7 @@ void ThemeHandler::GetThemes(const Pistache::Rest::Request& request, Pistache::H
         return;
     }
     
-    Course cor;
-    int id = cor.id;
+    uint32_t id = request.param(":id").as<int>();
     
     std::vector<Theme> theme = ThemeService::GetThemes(id);
     rapidjson::Document document;

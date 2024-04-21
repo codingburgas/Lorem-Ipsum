@@ -23,7 +23,7 @@ namespace Core
             ColorComponent& colorComponent = m_Entity->GetComponent<ColorComponent>();
             TransformComponent& transformComponent = m_Entity->GetComponent<TransformComponent>();
             
-            if(CheckCollisionPointRec(GetMousePosition(), {transformComponent.Position.x, transformComponent.Position.y, transformComponent.Scale.x, transformComponent.Scale.y}))
+            if(CheckCollisionPointRec({GetMousePosition().x, GetMousePosition().y}, {transformComponent.Position.x, transformComponent.Position.y, transformComponent.Scale.x, transformComponent.Scale.y}))
                 m_IsHovered = true;
             else
                 m_IsHovered = false;

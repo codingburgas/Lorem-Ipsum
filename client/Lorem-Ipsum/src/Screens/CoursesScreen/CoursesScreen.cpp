@@ -29,7 +29,7 @@ void CoursesScreen::OnScreenChange()
     m_Code = organizationDocument["code"].GetString();
 
     cpr::Response coursesResponse = cpr::Get(
-        cpr::Url{m_BaseUrl + "/course"},
+        cpr::Url{m_BaseUrl + "/courses"},
         cpr::Header{{"Authorization", m_Token}}
         );
 
@@ -74,6 +74,20 @@ void CoursesScreen::HandleJoinCourseCallback(std::shared_ptr<Core::Entity> e)
     m_SwitchScreens(m_Screens->JoinCourseScreen);    
 }
 
+void CoursesScreen::HandleCourseCallback(std::shared_ptr<Core::Entity> e)
+{
+    for(std::size_t i = 0; i < m_Courses.size(); i++)
+    {
+        if(e->GetComponent<Core::UIComponent>().Text == m_Courses[i].name)
+        {
+            m_SelectedCourse = m_Courses[i].id;
+            break;
+        }
+    }
+    
+    m_SwitchScreens(m_Screens->ThemesScreen);
+}
+
 void CoursesScreen::MainContent()
 {
     Core::UI::Text("Courses", {315, 140}, {0.0, 0.0, 0.0, 1.0}, 38, "bold", m_Scene);
@@ -105,7 +119,7 @@ void CoursesScreen::MainContent()
     
     for(std::size_t i = 0; i < m_Courses.size(); i++)
     {
-        Core::UI::Button(m_Courses[i].name.c_str(), {315, 250 + i * 150}, {230, 140}, p_CourseButtonMaterail, callback);
+        Core::UI::Button(m_Courses[i].name.c_str(), {315, 250 + i * 150}, {230, 140}, p_CourseButtonMaterail, HandleCourseCallback);
         Core::UI::Text(TextFormat("Welcome back to your courses, %s", m_User->Name.c_str()), {585, 280 + i * 150}, {0.0, 0.0, 0.0, 1.0}, 18, "bold", m_Scene);
         Core::UI::Text(TextFormat("Continue working on your %s course.", m_Courses[i].subject.c_str()), {585, 320 + i * 150}, {0.0, 0.0, 0.0, 1.0}, 18, "regular", m_Scene);
         Core::UI::Text("Click on the button to see course contents", {585, 340 + i * 150}, {0.0, 0.0, 0.0, 1.0}, 18, "regular", m_Scene);

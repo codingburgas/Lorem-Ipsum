@@ -20,7 +20,7 @@ int main() {
   db->DropDatabase();
   createShema(db->sql);
 
-  Pistache::Address addr(Pistache::Ipv4::any(), Pistache::Port(3000));
+  Pistache::Address addr(Pistache::Ipv4::any(), Pistache::Port(std::getenv("PORT")));
 
   auto opts = Pistache::Http::Endpoint::options().threads(1);
   Pistache::Http::Endpoint server(addr);

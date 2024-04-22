@@ -68,7 +68,7 @@ protected:
    inline static std::shared_ptr<Screens> m_Screens;
    inline static std::function<void(std::shared_ptr<Screen>)> m_SwitchScreens;
    inline static std::string m_Token;
-   inline static std::string m_BaseUrl = "http://localhost:3000";
+   inline static std::string m_BaseUrl = "https://lorem-ipsum.azurewebsites.net";
    inline static std::shared_ptr<User> m_User;
    inline static uint32_t m_SelectedOrganization = 0;
    inline static uint32_t m_SelectedCourse = 0;

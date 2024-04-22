@@ -11,7 +11,7 @@ void ApplicationLayer::OnAttach()
     
     InitScreens();
     
-    m_BoundScene = m_Screens->LoginScreen->GetScene();
+    m_BoundScene = m_Screens->LandingScreen->GetScene();
 
     Fonts fonts;
     fonts.Regular = std::make_shared<Font>(LoadFontEx("assets/fonts/MierA-Book.ttf", 64, 0, 256));

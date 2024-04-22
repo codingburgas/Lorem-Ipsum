@@ -11,5 +11,4 @@ public:
 
 private:
     static void RegisterCallback(std::shared_ptr<Core::Entity> e);
-    static void LoginCallback(std::shared_ptr<Core::Entity> e);
 };

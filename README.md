@@ -93,8 +93,7 @@
   - [Presentation](https://codingburgas-my.sharepoint.com/:p:/g/personal/idraykova22_codingburgas_bg/EbZ2ANAu0HVBtlK0nTONdnoBBAtj9xRHce-3kWe-f5KZig?e=iBhM3C)
     
 ### Design
-  - [Application Design]()
-  - [Website Design]()
+  - [Design](https://github.com/codingburgas/Lorem-Ipsum/blob/docs/Lorem-Ipsum.fig)
 
 # 👥 Team
 

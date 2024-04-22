@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\client",
+    "\\client\\Lorem-Ipsum\\src\\Screens",
+    "\\client\\Lorem-Ipsum\\src\\Screens\\JoinCourseScreen",
+    "\\client\\Lorem-Ipsum\\src\\Screens\\NewThemeScreen",
+    "\\server",
+    "\\server\\Server",
+    "\\server\\Server\\src",
+    "\\server\\Server\\src\\dataAccess",
+    "\\server\\Server\\src\\dataAccess\\models"
+  ],
+  "SelectedNode": "\\server\\Server\\src\\dataAccess\\models\\userModels.hpp",
+  "PreviewInSolutionExplorer": false
+}

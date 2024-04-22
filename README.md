@@ -12,8 +12,7 @@
 <div align="center">
     <p>🧩 Innovative educational approach</p>
     <p>📚 Create courses and write lessons</p>
-    <p>👀 Fun fact Lorem-Ipsum has had </p>
-      <img align="center" src="https://visitor-badge.glitch.me/badge?page_id=IDRaykova22.Droid&left_color=green&right_color=red">
+    <p>👀 Never stop learning</p>
 </div>
 
 </br>
@@ -86,8 +85,8 @@
 
 # 📁 Documents
 ### Code & Team Documentation
-  - [Documentation]()
-  - [Q&A]()
+  - [Documentation](https://codingburgas-my.sharepoint.com/:w:/g/personal/idraykova22_codingburgas_bg/EaqFxGSvrFBAqIKtwpkc3JEBSKqjUfGsejoEukjH6Yq2ng?e=0nz1z8)
+  - [Q&A](https://codingburgas-my.sharepoint.com/:x:/g/personal/idraykova22_codingburgas_bg/EWib-PevldVIilbSoojUj_ABTMtz-8Mudth2VpgTc4Z_ZA?e=FRbtFO)
 
 ### Presenting
   - [Presentation](https://codingburgas-my.sharepoint.com/:p:/g/personal/idraykova22_codingburgas_bg/EbZ2ANAu0HVBtlK0nTONdnoBBAtj9xRHce-3kWe-f5KZig?e=iBhM3C)

@@ -54,6 +54,7 @@
     <img height="32" width="32" src="https://cdn.simpleicons.org/visualstudiocode"/>
     <img height="32" width="32" src="https://cdn.simpleicons.org/git"/>
     <img height="32" width="32" src="https://cdn.simpleicons.org/github/F5F5F7"/>
+    <img height="32" width="32" src="https://cdn.simpleicons.org/microsoftteams"/>
 </div>
 
 ## - Technologies for development
@@ -65,6 +66,15 @@
   <img height="32" width="32" src="https://cdn.discordapp.com/attachments/1191431375694336151/1231281062546505759/logo.png?ex=663662d9&is=6623edd9&hm=e612badabf02b7003cd6cc319d3c5f045a2ad21f78d081c0c94455e67d5d5ebf&" alt="Pistache's logo"/>
   <img height="32" width="32" src="https://cdn.discordapp.com/attachments/1191431375694336151/1231281443540570234/premake-logo.png?ex=66366334&is=6623ee34&hm=b943e919cc7c87c95ca7f36959a7a8b9ae804fcff1db32e23732689099ede84e&" alt="Premake's logo"/>
   <img height="32"  src="https://cdn.discordapp.com/attachments/1191431375694336151/1231282249127952455/image-removebg-preview_-_2024-04-20T193559.368.png?ex=663663f4&is=6623eef4&hm=bbc84d8fb08a1ca22daf599c663f9d9bf7f057e5746259e9f55106771dee5fc3&" alt="Entt's logo"/>
+  <img height="32" width="32" src="https://static-00.iconduck.com/assets.00/pgadmin-icon-2048x2048-rxk8ydpt.png"/>
+  <img height="32" width="32" src="https://cdn.simpleicons.org/react"/> 
+  <img height="32" width="32" src="https://cdn.simpleicons.org/tailwindcss"/>
+  <img height="32" width="32" src="https://cdn.simpleicons.org/rider/F5F5F7/">
+  <img height="32" width="32" src="https://cdn.simpleicons.org/postman"/>
+  <img height="32" width="32" src="https://cdn.simpleicons.org/docker"/>
+  <img height="32" width="60" src="https://asset.brandfetch.io/id01c95myA/idGj8WMnt3.png"/>
+  <img height="32" width="32" src="https://seeklogo.com/images/J/jwt-logo-65D86B4640-seeklogo.com.png"/>
+  <img height="32" width="32" src="https://cdn.discordapp.com/attachments/1191431375694336151/1231985435618840627/image-removebg-preview_-_2024-04-22T180942.429.png?ex=6627cf59&is=66267dd9&hm=cee3c7d24b78fe4fc2f44e4028beeb19bc1c3fce5fb4e1c94ac83f55c27cbdd4&"/>
 </div>
 
 ## - Programs for documents
@@ -80,7 +90,7 @@
   - [Q&A]()
 
 ### Presenting
-  - [Presentation]()
+  - [Presentation](https://codingburgas-my.sharepoint.com/:p:/g/personal/idraykova22_codingburgas_bg/EbZ2ANAu0HVBtlK0nTONdnoBBAtj9xRHce-3kWe-f5KZig?e=iBhM3C)
     
 ### Design
   - [Application Design]()

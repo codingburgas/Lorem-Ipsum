@@ -94,12 +94,10 @@ void OverviewScreen::SideBar()
     Core::UI::Text("Menu", {40, 120}, {0.42, 0.42, 0.44, 1.0}, 20, "regualar", m_Scene);
 
     Core::UI::Button("Overview", {35, 157}, {180, 45}, p_OverviewButtonMaterial, overviewCallback, "assets/icons/home-icon.png");
-    Core::UI::Button("Statistics", {35, 204}, {180, 45}, p_UnselectedButtonMaterial, overviewCallback, "assets/icons/stats-icon.png");
     
     Core::UI::Text("Account", {40, 271}, {0.42, 0.42, 0.44, 1.0}, 20, "regualar", m_Scene);
     
-    Core::UI::Button("Messages", {35, 316}, {180, 45}, p_UnselectedButtonMaterial, overviewCallback, "assets/icons/chat-icon.png");
-    Core::UI::Button("Settings", {35, 363}, {180, 45}, p_UnselectedButtonMaterial, HandleSettings, "assets/icons/settings-icon.png");
+    Core::UI::Button("Settings", {35, 316}, {180, 45}, p_UnselectedButtonMaterial, HandleSettings, "assets/icons/settings-icon.png");
 }
 
 void OverviewScreen::MainContent()
@@ -128,14 +126,4 @@ void OverviewScreen::MainContent()
     p_JoinOrganizationButtonMaterial->Scene = m_Scene;
     
     Core::UI::Button("Organization", {GetScreenWidth() - (280 + MeasureText("Join", 28)), 280}, {230, 50}, p_JoinOrganizationButtonMaterial, HandleOrganizatoinsCallback);
-
-    Core::UI::Text("Statistics", {310, 360 + 64 * m_Organizations.size()}, {0.0, 0.0, 0.0, 1.0}, 28, "regular", m_Scene);
-
-    int position = 13;
-    int organizationMembers = 496;
-
-    Core::UI::Text(std::to_string(position), {310, 400 + 64 * m_Organizations.size()}, {0.0f, 0.46f, 0.98f, 1.0f}, 46, "bold", m_Scene);
-    Core::UI::Text(TextFormat("place in the organization out of %d", organizationMembers), {370, 406 + 64 * m_Organizations.size()}, {0.0f, 0.0f, 0.0f, 1.0f}, 20, "regular", m_Scene);
-
-    // Core::UI::Text("Cource Activities", {GetScreenWidth() - (180 + MeasureText("Cource Activities", 28)), 476}, {0.0, 0.0, 0.0, 1.0}, 28, "regular", m_Scene);
 }

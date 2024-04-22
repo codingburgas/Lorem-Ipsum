@@ -69,6 +69,22 @@ void ThemesScreen::OnScreenChange()
         
         m_Exams.push_back(exam);
     }
+
+    for(auto& i: m_Exams)
+    {
+        cpr::Response score = cpr::Get(
+            cpr::Url{m_BaseUrl + "/score/" + std::to_string(i.Id)},
+            cpr::Header{{"Authorization", m_Token}}
+        );
+
+        if(score.status_code != 200)
+            continue;
+
+        rapidjson::Document scoreDocument;
+        scoreDocument.Parse(score.text);
+        
+        i.Score = scoreDocument["score"].GetString();
+    }
     
     InitRenderElementsOnResize();
 }
@@ -117,14 +133,16 @@ void callbackTCallaback(std::shared_ptr<Core::Entity> e) {}
 
 void ThemesScreen::HandleEditExamCallback(std::shared_ptr<Core::Entity> e)
 {
-    m_SelectedExamId = std::stoi(e->GetComponent<Core::UIMetaInformation>().Meta);
+    if(e->HasComponent<Core::UIMetaInformation>())
+        m_SelectedExamId = std::stoi(e->GetComponent<Core::UIMetaInformation>().Meta);
     
     m_SwitchScreens(m_Screens->AddTestQuestionsScreen);
 }
 
 void ThemesScreen::HandleStartExamCallback(std::shared_ptr<Core::Entity> e)
 {
-    m_SelectedExamId = std::stoi(e->GetComponent<Core::UIMetaInformation>().Meta);
+    if(e->HasComponent<Core::UIMetaInformation>())
+        m_SelectedExamId = std::stoi(e->GetComponent<Core::UIMetaInformation>().Meta);
     
     m_SwitchScreens(m_Screens->AttemptTestScreen);
 }
@@ -147,12 +165,10 @@ void ThemesScreen::SideBar()
      Core::UI::Text("Menu", {40, 120}, {0.42, 0.42, 0.44, 1.0}, 20, "regualar", m_Scene);
  
      Core::UI::Button("Overview", {35, 157}, {180, 45}, p_SettingsButtonMaterial, HandleOverviewCallback, "assets/icons/home-icon.png");
-     Core::UI::Button("Statistics", {35, 204}, {180, 45}, p_UnselectedButtonMaterial, callbackTCallaback, "assets/icons/stats-icon.png");
      
      Core::UI::Text("Account", {40, 271}, {0.42, 0.42, 0.44, 1.0}, 20, "regualar", m_Scene);
      
-     Core::UI::Button("Messages", {35, 316}, {180, 45}, p_UnselectedButtonMaterial, callbackTCallaback, "assets/icons/chat-icon.png");
-     Core::UI::Button("Settings", {35, 363}, {180, 45}, p_UnselectedButtonMaterial, HandleSettingsCallback, "assets/icons/settings-icon.png");
+    Core::UI::Button("Settings", {35, 316}, {180, 45}, p_UnselectedButtonMaterial, HandleSettingsCallback, "assets/icons/settings-icon.png");
 }
 
 void ThemesScreen::MainContent()
@@ -220,6 +236,7 @@ void ThemesScreen::MainContent()
             p_ButtonMaterial->Color = {0.49f, 0.53f, 0.98f, 1.0f};
             p_ButtonMaterial->TextColor = {1.0f, 1.0f, 1.0f, 1.0f};
             Core::UI::Button::ButtonWithMeta("Start", {GetScreenWidth() - 400, 350 + m_Themes.size() * 60 + i * 80}, {100, 30}, p_ButtonMaterial, HandleStartExamCallback, std::to_string(m_Exams[i].Id));
+            Core::UI::Text("Score: " + m_Exams[i].Score + "%", {GetScreenWidth() - 200, 350 + m_Themes.size() * 60 + i * 80}, {0.0, 0.0, 0.0, 1.0}, 24, "regular", m_Scene);
         }
     }
 }

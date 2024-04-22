@@ -41,6 +41,7 @@ private:
     {
         uint32_t Id = 0;
         std::string Title = " ";
+        std::string Score = " ";
     };
 
     inline static std::vector<Exam> m_Exams;

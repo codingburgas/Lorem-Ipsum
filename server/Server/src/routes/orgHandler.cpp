@@ -14,7 +14,7 @@ void OrganizationsHandler::CreateOrganisation(const Pistache::Rest::Request& req
     std::string token = request.headers().getRaw("Authorization").value();
 
     if (!UserService::ValidateToken(token)) {
-        response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("*");
+          response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("http://localhost");
         response.send(Pistache::Http::Code::Unauthorized, "Unauthorized");
         return;
     }   
@@ -27,7 +27,7 @@ void OrganizationsHandler::CreateOrganisation(const Pistache::Rest::Request& req
  
     Organisation org = OrganisationService::RegisterOrganisation(orgInputModel, token);
  
-    response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("*");
+      response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("http://localhost");
     response.send(Pistache::Http::Code::Ok, "Organisation created!");
 }
 
@@ -36,7 +36,7 @@ void OrganizationsHandler::GetOrganisations(const Pistache::Rest::Request& reque
     std::string token = request.headers().getRaw("Authorization").value();
 
     if (!UserService::ValidateToken(token)) {
-        response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("*");
+          response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("http://localhost");
         response.send(Pistache::Http::Code::Unauthorized, "Unauthorized");
         return;
     }
@@ -55,7 +55,7 @@ void OrganizationsHandler::GetOrganisations(const Pistache::Rest::Request& reque
     rapidjson::Writer<rapidjson::StringBuffer> writer(strbuf);
     document.Accept(writer);
 
-    response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("*");
+      response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("http://localhost");
     response.send(Pistache::Http::Code::Ok, strbuf.GetString());
 }
 
@@ -64,7 +64,7 @@ void OrganizationsHandler::GetOrganisation(const Pistache::Rest::Request& reques
     std::string token = request.headers().getRaw("Authorization").value();
 
     if (!UserService::ValidateToken(token)) {
-        response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("*");
+          response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("http://localhost");
         response.send(Pistache::Http::Code::Unauthorized, "Unauthorized");
         return;
     }
@@ -86,7 +86,7 @@ void OrganizationsHandler::GetOrganisation(const Pistache::Rest::Request& reques
     rapidjson::Writer<rapidjson::StringBuffer> writer(strbuf);
     document.Accept(writer);
 
-    response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("*");
+      response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("http://localhost");
     response.send(Pistache::Http::Code::Ok, strbuf.GetString());
 }
 
@@ -95,7 +95,7 @@ void OrganizationsHandler::JoinOrganisation(const Pistache::Rest::Request& reque
     std::string token = request.headers().getRaw("Authorization").value();
 
     if (!UserService::ValidateToken(token)) {
-        response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("*");
+          response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("http://localhost");
         response.send(Pistache::Http::Code::Unauthorized, "Unauthorized");
         return;
     }
@@ -107,6 +107,6 @@ void OrganizationsHandler::JoinOrganisation(const Pistache::Rest::Request& reque
 
     OrganisationService::JoinOrganisation(code, token);
 
-    response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("*");
+      response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("http://localhost");
     response.send(Pistache::Http::Code::Ok, "Joined organisation!");
 }

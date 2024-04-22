@@ -26,6 +26,7 @@ void LoginScreen::HandleLogin(std::shared_ptr<Core::Entity> e)
 
     if(r.status_code != 200)
     {
+        std::cout << r.status_code << std::endl;
         return;
     }
 

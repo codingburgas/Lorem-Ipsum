@@ -18,7 +18,7 @@ void AnswersHandler::CreateAnswer(const Pistache::Rest::Request& request, Pistac
     std::string token = request.headers().getRaw("Authorization").value();
 
     if (!UserService::ValidateToken(token)) {
-        response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("*");
+          response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("http://localhost");
         response.send(Pistache::Http::Code::Unauthorized, "Unauthorized");
         return;
     }   
@@ -33,7 +33,7 @@ void AnswersHandler::CreateAnswer(const Pistache::Rest::Request& request, Pistac
 
     Answers answer = AnswersService::RegisterAnswers(answerInputModel, answerInputModel.questionId, token);
  
-    response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("*");
+      response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("http://localhost");
     response.send(Pistache::Http::Code::Ok, "Answer created!");
 }
 
@@ -42,7 +42,7 @@ void AnswersHandler::GetAnswer(const Pistache::Rest::Request& request, Pistache:
     std::string token = request.headers().getRaw("Authorization").value();
 
     if (!UserService::ValidateToken(token)) {
-        response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("*");
+          response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("http://localhost");
         response.send(Pistache::Http::Code::Unauthorized, "Unauthorized");
         return;
     }
@@ -63,7 +63,7 @@ void AnswersHandler::GetAnswer(const Pistache::Rest::Request& request, Pistache:
     rapidjson::Writer<rapidjson::StringBuffer> writer(strbuf);
     document.Accept(writer);
 
-    response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("*");
+      response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("http://localhost");
     response.send(Pistache::Http::Code::Ok, strbuf.GetString());
 }
 void AnswersHandler::GetAnswerByQuestionId(const Pistache::Rest::Request& request, Pistache::Http::ResponseWriter response) 
@@ -71,7 +71,7 @@ void AnswersHandler::GetAnswerByQuestionId(const Pistache::Rest::Request& reques
     std::string token = request.headers().getRaw("Authorization").value();
 
     if (!UserService::ValidateToken(token)) {
-        response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("*");
+          response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("http://localhost");
         response.send(Pistache::Http::Code::Unauthorized, "Unauthorized");
         return;
     }
@@ -92,7 +92,7 @@ void AnswersHandler::GetAnswerByQuestionId(const Pistache::Rest::Request& reques
     rapidjson::Writer<rapidjson::StringBuffer> writer(strbuf);
     document.Accept(writer);
 
-    response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("*");
+      response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("http://localhost");
     response.send(Pistache::Http::Code::Ok, strbuf.GetString());
 }
 
@@ -101,7 +101,7 @@ void AnswersHandler::CreateScore(const Pistache::Rest::Request& request, Pistach
     std::string token = request.headers().getRaw("Authorization").value();
 
     if (!UserService::ValidateToken(token)) {
-        response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("*");
+          response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("http://localhost");
         response.send(Pistache::Http::Code::Unauthorized, "Unauthorized");
         return;
     }   
@@ -110,7 +110,7 @@ void AnswersHandler::CreateScore(const Pistache::Rest::Request& request, Pistach
 
     AnswersService::CreateScore(testId, token);
  
-    response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("*");
+      response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("http://localhost");
     response.send(Pistache::Http::Code::Ok, "Score created!");
 }
 
@@ -119,7 +119,7 @@ void AnswersHandler::GetScore(const Pistache::Rest::Request& request, Pistache::
     std::string token = request.headers().getRaw("Authorization").value();
 
     if (!UserService::ValidateToken(token)) {
-        response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("*");
+          response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("http://localhost");
         response.send(Pistache::Http::Code::Unauthorized, "Unauthorized");
         return;
     }
@@ -137,6 +137,6 @@ void AnswersHandler::GetScore(const Pistache::Rest::Request& request, Pistache::
     rapidjson::Writer<rapidjson::StringBuffer> writer(strbuf);
     document.Accept(writer);
 
-    response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("*");
+      response.headers().add<Pistache::Http::Header::AccessControlAllowOrigin>("http://localhost");
     response.send(Pistache::Http::Code::Ok, strbuf.GetString());
 }

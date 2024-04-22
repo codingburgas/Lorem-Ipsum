@@ -63,42 +63,46 @@ void AttemptTestScreen::SideBar()
     Core::UI::Text("Menu", {40, 120}, {0.42, 0.42, 0.44, 1.0}, 20, "regualar", m_Scene);
 
     Core::UI::Button("Overview", {35, 157}, {180, 45}, p_SettingsButtonMaterial, HandleOverviewCallback, "assets/icons/home-icon.png");
-    Core::UI::Button("Statistics", {35, 204}, {180, 45}, p_UnselectedButtonMaterial, callbackATCallaback, "assets/icons/stats-icon.png");
 
     Core::UI::Text("Account", {40, 271}, {0.42, 0.42, 0.44, 1.0}, 20, "regualar", m_Scene);
 
-    Core::UI::Button("Messages", {35, 316}, {180, 45}, p_UnselectedButtonMaterial, callbackATCallaback, "assets/icons/chat-icon.png");
-    Core::UI::Button("Settings", {35, 363}, {180, 45}, p_UnselectedButtonMaterial, HandleSettingsCallback, "assets/icons/settings-icon.png");
+    Core::UI::Button("Settings", {35, 316}, {180, 45}, p_UnselectedButtonMaterial, HandleSettingsCallback, "assets/icons/settings-icon.png");
 }
 
 void AttemptTestScreen::HandleSelectQuestionAnswerCallback(std::shared_ptr<Core::Entity> e)
 {
     if(e->HasComponent<Core::UIMetaInformation>())
     {
-        uint32_t questionId = std::stoi(e->GetComponent<Core::UIMetaInformation>().Meta.substr(0, e->GetComponent<Core::UIMetaInformation>().Meta.find("&")));
-        std::string answer = e->GetComponent<Core::UIMetaInformation>().Meta.substr(e->GetComponent<Core::UIMetaInformation>().Meta.find("&") + 1);
+        Core::UIMetaInformation meta = e->GetComponent<Core::UIMetaInformation>();
+        std::string metaString = meta.Meta;
+        std::cout << metaString << std::endl;
+        
+        int questionId = std::stoi(metaString.substr(0, metaString.find("&")));
+        std::string answer = metaString.substr(metaString.find("&") + 1);
+        
+        std::cout << "Question ID: " << questionId << " Answer: " << answer << std::endl;
 
         rapidjson::Document document;
         document.SetObject();
-
+        
         document.AddMember("answer", answer, document.GetAllocator());
         document.AddMember("question_id", questionId, document.GetAllocator());
-
+        
         rapidjson::StringBuffer buffer;
         rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
         document.Accept(writer);
-
+        
         cpr::Response r = cpr::Post(
             cpr::Url{m_BaseUrl + "/answer/create"},
             cpr::Header{{"Authorization", m_Token}},
             cpr::Body{buffer.GetString()}
         );
-
+        
         if(r.status_code != 200)
             return;
-
+        
         m_SelectedAnswers.push_back(questionId);
-
+        
         m_SwitchScreens(m_Screens->AttemptTestScreen);
     }
 }
@@ -145,20 +149,21 @@ void AttemptTestScreen::MainContent()
         if(!isIncluded)
         {
             p_ButtonMaterial->Color = {0.49f, 0.53f, 0.98f, 1.0f};
-            Core::UI::Button::ButtonWithMeta(m_Questions[i].OptionA, {230, 230 + i * 150}, {MeasureText(m_Questions[i].OptionA.c_str(), p_ButtonMaterial->TextSize) + 10, 45}, p_ButtonMaterial, HandleSelectQuestionAnswerCallback, std::to_string(m_Questions[i].QuestionId) + "&a");
-            Core::UI::Button::ButtonWithMeta(m_Questions[i].OptionB, {230, 285 + i * 150}, {MeasureText(m_Questions[i].OptionB.c_str(), p_ButtonMaterial->TextSize) + 10, 45}, p_ButtonMaterial, HandleSelectQuestionAnswerCallback), std::to_string(m_Questions[i].QuestionId) + "&b";
             
-            Core::UI::Button::ButtonWithMeta(m_Questions[i].OptionC, {GetScreenWidth() - 230,  230 + i * 150}, {MeasureText(m_Questions[i].OptionC.c_str(), p_ButtonMaterial->TextSize) + 10, 45}, p_ButtonMaterial, HandleSelectQuestionAnswerCallback, std::to_string(m_Questions[i].QuestionId) + "&c");
-            Core::UI::Button::ButtonWithMeta(m_Questions[i].OptionD, {GetScreenWidth() - 230, 285 + i * 150}, {MeasureText(m_Questions[i].OptionD.c_str(), p_ButtonMaterial->TextSize) + 10, 45}, p_ButtonMaterial, HandleSelectQuestionAnswerCallback, std::to_string(m_Questions[i].QuestionId) + "&d");
+            Core::UI::Button::ButtonWithMeta( "A - " + m_Questions[i].OptionA, {230, 230 + i * 150}, {MeasureText(("A - " + m_Questions[i].OptionA).c_str(), p_ButtonMaterial->TextSize) + 10, 45}, p_ButtonMaterial, HandleSelectQuestionAnswerCallback, std::to_string(m_Questions[i].QuestionId) + "&a");
+            Core::UI::Button::ButtonWithMeta("B - " + m_Questions[i].OptionB, {230, 285 + i * 150}, {MeasureText(("B - " + m_Questions[i].OptionB).c_str(), p_ButtonMaterial->TextSize) + 10, 45}, p_ButtonMaterial, HandleSelectQuestionAnswerCallback, std::to_string(m_Questions[i].QuestionId) + "&b");
+            
+            Core::UI::Button::ButtonWithMeta("C - " + m_Questions[i].OptionC, {GetScreenWidth() - 230,  230 + i * 150}, {MeasureText(("C - " + m_Questions[i].OptionC).c_str(), p_ButtonMaterial->TextSize) + 10, 45}, p_ButtonMaterial, HandleSelectQuestionAnswerCallback, std::to_string(m_Questions[i].QuestionId) + "&c");
+            Core::UI::Button::ButtonWithMeta("D - " + m_Questions[i].OptionD, {GetScreenWidth() - 230, 285 + i * 150}, {MeasureText(("D - " + m_Questions[i].OptionD).c_str(), p_ButtonMaterial->TextSize) + 10, 45}, p_ButtonMaterial, HandleSelectQuestionAnswerCallback, std::to_string(m_Questions[i].QuestionId) + "&d");
         }
         else
         {
             p_ButtonMaterial->Color = {0.7, 0.7, 0.7, 1.0};
-            Core::UI::Button::ButtonWithMeta(m_Questions[i].OptionA, {230, 230 + i * 150}, {MeasureText(m_Questions[i].OptionA.c_str(), p_ButtonMaterial->TextSize) + 10, 45}, p_ButtonMaterial, callbackATCallaback, std::to_string(m_Questions[i].QuestionId) + "&a");
-            Core::UI::Button::ButtonWithMeta(m_Questions[i].OptionB, {230, 285 + i * 150}, {MeasureText(m_Questions[i].OptionB.c_str(), p_ButtonMaterial->TextSize) + 10, 45}, p_ButtonMaterial, callbackATCallaback), std::to_string(m_Questions[i].QuestionId) + "&b";
+            Core::UI::Button::ButtonWithMeta( "A - " + m_Questions[i].OptionA, {230, 230 + i * 150}, {MeasureText(("A - " + m_Questions[i].OptionA).c_str(), p_ButtonMaterial->TextSize) + 10, 45}, p_ButtonMaterial, callbackATCallaback, std::to_string(m_Questions[i].QuestionId) + " a");
+            Core::UI::Button::ButtonWithMeta("B - " + m_Questions[i].OptionB, {230, 285 + i * 150}, {MeasureText(("B - " + m_Questions[i].OptionB).c_str(), p_ButtonMaterial->TextSize) + 10, 45}, p_ButtonMaterial, callbackATCallaback, std::to_string(m_Questions[i].QuestionId) + " b");
             
-            Core::UI::Button::ButtonWithMeta(m_Questions[i].OptionC, {GetScreenWidth() - 230,  230 + i * 150}, {MeasureText(m_Questions[i].OptionC.c_str(), p_ButtonMaterial->TextSize) + 10, 45}, p_ButtonMaterial, callbackATCallaback, std::to_string(m_Questions[i].QuestionId) + "&c");
-            Core::UI::Button::ButtonWithMeta(m_Questions[i].OptionD, {GetScreenWidth() - 230, 285 + i * 150}, {MeasureText(m_Questions[i].OptionD.c_str(), p_ButtonMaterial->TextSize) + 10, 45}, p_ButtonMaterial, callbackATCallaback, std::to_string(m_Questions[i].QuestionId) + "&d");
+            Core::UI::Button::ButtonWithMeta("C - " + m_Questions[i].OptionC, {GetScreenWidth() - 230,  230 + i * 150}, {MeasureText(("C - " + m_Questions[i].OptionC).c_str(), p_ButtonMaterial->TextSize) + 10, 45}, p_ButtonMaterial, callbackATCallaback, std::to_string(m_Questions[i].QuestionId) + " c");
+            Core::UI::Button::ButtonWithMeta("D - " + m_Questions[i].OptionD, {GetScreenWidth() - 230, 285 + i * 150}, {MeasureText(("D - " + m_Questions[i].OptionD).c_str(), p_ButtonMaterial->TextSize) + 10, 45}, p_ButtonMaterial, callbackATCallaback, std::to_string(m_Questions[i].QuestionId) + " d");
         }
     }
 

@@ -153,6 +153,18 @@ CREATE TABLE public.questions (
 	CONSTRAINT questions_pk PRIMARY KEY (id),
 	CONSTRAINT questions_tests_fk FOREIGN KEY (test_id) REFERENCES public.tests(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+-- public.answers definition
+-- Drop table
+-- DROP TABLE public.answers;
+CREATE TABLE public.answers (
+	id int4 GENERATED ALWAYS AS IDENTITY NOT NULL,
+	question_id int4 NOT NULL,
+	answer varchar(300) NOT NULL,
+	user_id int4 NOT NULL,
+	CONSTRAINT answers_pk PRIMARY KEY (id),
+	CONSTRAINT answer_question_fk FOREIGN KEY (question_id) REFERENCES public.questions(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT answers_users_fk FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
 -- public.courses_scores definition
 -- Drop table
 -- DROP TABLE public.courses_scores;

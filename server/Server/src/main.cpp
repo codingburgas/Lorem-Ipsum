@@ -6,6 +6,7 @@
 #include "routes/themeHandler.hpp"
 #include "routes/testHandler.hpp"
 #include "routes/quHandler.hpp"
+#include "routes/anHandler.hpp"
 
 #include <pistache/endpoint.h>
 #include <pistache/router.h>
@@ -59,6 +60,11 @@ int main() {
   Pistache::Rest::Routes::Post(router, "/question/create", Pistache::Rest::Routes::bind(&QuestionHandler::CreateQuestion, &quHandler));
   Pistache::Rest::Routes::Get(router, "/questions/:id", Pistache::Rest::Routes::bind(&QuestionHandler::GetQuestions, &quHandler));
   Pistache::Rest::Routes::Get(router, "/question/:id", Pistache::Rest::Routes::bind(&QuestionHandler::GetQuestion , &quHandler));
+
+  AnswersHandler anHandler;
+  Pistache::Rest::Routes::Post(router, "/answer/create", Pistache::Rest::Routes::bind(&AnswersHandler::CreateAnswer, &anHandler));
+  Pistache::Rest::Routes::Get(router, "/answers/:id", Pistache::Rest::Routes::bind(&AnswersHandler::GetAnswerByQuestionId, &anHandler));
+  Pistache::Rest::Routes::Get(router, "/answer/:id", Pistache::Rest::Routes::bind(&AnswersHandler::GetAnswer , &anHandler));
   
 
 

@@ -51,6 +51,11 @@ namespace Core {
 			{ 
 				layer->OnUpdate();
 			}
+
+			for(auto layer : m_LayerStack)
+			{ 
+				layer->OnUIRender();
+			}
 			
 #ifdef IMGUI_DISABLED
 			EndDrawing();
@@ -61,7 +66,6 @@ namespace Core {
 
 			ImGui_ImplRaylib_NewFrame();
 			ImGui::NewFrame();
-#endif
 
 			ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 
@@ -69,6 +73,7 @@ namespace Core {
 			{ 
 				layer->OnImGuiRender();
 			}
+#endif
 
 #ifndef IMGUI_DISABLED
 			ImGui::Render();
@@ -78,8 +83,6 @@ namespace Core {
 			EndDrawing();
 #endif
 		}
-
-		CloseWindow();
 
 		for(auto layer : m_LayerStack)
 		{ 

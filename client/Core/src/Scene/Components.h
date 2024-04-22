@@ -23,13 +23,15 @@ namespace Core {
 	{
 		glm::vec3 Position = { 0.0f, 0.0f, 0.0f };
 		float Rotation = 0.0f;
+		float Roundness = 0.0f;
 		glm::vec3 Scale = {1.0f, 1.0f, 1.0f};
 
-		TransformComponent(glm::vec3 position, glm::vec3 scale, float rotation)
+		TransformComponent(glm::vec3 position, glm::vec3 scale, float rotation, float roundness)
 		{
 			Position = position;
 			Scale = scale;
 			Rotation = rotation;
+			Roundness = roundness;
 		}
 	};
 
@@ -48,6 +50,8 @@ namespace Core {
 	{
 		glm::vec4 Color = { 255, 255, 255, 255 };
 
+		ColorComponent() = default;
+		
 		ColorComponent(glm::vec4 color)
 		{
 			Color.r = round(color.r * 255);
@@ -89,6 +93,76 @@ namespace Core {
 		SpriteComponent(std::shared_ptr<Texture2D> texture)
 		{
 			Texture = texture;
+		}
+	};
+
+	struct UIComponent
+	{
+		std::string Text;
+		glm::vec4 Color;
+		uint32_t TextSize;
+		bool IsSecure = false;
+		std::string FontType;
+
+		UIComponent() = default;
+		
+		UIComponent(std::string text, glm::vec4 color, uint32_t textSize, std::string fontType = "regular", bool isSecure = false)
+		{
+			Text = text;
+			TextSize = textSize;
+			
+			Color.r = round(color.r * 255);
+			Color.g = round(color.g * 255);
+			Color.b = round(color.b * 255);
+			Color.a = round(color.a * 255);
+
+			IsSecure = isSecure;
+
+			FontType = fontType;
+		}
+	};
+
+	enum class UIType
+	{
+		NONE = 0,
+		BUTTON,
+		INPUT,
+		TEXT,
+		AVATAR,
+		TEXTBOX
+	};
+
+	struct UITypeComponent
+	{
+		UIType Type = UIType::NONE;
+
+		UITypeComponent(UIType type)
+		{
+			Type = type;
+		}
+	};
+
+	struct UIBorderComponent
+	{
+		glm::vec4 Color;
+
+		UIBorderComponent() = default;
+		UIBorderComponent(glm::vec4 color)
+		{
+			Color.r = round(color.r * 255);
+			Color.g = round(color.g * 255);
+			Color.b = round(color.b * 255);
+			Color.a = round(color.a * 255);
+		}
+	};
+
+	struct UIMetaInformation
+	{
+		std::string Meta;
+
+		UIMetaInformation(std::string meta)
+		{
+			Meta = meta;
 		}
 	};
 }

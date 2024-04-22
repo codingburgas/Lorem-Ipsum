@@ -15,11 +15,28 @@ project "Server"
 
     includedirs {
         "src",
-        "../vendor/pistache/include"
+        "../vendor/pistache/include",
+        "../vendor/rapidjson/include",
+        "../vendor/phc-winner-argon2/include",
+        "../vendor/soci/include",
+        "/usr/include/postgresql",
+	    "../vendor/jwt-cpp/include"
+    }
+
+    libdirs {
+        "../vendor/pistache/lib",
+	    "../vendor/soci/lib",
+        "../vendor/phc-winner-argon2/lib",
+        "/usr/local/lib"
     }
 
     links {
-        "pistache"
+        "pistache",
+        "soci_postgresql",
+        "soci_core",
+        "pq",
+        "argon2",
+        "crypto",
     }
 
     filter "configurations:Debug"

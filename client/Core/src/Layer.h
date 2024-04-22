@@ -20,5 +20,7 @@ namespace Core {
 
 		/// @brief Called when ImGui is rendered
 		virtual void OnImGuiRender() {}
+
+		virtual void OnUIRender() {}
 	};
 }

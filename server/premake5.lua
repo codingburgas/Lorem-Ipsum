@@ -11,4 +11,3 @@ workspace "Server"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 include "Server"
-include "external.lua"

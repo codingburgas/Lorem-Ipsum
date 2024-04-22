@@ -36,6 +36,10 @@ project "Core"
         "Box2D",
     }
 
+    defines {
+        "IMGUI_DISABLED"
+    }
+
     filter "configurations:Debug"
         runtime "Debug"
         symbols "On"

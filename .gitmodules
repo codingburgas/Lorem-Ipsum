@@ -8,6 +8,6 @@
 	path = client/vendor/imgui
 	url = https://github.com/ocornut/imgui.git
 	branch = docking
-[submodule "server/vendor/pistache"]
-	path = server/vendor/pistache
-	url = https://github.com/pistacheio/pistache.git
+[submodule "server/vendor/pgfe"]
+	path = server/vendor/pgfe
+	url = https://github.com/dmitigr/pgfe

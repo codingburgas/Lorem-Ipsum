@@ -34,6 +34,11 @@ namespace Core {
 			return entitesWithComponent;
 		}
 
+		bool HasEntity (entt::entity e)
+		{
+			return m_Registry.valid(e);
+		}
+
 		/// @brief Get the name of the scene
 		std::string GetName() const { return m_SceneName; }
 

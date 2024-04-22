@@ -52,6 +52,9 @@ void ApplicationLayer::InitScreens()
     m_Screens->JoinCourseScreen = std::make_shared<JoinCourseScreen>();
     m_Screens->ThemesScreen = std::make_shared<ThemesScreen>();
     m_Screens->NewThemeScreen = std::make_shared<NewThemeScreen>();
+    m_Screens->NewExamScreen = std::make_shared<NewExamScreen>();
+    m_Screens->AddTestQuestionsScreen = std::make_shared<AddTestQuestionsScreen>();
+    m_Screens->EditTestQuestionScreen = std::make_shared<EditTestQuestionScreen>();
 }
 
 void ApplicationLayer::SwitchScenes(std::shared_ptr<Screen> screen)
@@ -114,6 +117,9 @@ void ApplicationLayer::OnUIRender()
         m_Screens->JoinCourseScreen->InitRenderElementsOnResize();
         m_Screens->ThemesScreen->InitRenderElementsOnResize();
         m_Screens->NewThemeScreen->InitRenderElementsOnResize();
+        m_Screens->NewExamScreen->InitRenderElementsOnResize();
+        m_Screens->AddTestQuestionsScreen->InitRenderElementsOnResize();
+        m_Screens->EditTestQuestionScreen->InitRenderElementsOnResize();
         
         for (auto entity: m_BoundScene->GetEntities<Core::NativeScriptComponent>())
         {
@@ -181,11 +187,18 @@ void ApplicationLayer::OnUIRender()
                     std::string subStr = UIComponent.Text.substr(ceil((textWidth - transformComponent.Scale.x) / letterWidth) + 1);
 
                     DrawTextEx(*m_MierFonts->StringToFont(UIComponent.FontType), subStr.c_str(), {transformComponent.Position.x - 5 - (MeasureTextEx(*m_MierFonts->StringToFont(UIComponent.FontType), subStr.c_str(), UIComponent.TextSize, 0).x - transformComponent.Scale.x + 5), transformComponent.Position.y + transformComponent.Scale.y / 2 - UIComponent.TextSize / 2 }, UIComponent.TextSize, 0, Color(UIComponent.Color.r, UIComponent.Color.g, UIComponent.Color.b, UIComponent.Color.a));
+
+                    if (((m_FrameCount / 30) % 11) == 0 || ((m_FrameCount / 30) % 11) == 1 || ((m_FrameCount / 30) % 11) == 2)
+                        DrawText("|", transformComponent.Position.x + transformComponent.Scale.x - 8, transformComponent.Position.y + transformComponent.Scale.y / 2 - UIComponent.TextSize / 2, UIComponent.TextSize, Color(border.Color.r, border.Color.g, border.Color.b, border.Color.a));
                 }
                 else
                 {
                     DrawTextEx(*m_MierFonts->StringToFont(UIComponent.FontType), UIComponent.Text.c_str(), {transformComponent.Position.x + 5, transformComponent.Position.y + transformComponent.Scale.y / 2 - UIComponent.TextSize / 2}, UIComponent.TextSize, 0, Color(UIComponent.Color.r, UIComponent.Color.g, UIComponent.Color.b, UIComponent.Color.a));
+                    
+                    if (((m_FrameCount / 30) % 11) == 0 || ((m_FrameCount / 30) % 11) == 1 || ((m_FrameCount / 30) % 11) == 2)
+                        DrawText("|", transformComponent.Position.x + 8 + MeasureTextEx(*m_MierFonts->StringToFont(UIComponent.FontType), UIComponent.Text.c_str(), UIComponent.TextSize, 0).x, transformComponent.Position.y + transformComponent.Scale.y / 2 - UIComponent.TextSize / 2, UIComponent.TextSize, Color(border.Color.r, border.Color.g, border.Color.b, border.Color.a));
                 }
+
             }
         }
 
@@ -203,4 +216,6 @@ void ApplicationLayer::OnUIRender()
     }
 
     EndMode2D();
+
+    m_FrameCount++;
 }

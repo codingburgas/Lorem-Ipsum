@@ -15,6 +15,7 @@ public:
     static Course CreateCourse(CourseInput input);
     static Course ReadCourse(int id);
     static Course ReadCourse(std::string name);
+    static std::vector<Course> ReadCoursesByOrg(int id);
     static Course ReadCourseByCode(std::string code);
     static std::vector<Course> ReadCourses(uint32_t userId);
     static void DeleteCourse(int id);

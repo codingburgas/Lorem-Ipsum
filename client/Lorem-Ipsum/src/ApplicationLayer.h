@@ -41,4 +41,6 @@ private:
     std::shared_ptr<Fonts> m_MierFonts;
 
     std::shared_ptr<Camera2D> m_Camera;
+
+    uint32_t m_FrameCount = 0; 
 };

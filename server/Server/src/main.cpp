@@ -43,6 +43,7 @@ int main() {
   Pistache::Rest::Routes::Get(router, "/courses", Pistache::Rest::Routes::bind(&CourseHandler::GetCourses, &corHandler));
   Pistache::Rest::Routes::Get(router, "/course/:id", Pistache::Rest::Routes::bind(&CourseHandler::GetCourse, &corHandler));
   Pistache::Rest::Routes::Post(router, "/course/join", Pistache::Rest::Routes::bind(&CourseHandler::JoinCourse, &corHandler));
+  Pistache::Rest::Routes::Get(router, "/courses/:id", Pistache::Rest::Routes::bind(&CourseHandler::GetCourseByOrg, &corHandler));
 
   ThemeHandler thHandler;
   Pistache::Rest::Routes::Post(router, "/theme/create", Pistache::Rest::Routes::bind(&ThemeHandler::CreateTheme, &thHandler));

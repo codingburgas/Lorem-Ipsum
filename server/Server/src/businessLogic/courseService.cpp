@@ -21,6 +21,13 @@ Course CourseService::RemoveCourse(CourseInput input, std::string token)
     return cor;
 }
 
+std::vector<Course> CourseService::GetCoursesByOrg(int id)
+{
+    std::vector<Course> cor = CourseRepository::ReadCoursesByOrg(id);
+
+    return cor;
+}
+
 std::vector<Course> CourseService::GetCourses(std::string token)
 {
     User user = UserService::GetUser(token);

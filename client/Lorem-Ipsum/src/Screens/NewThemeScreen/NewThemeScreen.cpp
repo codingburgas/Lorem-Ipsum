@@ -56,7 +56,6 @@ void NewThemeScreen::HanldeEdinThemeNameCallback(std::string input, std::shared_
 void NewThemeScreen::HanldeEdinThemeDescriptionCallback(std::string input, std::shared_ptr<Core::Entity> e)
 {
     m_ThemeDescription = input;
-    std::cout << m_ThemeDescription << std::endl;
 }
 
 

@@ -3,6 +3,27 @@
 
 CourseRepository::CourseRepository() {};
 
+std::vector<Course> CourseRepository::ReadCoursesByOrg(int id)
+{
+    std::vector<Course> courses;
+    Course cor;
+    soci::rowset<soci::row> rs = (DatabaseConnection::sql->prepare << "SELECT id, name, owner_id, organisation_id, subject, code FROM courses WHERE organisation_id = :id", soci::use(id));
+
+    for (soci::rowset<soci::row>::const_iterator it = rs.begin(); it != rs.end(); ++it)
+    {
+        soci::row const &row = *it;
+        cor.id = row.get<int>(0);
+        cor.organisationId = row.get<int>(3);
+        cor.name = row.get<std::string>(1);
+        cor.ownerId = row.get<int>(2);
+        cor.code = row.get<std::string>(5);
+        cor.subject = row.get<std::string>(4);
+        courses.push_back(cor);
+    }
+
+    return courses;
+}
+
 Course CourseRepository::CreateCourse(CourseInput input)
 {   
     

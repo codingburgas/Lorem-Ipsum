@@ -11,3 +11,6 @@
 #include "JoinCourseScreen/JoinCourseScreen.h"
 #include "ThemesScreen/ThemesScreen.h"
 #include "NewThemeScreen/NewThemeScreen.h"
+#include "NewExamScreen/NewExamScreen.h"
+#include "AddTestQuestionsScreen/AddTestQuestionsScreen.h"
+#include "EditTestQuestionsScreen/EditTestQuestionScreen.h"

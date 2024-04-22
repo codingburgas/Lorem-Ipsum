@@ -12,6 +12,9 @@ class CreateCourseScreen;
 class JoinCourseScreen;
 class ThemesScreen;
 class NewThemeScreen;
+class NewExamScreen;
+class AddTestQuestionsScreen;
+class EditTestQuestionScreen;
 
 struct Screens
 {
@@ -26,6 +29,9 @@ struct Screens
    std::shared_ptr<JoinCourseScreen> JoinCourseScreen;
    std::shared_ptr<ThemesScreen> ThemesScreen;
    std::shared_ptr<NewThemeScreen> NewThemeScreen;
+   std::shared_ptr<NewExamScreen> NewExamScreen;
+   std::shared_ptr<AddTestQuestionsScreen> AddTestQuestionsScreen;
+   std::shared_ptr<EditTestQuestionScreen> EditTestQuestionScreen;
 };
 
 class Screen
@@ -64,5 +70,7 @@ protected:
    inline static std::shared_ptr<User> m_User;
    inline static uint32_t m_SelectedOrganization = 0;
    inline static uint32_t m_SelectedCourse = 0;
-    inline static std::string m_OrgRole = "";
+   inline static uint32_t m_SelectedThemeId = 0;
+   inline static uint32_t m_SelectedExamId = 0;
+   inline static std::string m_OrgRole = "";
 };

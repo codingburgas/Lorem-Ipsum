@@ -29,7 +29,7 @@ void CoursesScreen::OnScreenChange()
     m_Code = organizationDocument["code"].GetString();
 
     cpr::Response coursesResponse = cpr::Get(
-        cpr::Url{m_BaseUrl + "/courses"},
+        cpr::Url{m_BaseUrl + "/courses/" + std::to_string(m_SelectedOrganization)},
         cpr::Header{{"Authorization", m_Token}}
         );
 
@@ -106,7 +106,7 @@ void CoursesScreen::MainContent()
     if(m_OrgRole == "owner" || m_OrgRole == "teacher")
     {
         Core::UI::Button("Create Course", {GetScreenWidth() - 410, 20}, {180, 30}, p_ButtonMaterial, HandleCreateCourseCallback);
-        Core::UI::Text(TextFormat("Code: %s", m_Code.c_str()), {GetScreenWidth() - 480 - MeasureText(TextFormat("Code: ", m_Code.c_str()), 20), 30}, {0.0, 0.0, 0.0, 1.0}, 20, "bold", m_Scene);
+        Core::UI::Text(TextFormat("Code: %s", m_Code.c_str()), {GetScreenWidth() - 500 - MeasureText(TextFormat("Code: ", m_Code.c_str()), 20), 30}, {0.0, 0.0, 0.0, 1.0}, 20, "bold", m_Scene);
     }
 
     std::shared_ptr<Core::UI::ButtonMaterial> p_CourseButtonMaterail = std::make_shared<Core::UI::ButtonMaterial>();

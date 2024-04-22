@@ -155,4 +155,14 @@ namespace Core {
 			Color.a = round(color.a * 255);
 		}
 	};
+
+	struct UIMetaInformation
+	{
+		std::string Meta;
+
+		UIMetaInformation(std::string meta)
+		{
+			Meta = meta;
+		}
+	};
 }

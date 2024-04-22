@@ -28,10 +28,10 @@ std::vector<Course> CourseService::GetCoursesByOrg(int id)
     return cor;
 }
 
-std::vector<Course> CourseService::GetCourses(std::string token)
+std::vector<Course> CourseService::GetCourses(std::string token, int id)
 {
     User user = UserService::GetUser(token);
-    std::vector<Course> orgs = CourseRepository::ReadCourses(user.id);
+    std::vector<Course> orgs = CourseRepository::ReadCourses(user.id, id);
 
     return orgs;
 }

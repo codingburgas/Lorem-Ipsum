@@ -84,12 +84,12 @@ void CourseRepository::DeleteCourse(int id){
 
 }
 
-std::vector<Course> CourseRepository::ReadCourses(uint32_t userId)
+std::vector<Course> CourseRepository::ReadCourses(uint32_t userId, uint32_t orgId)
 {
 
     std::vector<Course> courses;
     Course cor;
-    soci::rowset<soci::row> rs = (DatabaseConnection::sql->prepare << "SELECT o.id, o.name, o.subject, o.owner_id, o.organisation_id, o.code FROM courses o JOIN users_courses ou ON o.id = ou.course_id WHERE ou.user_id = :userId", soci::use(userId));
+    soci::rowset<soci::row> rs = (DatabaseConnection::sql->prepare << "SELECT o.id, o.name, o.subject, o.owner_id, o.organisation_id, o.code FROM courses o JOIN users_courses ou ON o.id = ou.course_id WHERE ou.user_id = :userId AND o.organisation_id = :organisationId", soci::use(userId), soci::use(orgId));
 
     for (soci::rowset<soci::row>::const_iterator it = rs.begin(); it != rs.end(); ++it)
     {

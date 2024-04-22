@@ -20,8 +20,7 @@ Question QuestionsService::GetQuestion(int id)
 
 std::vector<Question> QuestionsService::GetQuestions(int testId)
 {
-    Question qu = QuestionsService::GetQuestion(testId);
-    std::vector<Question> question = QuestionRepository::ReadQuestions(qu.id);
+    std::vector<Question> question = QuestionRepository::ReadQuestions(testId);
 
     return question;
 }

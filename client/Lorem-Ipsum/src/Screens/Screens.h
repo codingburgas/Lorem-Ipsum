@@ -14,3 +14,4 @@
 #include "NewExamScreen/NewExamScreen.h"
 #include "AddTestQuestionsScreen/AddTestQuestionsScreen.h"
 #include "EditTestQuestionsScreen/EditTestQuestionScreen.h"
+#include "AttemptTestScreen/AttemptTestScreen.h"

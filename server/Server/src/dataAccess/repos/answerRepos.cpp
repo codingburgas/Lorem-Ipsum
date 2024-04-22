@@ -34,3 +34,18 @@ Answers AnswerRepository::ReadAnswerByQuestionId(int questionId, int userId)
     return an;
 }
 
+void AnswerRepository::CreateScore(int testId, int userId, int score)
+{
+    *DatabaseConnection::sql << "INSERT INTO scores(test_id, user_id, score) VALUES(:test_id, :user_id, :score)",
+        soci::use(testId),
+        soci::use(userId),
+        soci::use(score);
+}
+
+std::string AnswerRepository::GetScoreByTest(int id, int userId)
+{
+    std::string score;
+    *DatabaseConnection::sql << "SELECT score FROM scores WHERE test_id = " << id << " AND user_id = " << userId, soci::into(score);
+
+    return score;
+}

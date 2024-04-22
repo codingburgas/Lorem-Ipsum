@@ -32,4 +32,34 @@ Answers AnswersService::GetAnswerByQuestionId(int id, std::string token)
     return an;
 }
 
+void AnswersService::CreateScore(int id, std::string token)
+{
+    User us = UserService::GetUser(token);
 
+    std::vector<Question> qu = QuestionsService::GetQuestions(id);
+
+    float score = 0;
+
+    for (int i = 0; i < qu.size(); i++)
+    {
+        Answers an = GetAnswerByQuestionId(qu[i].id, token);
+
+        if (an.answer == qu[i].correctAnswer)
+        {
+            score++;
+        }
+    }
+
+    score = (score / qu.size()) * 100;
+
+    AnswerRepository::CreateScore(id, us.id, score);
+}
+
+std::string AnswersService::GetScore(int id, std::string token)
+{
+    User us = UserService::GetUser(token);
+
+    std::string score = AnswerRepository::GetScoreByTest(id, us.id);
+
+    return score;
+}

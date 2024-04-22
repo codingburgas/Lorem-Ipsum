@@ -124,16 +124,9 @@ void ThemesScreen::HandleEditExamCallback(std::shared_ptr<Core::Entity> e)
 
 void ThemesScreen::HandleStartExamCallback(std::shared_ptr<Core::Entity> e)
 {
-    for(auto i: m_Exams)
-    {
-        if(i.Title == e->GetComponent<Core::UIComponent>().Text)
-        {
-            m_SelectedExam = i;
-            break;
-        }
-    }
+    m_SelectedExamId = std::stoi(e->GetComponent<Core::UIMetaInformation>().Meta);
     
-    m_SwitchScreens(m_Screens->ThemesScreen);
+    m_SwitchScreens(m_Screens->AttemptTestScreen);
 }
 
 void ThemesScreen::SideBar()
@@ -226,7 +219,7 @@ void ThemesScreen::MainContent()
         {
             p_ButtonMaterial->Color = {0.49f, 0.53f, 0.98f, 1.0f};
             p_ButtonMaterial->TextColor = {1.0f, 1.0f, 1.0f, 1.0f};
-            Core::UI::Button("Start", {GetScreenWidth() - 400, 350 + m_Themes.size() * 60 + i * 80}, {100, 30}, p_ButtonMaterial, HandleStartExamCallback);
+            Core::UI::Button::ButtonWithMeta("Start", {GetScreenWidth() - 400, 350 + m_Themes.size() * 60 + i * 80}, {100, 30}, p_ButtonMaterial, HandleStartExamCallback, std::to_string(m_Exams[i].Id));
         }
     }
 }

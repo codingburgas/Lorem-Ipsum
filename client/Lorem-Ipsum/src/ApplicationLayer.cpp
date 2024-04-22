@@ -55,6 +55,7 @@ void ApplicationLayer::InitScreens()
     m_Screens->NewExamScreen = std::make_shared<NewExamScreen>();
     m_Screens->AddTestQuestionsScreen = std::make_shared<AddTestQuestionsScreen>();
     m_Screens->EditTestQuestionScreen = std::make_shared<EditTestQuestionScreen>();
+    m_Screens->AttemptTestScreen = std::make_shared<AttemptTestScreen>();
 }
 
 void ApplicationLayer::SwitchScenes(std::shared_ptr<Screen> screen)
@@ -120,6 +121,7 @@ void ApplicationLayer::OnUIRender()
         m_Screens->NewExamScreen->InitRenderElementsOnResize();
         m_Screens->AddTestQuestionsScreen->InitRenderElementsOnResize();
         m_Screens->EditTestQuestionScreen->InitRenderElementsOnResize();
+        m_Screens->AttemptTestScreen->InitRenderElementsOnResize();
         
         for (auto entity: m_BoundScene->GetEntities<Core::NativeScriptComponent>())
         {

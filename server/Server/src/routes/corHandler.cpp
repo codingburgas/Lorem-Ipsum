@@ -47,7 +47,10 @@ void CourseHandler::GetCourses(const Pistache::Rest::Request& request, Pistache:
         return;
     }
 
-    std::vector<Course> course = CourseService::GetCourses(token);
+    uint32_t orgId = request.param(":id").as<int>();
+
+    std::vector<Course> course = CourseService::GetCourses(token, orgId);
+
     rapidjson::Document document;
     document.SetArray();
     for (size_t i = 0; i < course.size(); i++) {

@@ -15,6 +15,7 @@ class NewThemeScreen;
 class NewExamScreen;
 class AddTestQuestionsScreen;
 class EditTestQuestionScreen;
+class AttemptTestScreen;
 
 struct Screens
 {
@@ -32,6 +33,7 @@ struct Screens
    std::shared_ptr<NewExamScreen> NewExamScreen;
    std::shared_ptr<AddTestQuestionsScreen> AddTestQuestionsScreen;
    std::shared_ptr<EditTestQuestionScreen> EditTestQuestionScreen;
+   std::shared_ptr<AttemptTestScreen> AttemptTestScreen;
 };
 
 class Screen

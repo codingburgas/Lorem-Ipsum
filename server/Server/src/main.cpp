@@ -41,10 +41,9 @@ int main() {
 
   CourseHandler corHandler;
   Pistache::Rest::Routes::Post(router, "/course/create", Pistache::Rest::Routes::bind(&CourseHandler::CreateCourse, &corHandler));
-  Pistache::Rest::Routes::Get(router, "/courses", Pistache::Rest::Routes::bind(&CourseHandler::GetCourses, &corHandler));
+  Pistache::Rest::Routes::Get(router, "/courses/:id", Pistache::Rest::Routes::bind(&CourseHandler::GetCourses, &corHandler));
   Pistache::Rest::Routes::Get(router, "/course/:id", Pistache::Rest::Routes::bind(&CourseHandler::GetCourse, &corHandler));
   Pistache::Rest::Routes::Post(router, "/course/join", Pistache::Rest::Routes::bind(&CourseHandler::JoinCourse, &corHandler));
-  Pistache::Rest::Routes::Get(router, "/courses/:id", Pistache::Rest::Routes::bind(&CourseHandler::GetCourseByOrg, &corHandler));
 
   ThemeHandler thHandler;
   Pistache::Rest::Routes::Post(router, "/theme/create", Pistache::Rest::Routes::bind(&ThemeHandler::CreateTheme, &thHandler));
@@ -65,8 +64,8 @@ int main() {
   Pistache::Rest::Routes::Post(router, "/answer/create", Pistache::Rest::Routes::bind(&AnswersHandler::CreateAnswer, &anHandler));
   Pistache::Rest::Routes::Get(router, "/answers/:id", Pistache::Rest::Routes::bind(&AnswersHandler::GetAnswerByQuestionId, &anHandler));
   Pistache::Rest::Routes::Get(router, "/answer/:id", Pistache::Rest::Routes::bind(&AnswersHandler::GetAnswer , &anHandler));
-  
-
+  Pistache::Rest::Routes::Post(router, "/score/create/:id", Pistache::Rest::Routes::bind(&AnswersHandler::CreateScore , &anHandler));
+  Pistache::Rest::Routes::Get(router, "/score/:id", Pistache::Rest::Routes::bind(&AnswersHandler::GetScore , &anHandler));
 
   server.setHandler(router.handler());
   server.serve();

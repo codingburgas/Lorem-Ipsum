@@ -48,11 +48,11 @@ std::vector<Question> QuestionRepository::ReadQuestions(uint32_t testId)
 {
 
     std::vector<Question> questions;
-    Question qu;
-    soci::rowset<soci::row> rs = (DatabaseConnection::sql->prepare << "SELECT id, test_id, question, correct_answer, answer_a, answer_b, answer_c,answer_d FROM questions WHERE test_id =:testId", soci::use(testId));
+    soci::rowset<soci::row> rs = (DatabaseConnection::sql->prepare << "SELECT id, test_id, question, correct_answer, answer_a, answer_b, answer_c,answer_d FROM questions WHERE test_id = :testId", soci::use(testId));
 
     for (soci::rowset<soci::row>::const_iterator it = rs.begin(); it != rs.end(); ++it)
     {
+        Question qu;
         soci::row const &row = *it;
         qu.id = row.get<int>(0);
         qu.testId = row.get<int>(1);

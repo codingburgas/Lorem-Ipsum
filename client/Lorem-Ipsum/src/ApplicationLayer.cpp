@@ -137,7 +137,7 @@ void ApplicationLayer::OnUIRender()
 
     BeginMode2D(*m_Camera);
     
-    ClearBackground(RAYWHITE);
+    ClearBackground(WHITE);
     
     for (auto entity: m_BoundScene->GetEntities<Core::UIComponent>())
     {

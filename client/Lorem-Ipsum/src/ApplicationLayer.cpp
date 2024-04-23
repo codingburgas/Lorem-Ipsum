@@ -96,7 +96,9 @@ void ApplicationLayer::OnUIRender()
     if(lowestYPostion > GetScreenHeight() && m_Camera->offset.y <= 0)
     {
         if(m_Camera->offset.y * -1 + GetScreenHeight() < lowestYPostion + 100)
+        {
             m_Camera->offset.y += GetMouseWheelMove() * 100;
+        }
         else
             m_Camera->offset.y = (lowestYPostion + 99 - GetScreenHeight()) * -1;
     }
@@ -104,6 +106,8 @@ void ApplicationLayer::OnUIRender()
     {
         m_Camera->offset.y = 0;
     }
+
+    SetMouseOffset(0, m_Camera->offset.y * -1);
     
     if(IsWindowResized())
     {

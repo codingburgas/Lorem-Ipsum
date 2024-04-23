@@ -18,8 +18,6 @@ int main() {
   std::cout << "Server is running" << std::endl;
 
   DatabaseConnection* db = new DatabaseConnection;
-  db->DropDatabase();
-  createShema(db->sql);
 
   Pistache::Address addr(Pistache::Ipv4::any(), Pistache::Port(std::getenv("PORT")));
 

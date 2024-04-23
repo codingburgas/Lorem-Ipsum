@@ -4,6 +4,7 @@
 #include <jwt-cpp/jwt.h>
 #include <string>
 #include <cstdlib>
+#include "orgService.hpp"
 
 std::string hashingPassword(std::string password, std::string username){
     const size_t hash_length = 32;

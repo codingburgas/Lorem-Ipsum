@@ -20,6 +20,16 @@ User UserRepository::CreateUser(UserInput input)
     *DatabaseConnection::sql << "INSERT INTO users(name, username, email, country, password_hash) VALUES(:name, :username, :email, :country, :password_hash)",
         soci::use(input.name), soci::use(input.username), soci::use(input.email), soci::use(input.country), soci::use(input.password);
 
+    *DatabaseConnection::sql << "SELECT id FROM users WHERE username = " << "\'" << input.username << "\'", soci::into(user.id);
+
+    *DatabaseConnection::sql << "INSERT INTO organisations_users(organisation_id, user_id, role) VALUES(:organisationId, :userId, 'memeber')",
+        soci::use(1),
+        soci::use(user.id);
+
+    *DatabaseConnection::sql << "INSERT INTO users_courses(user_id, course_id, user_role) VALUES(:user_id, :course_id, 'member')",
+        soci::use(user.id),
+        soci::use(1);
+
     return user;
 }
 

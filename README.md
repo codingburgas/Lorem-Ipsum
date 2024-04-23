@@ -46,7 +46,6 @@
 ## Code editors & collaborative services
 <div align="left">
     <img height="32" width="32" src="https://cdn.simpleicons.org/visualstudio"/>
-    <img height="32" width="32" src="https://cdn.simpleicons.org/visualstudiocode"/>
     <img height="32" width="32" src="https://cdn.simpleicons.org/git"/>
     <img height="32" width="32" src="https://cdn.simpleicons.org/github/F5F5F7"/>
     <img height="32" width="32" src="https://cdn.simpleicons.org/microsoftteams"/>
@@ -62,8 +61,6 @@
   <img height="32" width="32" src="https://cdn.discordapp.com/attachments/1191431375694336151/1231281443540570234/premake-logo.png?ex=66366334&is=6623ee34&hm=b943e919cc7c87c95ca7f36959a7a8b9ae804fcff1db32e23732689099ede84e&" alt="Premake's logo"/>
   <img height="32"  src="https://cdn.discordapp.com/attachments/1191431375694336151/1231282249127952455/image-removebg-preview_-_2024-04-20T193559.368.png?ex=663663f4&is=6623eef4&hm=bbc84d8fb08a1ca22daf599c663f9d9bf7f057e5746259e9f55106771dee5fc3&" alt="Entt's logo"/>
   <img height="32" width="32" src="https://static-00.iconduck.com/assets.00/pgadmin-icon-2048x2048-rxk8ydpt.png"/>
-  <img height="32" width="32" src="https://cdn.simpleicons.org/react"/> 
-  <img height="32" width="32" src="https://cdn.simpleicons.org/tailwindcss"/>
   <img height="32" width="32" src="https://cdn.simpleicons.org/rider/F5F5F7/">
   <img height="32" width="32" src="https://cdn.simpleicons.org/postman"/>
   <img height="32" width="32" src="https://cdn.simpleicons.org/docker"/>

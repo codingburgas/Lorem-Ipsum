@@ -34,6 +34,8 @@ project "Lorem-Ipsum"
 
     postbuildcommands { ("{COPY} ..\\vendor\\raylib\\lib\\raylib.dll ..\\bin\\" .. outputdir .. "\\Lorem-Ipsum") }
     postbuildcommands { ("{COPY} ..\\vendor\\cpr\\lib\\libcurl.dll ..\\bin\\" .. outputdir .. "\\Lorem-Ipsum") }
+    postbuildcommands { ("{COPY} ..\\vendor\\libssl\\libcrypto-3-x64.dll ..\\bin\\" .. outputdir .. "\\Lorem-Ipsum") }
+    postbuildcommands { ("{COPY} ..\\vendor\\libssl\\libssl-3-x64.dll ..\\bin\\" .. outputdir .. "\\Lorem-Ipsum") }
 
     links {
         "Core",

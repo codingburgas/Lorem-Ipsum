@@ -36,16 +36,14 @@
 
 ### After logging into your account, you're greeted by a dashboard where you can seamlessly continue your current course or explore and join new ones. For students, the dashboard provides access to grade tracking, account settings, and a leaderboard showcasing your position among all users.
 
-# 🏅 Application
-
 # 💻 Languages-Frameworks-Tools
-## - Design
+## Design
 <br>
 <div align="left">
    <img height="32" width="32" src="https://cdn.simpleicons.org/figma" />
 </div>
 
-## - Code editors & collaborative services
+## Code editors & collaborative services
 <div align="left">
     <img height="32" width="32" src="https://cdn.simpleicons.org/visualstudio"/>
     <img height="32" width="32" src="https://cdn.simpleicons.org/visualstudiocode"/>
@@ -54,7 +52,7 @@
     <img height="32" width="32" src="https://cdn.simpleicons.org/microsoftteams"/>
 </div>
 
-## - Technologies for development
+## Technologies for development
 <div align="left">
   <img height="32" width="32" src="https://cdn.simpleicons.org/cplusplus"/>
   <img height="32" width="32" src="https://cdn.simpleicons.org/python"/>
@@ -74,7 +72,7 @@
   <img height="32" width="32" src="https://cdn.discordapp.com/attachments/1191431375694336151/1231985435618840627/image-removebg-preview_-_2024-04-22T180942.429.png?ex=6627cf59&is=66267dd9&hm=cee3c7d24b78fe4fc2f44e4028beeb19bc1c3fce5fb4e1c94ac83f55c27cbdd4&"/>
 </div>
 
-## - Programs for documents
+## Programs for documents
 <div align="left">
   <img height="32" width="32" src="https://cdn.simpleicons.org/microsoftword"/>
   <img height="32" width="32" src="https://cdn.simpleicons.org/microsoftpowerpoint"/>

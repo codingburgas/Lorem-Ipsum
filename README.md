@@ -36,8 +36,6 @@
 
 ### After logging into your account, you're greeted by a dashboard where you can seamlessly continue your current course or explore and join new ones. For students, the dashboard provides access to grade tracking, account settings, and a leaderboard showcasing your position among all users.
 
-# 🌐 Website
-
 # 🏅 Application
 
 # 💻 Languages-Frameworks-Tools
